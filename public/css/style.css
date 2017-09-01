@@ -1,0 +1,353 @@
+body:before {
+    content: "";
+    position: fixed;
+    height: 100%; width: 100%;
+    background: url("https://image.freepik.com/photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435.jpg") no-repeat center center;
+    background-size: cover;
+    z-index: -1; /* Keep the background behind the content */
+    -webkit-filter: blur(3px);
+    -webkit-background-size: cover; /* pour Chrome et Safari */
+    -moz-background-size: cover; /* pour Firefox */
+    -o-background-size: cover; /* pour Opera */
+    background-size: cover; /* version standardisée */
+}
+
+.panel {
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    border: none;
+    box-shadow: none;
+    /*box-shadow: 0px 10px 20px 2px #888888;*/
+}
+
+.btn-primary {
+    background: #FE938C;
+    border: none;
+    border-radius: 0px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.panel-default>.panel-heading {
+    /*background: #4281A4;*/
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    height: 100%;
+}
+
+label {
+    color: black;
+    font-weight: bold;
+}
+
+form label {
+    color: black;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 0px;
+}
+
+.btn-link>.linkpassword {
+    text-align: center;
+    font-weight: bold;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+a.navbar-brand {
+    padding: 7px 2px 2px 7px;
+    width: 50%;
+    display: flex;
+    padding: none;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
+    color:white;
+}
+
+.navbar-toggle {
+    border: none;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: transparent;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, .6);
+    /*opacity: .7;*/
+    /*background: #191919;*/
+    border: none;
+    color: white;
+}
+
+.dropdown-menu {
+    background: rgba(0, 0, 0, .6);
+}
+
+.dropdown-menu>li>a {
+    color:white;
+}
+
+.dropdown-menu>li>a:hover{
+    background: #FE938C;
+}
+
+.dropdown-menu:hover{
+    background: #FE938C;
+}
+
+.navbar-collapse {
+    border: none;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    background: #FE938C;
+    color: black;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: white;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus, .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+    color: white;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: white;
+}
+
+.logomasphere {
+    /*width: ;*/
+    height: 90%;
+    content: url('../images/masphere-logo-white.png');
+}
+
+.form-control {
+    background: white;
+    opacity: .8;
+    border: none;
+}
+
+
+.form-control:focus {
+    background: #FFE5E2;
+    opacity: .8;
+    border: none;
+}
+
+
+input:-webkit-autofill {
+    border: none;
+    opacity: .8;
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #FFE5E2 inset;
+}
+
+.option {
+    font-size: 3em;
+}
+
+a>.btn-link {
+    color: white;
+}
+
+.dashboard {
+    height: 100%;
+}
+
+textarea {
+    width: 100%;
+    border: 1px grey solid;
+}
+
+.container-bottom {
+    display:flex;
+    /*background: black;*/
+    background: rgba(0, 0, 0, .7);
+    /*opacity: .7;*/
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 8vh;
+    color: white;
+    justify-content: space-between;
+    z-index: 200;
+}
+
+.linkmenu {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.selected {
+    background: rgba(0, 0, 0, .5);
+}
+
+.textmenu{
+    color: white;
+    font-size: 9px;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.search-button {
+    /*background: black;*/
+    /*opacity: .7;*/
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    width: 33%;
+    align-items: center;
+
+}
+
+.linkmenu>i{
+    color: #FE938C;
+}
+
+/*.search-button>p {
+    margin: 0px;
+}*/
+
+.dashboard-button {
+    /*background: black;*/
+    /*opacity: .7;*/
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+}
+
+.dispo-page {
+    /*background: black;
+    opacity: .7;*/
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+}
+
+.card {
+    background: white;
+    border: none;
+    margin-bottom: 10px;
+    /*box-shadow: 0px 3px 10px 1px black;*/
+}
+
+/*.dashboard-button>p {
+    margin: 0px;
+    font-weight: bold;
+}*/
+
+.acceptornot {
+    display: flex;
+    justify-content: space-between;
+}
+
+.accept {
+    /*background: #007f00;*/
+    background: none;
+    color: green;
+    width: 49.5%;
+    font-size: 16px;
+}
+.choisir {
+    /*background: #007f00;*/
+    background: transparent;
+    color: green;
+    width: 100%;
+    font-size: 14px;
+}
+
+.refuse {
+    /*background: #ff3232;*/
+    background: none;
+    color: red;
+    font-size: 14px;
+    width: 100%;
+}
+
+.card {
+    padding: 10px;
+}
+
+h3.card-title {
+    margin-top: 0px;
+    padding-top: 5px;
+}
+
+.rechercheinput {
+    width: 100%;
+    border: 1px solid grey;
+    box-shadow: 0px;
+}
+
+p {
+    font-size: 16px;
+}
+
+
+.acceptornot>a {
+    font-size: 16px;
+}
+
+.form-control {
+    border: 1px grey solid;
+      /*width: auto;*/
+}
+
+.acceptornot>a {
+    font-size: 16px;
+}
+.messages{
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    height: 100%;
+}
+
+.fa::before {
+    display: flex;
+    justify-content: center;
+}
+
+.containerError {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.errorDiv {
+    background: rgba(255, 255, 255, .1);
+    font-family: sans-serif;
+    height: 40vh;
+    /*width: 40vw;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
