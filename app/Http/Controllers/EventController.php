@@ -47,15 +47,15 @@ class EventController extends Controller
     	$event->stylemusical = $request->stylemusical;
     	$event->billetterie = $request->billetterie;
         $event->textbox = $request->textbox;
-    	$event->liste_groupes = json_encode($request->liste_groupes);
+        $event->liste_groupes = json_encode($request->liste_groupes);
         dd(json_encode($request->liste_groupes));
-    	$event->save();
+        $event->save();
         $user = Auth::User();
         $event->users()->sync($user);
         // $user->events()->sync($event);
         // $event->users()->sync($event);
 
-    	return redirect()->route('orga');
+        return redirect()->route('orga');
     }
 
     /**
@@ -75,11 +75,37 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function all(Request $request)
+    public function userall(Request $request)
     {
         $events = $request->user()->events;
-        // dd($events);
+
         return view('event_list_orga', compact('events'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function all(Request $request)
+    {
+        $events = Event::all();
+
+        // if($request->nom || $request->debut || $request->fin || $request->group){
+        //     dump($events->where('nom', 'like', $request->nom .'%')->first());
+        // }
+
+        foreach ($events as $event) {
+            $evd = date("y-d-m", $event->debut);
+            $reqd = $request->debut;
+            $reqf = $request->fin;
+            if($evd === $reqd){
+                dump($event->nom);
+            }
+        }
+        // dump($events);
+        return view('event_search', compact('events'));
     }
 
     /**

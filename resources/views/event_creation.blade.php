@@ -40,9 +40,9 @@
 
 					<label title="">Groupes | facultatif</label>
 					<div class="group_receiver">
-							<input type="text" class="input-group form-control" placeholder="nom du groupe" aria-describedby="sizing-addon2" name="liste_groupes[0]">
+						<input type="text" class="input-group input_group form-control" placeholder="nom du groupe" aria-describedby="sizing-addon2" name="liste_groupes[0]">
 					</div>
-						<button type="button" class="input-group btn btn-basicfault add_group_btn">ajouter un groupe de plus</button>
+					<button type="button" class="input-group btn btn-basicfault add_group_btn">ajouter un groupe de plus</button>
 					<br />
 
 					<input type="submit" class="btn" value="Créer l'événement">
