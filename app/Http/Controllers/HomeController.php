@@ -42,11 +42,11 @@ class HomeController extends Controller
     }
     public function orga()
     {
-        return view('event_creation');
+        return;
     }
     public function admin()
     {
-        return 'admin'.Auth::user()->roles->implode('slug');
+        return 'role : '.Auth::user()->roles->implode('slug');
     }
 
 }

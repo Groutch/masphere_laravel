@@ -18,9 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/test', 'HomeController@test')->name('test');
 
 Route::get('/procult', 'HomeController@procult')->name('procult');
+
 Route::get('/progard', 'HomeController@progard')->name('progard');
+
+// ORGA ONLY
 Route::get('/orga', 'HomeController@orga')->name('orga');
+Route::get('/event_creation', 'EventController@create')->name('event_form');
+Route::post('/event_creation/post', 'EventController@store')->name('event_post');
+Route::get('/event_list_orga', 'EventController@all')->name('event_list_orga');
+
 Route::get('/admin', 'HomeController@admin')->name('admin');
