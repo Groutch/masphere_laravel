@@ -10,4 +10,9 @@ class Event extends Model
     {
         return $this->belongsToMany('\App\User');
     }
+
+    public function guards()
+    {
+        return $this->belongsToMany('\App\Guard');
+    }
 }

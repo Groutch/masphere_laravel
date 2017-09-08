@@ -46,16 +46,28 @@ class EventController extends Controller
     	$event->fin = strtotime($request->finDate.' '.$request->finHeure);
     	$event->stylemusical = $request->stylemusical;
     	$event->billetterie = $request->billetterie;
-        $event->textbox = $request->textbox;
-        $event->liste_groupes = json_encode($request->liste_groupes);
-        dd(json_encode($request->liste_groupes));
+        $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
+        $event->list_groups = json_encode($request->list_groups);
+        // dd(json_encode($request->liste_groupes));
         $event->save();
         $user = Auth::User();
         $event->users()->sync($user);
         // $user->events()->sync($event);
         // $event->users()->sync($event);
 
-        return redirect()->route('orga');
+        return redirect()->route('event_list_orga');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showorga($id)
+    {
+        $event = Event::All()->where("id", "=", $id)->first();
+        return view('event_details_orga', compact('event'));
     }
 
     /**
@@ -66,7 +78,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $event = Event::All()->where("id", "=", $id)->first();
+        return view('event_details', compact('event'));
     }
 
     /**
@@ -78,7 +91,6 @@ class EventController extends Controller
     public function userall(Request $request)
     {
         $events = $request->user()->events;
-
         return view('event_list_orga', compact('events'));
     }
 
@@ -96,16 +108,41 @@ class EventController extends Controller
         //     dump($events->where('nom', 'like', $request->nom .'%')->first());
         // }
 
-        foreach ($events as $event) {
-            $evd = date("y-d-m", $event->debut);
-            $reqd = $request->debut;
-            $reqf = $request->fin;
-            if($evd === $reqd){
-                dump($event->nom);
-            }
-        }
+        // foreach ($events as $event) {
+        //     $evd = date("y-d-m", $event->debut);
+        //     $reqd = $request->debut;
+        //     $reqf = $request->fin;
+        //     if($evd === $reqd){
+        //         dump($event->nom);
+        //     }
+        // }
         // dump($events);
         return view('event_search', compact('events'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SubProGuardDetails(Request $request, $id)
+    {
+        // dump($request);
+        $event = Event::All()->where("id", "=", $id)->first();
+        return view('sub_proguard_details', compact('event'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function SubProGuard(Request $request, $id)
+    {
+
+        // return redirect()->route('event_search');
     }
 
     /**

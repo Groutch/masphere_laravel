@@ -24,21 +24,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
-
-    public function test()
-    {
-        return Auth::user()->roles->implode('slug');
+        if(Auth::check()){
+            return redirect('login');
+            // ->url('/login');
+        }
+        return view('/home');
     }
     
     public function procult()
     {
         return 'procult'.Auth::user()->roles->implode('slug');
     }
-    public function progard()
+    public function proguard()
     {
-        return 'progard'.Auth::user()->roles->implode('slug');
+        return 'proguard'.Auth::user()->roles->implode('slug');
     }
     public function orga()
     {

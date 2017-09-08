@@ -17,8 +17,8 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('azerty'),
             ]);
         DB::table('users')->insert([
-            'name' => 'progard',
-            'email' => 'progard@gmail.com',
+            'name' => 'proguard',
+            'email' => 'proguard@gmail.com',
             'password' => bcrypt('azerty'),
             ]);
         DB::table('users')->insert([
@@ -32,8 +32,8 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('azerty'),
             ]);
         DB::table('users')->insert([
-            'name' => 'progard2',
-            'email' => 'progard2@gmail.com',
+            'name' => 'proguard2',
+            'email' => 'proguard2@gmail.com',
             'password' => bcrypt('azerty'),
             ]);
         DB::table('users')->insert([

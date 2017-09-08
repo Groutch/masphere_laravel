@@ -14,6 +14,20 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+    	$this->assertTrue(true);
+    }
+    
+    public function testUnauthentifiedTest()
+    {
+    	$response = $this->get('/');
+    	$response->assertStatus(302);
+    	$response->assertRedirect('/login');
+    }
+
+    public function testAdminExists()
+    {
+    	$this->assertDatabaseHas('users', [
+    		'email' => 'procult@gmail.com'
+    		]);
     }
 }

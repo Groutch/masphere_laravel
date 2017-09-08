@@ -9,28 +9,25 @@
 				<div class="row">
 					<div class="panel-body">
 						@foreach ($events as $event)
-						<div class="col-xs-12 col-md-6 col-lg-4">
+						<div class="col-xs-12 col-md-6 col-lg-4 event">
 							<div class="panel panel-default">
 								<div class="panel-heading">{{ $event->nom }}</div>
 								<div class="panel-body">
-									@if(date( 'y-d-m',$event->debut) === date( 'y-d-m',$event->fin))
-									le {{ date( 'd/m/Y',$event->debut) }} de
-									{{ date( 'h:i',$event->debut) }} à
-									{{ date( 'h:i',$event->fin) }}
+									@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
+									le {{ date( 'd/m/Y', $event->debut) }} de
+									{{ date( 'h:i', $event->debut) }} à
+									{{ date( 'h:i', $event->fin) }}
 									@else
-									du {{ date( 'd/m/Y h:i',$event->debut) }}
-									au {{ date( 'd/m/Y h:i',$event->fin) }}
+									du {{ date( 'd/m/Y à h:i', $event->debut) }}
+									au {{ date( 'd/m/Y à h:i', $event->fin) }}
 									@endif
+									@if ($event->textbox)
 									<div>commentaire : {{ $event->textbox }}</div>
-								</div>
-								@if ($event->stylemusical && $event->billetterie)
-								<div class="panel-footer">
-									<div>style : {{ $event->stylemusical }}</div>
-									@if($event->billetterie)
-									<a href="{{ $event->billetterie }}">Billetterie</a>
 									@endif
 								</div>
-								@endif
+								<div class="panel-footer">
+									<a class="btn btn-default" href="event_details_orga/{{ $event->id }}">Détails</a>
+								</div>
 							</div>
 						</div>
 						@endforeach

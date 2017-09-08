@@ -24,8 +24,8 @@ class LoginController extends Controller
     {
         if (Auth::user()->roles->implode('slug')=='procult') {
             return Redirect()->route('procult');
-        } else if (Auth::user()->roles->implode('slug')=='progard'){
-            return Redirect()->route('progard');
+        } else if (Auth::user()->roles->implode('slug')=='proguard'){
+            return Redirect()->route('proguard');
         } else if (Auth::user()->roles->implode('slug')=='orga'){
             return Redirect()->route('orga');
         } else if (Auth::user()->roles->implode('slug')=='admin'){
