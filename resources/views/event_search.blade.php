@@ -51,7 +51,7 @@
 				<div class="panel-heading"><h3 id="allornot">Tous les événements</h3></div>
 				<div class="row">
 					<div class="panel-body">
-						@foreach ($events as $event)
+						@foreach ($events as $key => $event)
 						<div class="col-xs-12 col-md-6 col-lg-4 event" data-name="{{ $event->nom }}" data-debut="{{ date( 'Y-m-d', $event->debut) }}" data-fin="{{ date('Y-m-d', $event->fin) }}" >
 							<div class="panel panel-default">
 								<div class="panel-heading">{{ $event->nom }}</div>
@@ -68,8 +68,10 @@
 								</div>
 
 								<div class="panel-footer">
-									@if(Auth::user()->roles->implode('slug')=='procult' || Auth::user()->roles->implode('slug')=='proguard')
-									<a class="btn btn-default" href="/event_details/{{ $event->id }}">Détails</a>
+									@if(Auth::user()->roles->implode('slug')=='procult')
+									<a class="btn btn-default" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} gardes)</a>
+									@elseif(Auth::user()->roles->implode('slug')=='proguard')
+									<a class="btn btn-default" href="/event_details_proguard/{{ $event->id }}">Détails</a>
 									@elseif(Auth::user()->roles->implode('slug')=='orga')
 									<a class="btn btn-default" href="/event_details_orga/{{ $event->id }}">Détails</a>
 									@endif

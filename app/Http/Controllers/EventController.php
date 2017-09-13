@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Event;
 use App\User;
+use App\Guard;
 
 class EventController extends Controller
 {
@@ -47,7 +48,7 @@ class EventController extends Controller
     	$event->stylemusical = $request->stylemusical;
     	$event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
-        $event->list_groups = json_encode($request->list_groups);
+        $event->list_performs = json_encode($request->list_performs);
         // dd(json_encode($request->liste_groupes));
         $event->save();
         $user = Auth::User();
@@ -76,10 +77,34 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showproguard($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
-        return view('event_details', compact('event'));
+        return view('event_details_proguard', compact('event'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showprocult($id)
+    {
+        $event = Event::All()->where("id", "=", $id)->first();
+        $guards = [];
+        foreach ($event->guards as $keyguard => $guard) {
+            $i=0;
+            foreach ($guard->users as $keyuser => $user) {
+                if ($user->roles[0]->slug == "proguard") {
+                    $guards[] = [$user, []];
+                }elseif($user->roles[0]->slug == "procult"){
+                    $guards[$keyguard][1][] = $guard->users;
+                    $i++;
+                }
+            }
+        }
+        return view('event_details_procult', compact('event', 'guards'));
     }
 
     /**
@@ -102,22 +127,20 @@ class EventController extends Controller
      */
     public function all(Request $request)
     {
+
+
         $events = Event::all();
 
-        // if($request->nom || $request->debut || $request->fin || $request->group){
-        //     dump($events->where('nom', 'like', $request->nom .'%')->first());
-        // }
+        $guards_nb = [];
+        foreach ($events as $eventkey => $event) {
+            $i=0;
+            foreach ($event->guards as $keyguard => $guard) {
+                $i++;
+            }
+            $guards_nb[] = $i;
+        }
 
-        // foreach ($events as $event) {
-        //     $evd = date("y-d-m", $event->debut);
-        //     $reqd = $request->debut;
-        //     $reqf = $request->fin;
-        //     if($evd === $reqd){
-        //         dump($event->nom);
-        //     }
-        // }
-        // dump($events);
-        return view('event_search', compact('events'));
+        return view('event_search', compact('events', 'guards_nb'));
     }
 
     /**
@@ -141,7 +164,25 @@ class EventController extends Controller
      */
     public function SubProGuard(Request $request, $id)
     {
+        $guard = new Guard;
+        $guard->list_places = json_encode($request->list_places);
+        $guard->list_child_nbs = json_encode($request->list_child_nbs);
+        $guard->list_range = json_encode($request->list_range); // rayon autour du quel le pro peut garder.
 
+        $guard->debut = strtotime($request->debutDate.' '.$request->debutHeure);
+        $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
+        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
+
+        $guard->save();
+        $user = Auth::User();
+        $event = Event::All()->where("id", "=", $id)->first();
+        $guard->events()->sync($event);
+        // $event->guards()->sync($guard);
+        $guard->users()->sync($user);
+        // $user->events()->sync($event);
+        // $event->users()->sync($event);
+
+        return redirect()->route('event_list_proguard');
         // return redirect()->route('event_search');
     }
 

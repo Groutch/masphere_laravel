@@ -22,16 +22,19 @@ Route::get('/', 'HomeController@index')->name('home');
 
 // AUTH ONLY
 Route::get('/event_search', 'EventController@all')->name('event_search');
-Route::get('/event_details/{id}', 'EventController@show')->name('event_details');
 
 // PORCULT ONLY
 Route::get('/procult', 'HomeController@procult')->name('procult');
 Route::post('/event_sub_procult/{id}', 'EventController@SubProCult')->name('event_sub_procult');
+Route::get('/event_details_procult/{id}', 'EventController@showprocult')->name('event_details_procult');
 
-// proguard ONLY
+// PROGUARD ONLY
 Route::get('/proguard', 'HomeController@proguard')->name('proguard');
-Route::get('/event_sub_details_proguard/{id}', 'EventController@SubproguardDetails')->name('event_sub_details_proguard');
-Route::post('/event_sub_proguard/{id}', 'EventController@Subproguard')->name('event_sub_proguard');
+Route::get('/event_sub_details_proguard/{id}', 'GuardController@create')->name('event_sub_details_proguard');
+Route::post('/event_sub_proguard/{id}', 'GuardController@store')->name('event_sub_proguard');
+Route::get('/event_list_proguard/', 'GuardController@index')->name('event_list_proguard');
+Route::get('/guard_details_proguard/{id}', 'GuardController@show')->name('guard_details_proguard');
+Route::get('/event_details_proguard/{id}', 'EventController@showproguard')->name('event_details_proguard');
 
 // ORGA ONLY
 Route::get('/orga', 'HomeController@orga')->name('orga');

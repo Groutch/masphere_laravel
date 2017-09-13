@@ -22,8 +22,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
-        'password',
-        'password_confirmation',
+    'password',
+    'password_confirmation',
     ];
 
     /**
@@ -46,8 +46,19 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+        if ($e instanceof ModelNotFoundException) {
+            $e = new NotFoundHttpException($e->getMessage(), $e);
+        }
+
+        if ($e instanceof TokenMismatchException) {
+
+            return redirect(route('login'))->with('message', 'You page session expired. Please try again');
+        }
+
+        return parent::render($request, $e);
     }
+
+    
 }

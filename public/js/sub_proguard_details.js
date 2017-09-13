@@ -26,13 +26,17 @@
 			i++;
 		});
 		i = 0;
+		$('.range').each(function(){
+			$(this).attr('name', 'list_range['+ i +']');
+			i++;
+		});
+		i = 0;
 	}
 
 	$('.add_place_btn').on('click', function(){
 
 		if(j<4){
-			$('.place_receiver').append('<div><div class="input-group input_group"><input type="text" class="input-group form-control place" placeholder="lieu" aria-describedby="sizing-addon2"><span class="input-group-btn"><button type="button" class="input-group btn btn-danger suppr_place_btn">suppr</button></span></div><input type="number" max="4" min="1" class="form-control child_nb" placeholder="nb d\'enfant max pour ce lieu" aria-describedby="sizing-addon2" value="1"><br /></div>');
-
+			$('.place_receiver').append('<div><hr /><label>Lieu de grade chez moi/Lieu de travail</label><div class="input-group input_group"><input type="text" class="input-group form-control place" placeholder="lieu" aria-describedby="sizing-addon2"><span class="input-group-btn"><button type="button" class="input-group btn btn-danger suppr_place_btn">suppr</button></span></div><div class="row"> <div class="col-md-4"> <label>nombre d\'enfant pour ce lieu</label> <input type="number" max="4" min="1" class="child_nb form-control" placeholder="nb d\'enfant max" aria-describedby="sizing-addon2"></div><div class="col-md-8"> <label title="rayon" >Rayon autour du lieu précédement donné où je peux garder | facultatif</label> <input type="number" class="form-control range" placeholder="rayon en km" aria-describedby="sizing-addon2"></div></div></div>');
 			attrNamelist_placesX();
 			nbChildVerifListener();
 

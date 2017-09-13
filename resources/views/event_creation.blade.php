@@ -13,7 +13,7 @@
 					<br />
 
 					<label title="Utiliser l'autocomplétion pour avoir une adresse valide" >Lieu</label>
-					<input required type="text" class="form-control" placeholder="lieu" aria-describedby="sizing-addon2">
+					<input required type="text" class="form-control" placeholder="lieu" aria-describedby="sizing-addon2" name='place'>
 					<br />
 
 					<label title="Date et heure" >Debut</label>
@@ -38,11 +38,11 @@
 					<textarea type="text" class="form-control" placeholder="Commentaire" aria-describedby="sizing-addon2" name="textbox"></textarea>
 					<br />
 
-					<label title="">Groupes | facultatif</label>
-					<div class="group_receiver">
-						<input type="text" class="input-group input_group form-control" placeholder="nom du groupe" aria-describedby="sizing-addon2" name="list_groups[0]">
+					<label title="">Spectacle | facultatif</label>
+					<div class="perform_receiver">
+						<input type="text" class="input-group input_group form-control" placeholder="nom du spectacle" aria-describedby="sizing-addon2" name="list_performs[0]">
 					</div>
-					<button type="button" class="input-group btn btn-basicfault add_group_btn">ajouter un groupe de plus</button>
+					<button type="button" class="input-group btn btn-basicfault add_perform_btn">ajouter un spectacle de plus</button>
 					<br />
 
 					<input type="submit" class="btn" value="Créer l'événement">

@@ -23,25 +23,20 @@
 					@endif
 					<br />
 					<br />
+					@if ($event->list_performs)
 					<div>
 						| 
-						@foreach(json_decode($event->list_groups) as $group)
+						@foreach(json_decode($event->list_performs) as $group)
 						{{ $group }} | 
 						@endforeach
 					</div>
+					@endif
 					<br />
 
 					<div>{{ $event->textbox }}</div>
 				</div>
 				<div class="panel-footer">
-					<a id="event_sub_procult" class="btn btn-default" href="{{ $event->billetterie }}" target="_blank" >BILLETTERIE</a>
-					@if (Auth::user()->roles->implode('slug')=='procult')
-						{{-- @foreach ($event->pros as $pro) --}}
-							{{-- expr --}}
-						{{-- @endforeach --}}
-					@elseif(Auth::user()->roles->implode('slug')=='proguard')
-						<a id="event_sub_proguard" class="btn btn-default" href="/event_sub_details_proguard/{{ $event->id }}">S'inscrire</a>
-					@endif
+					<a id="event_sub_proguard" class="btn btn-default" href="/event_sub_details_proguard/{{ $event->id }}">S'inscrire</a>
 				</div>
 			</div>
 		</div>

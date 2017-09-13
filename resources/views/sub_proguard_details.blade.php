@@ -12,15 +12,22 @@
 					<label title="avoir une/des adresse.s valide.s permet d'être répertorié sur la carte">Lieu de grade chez moi/Lieu de travail</label>
 					<div class="place_receiver">
 						<input required type="text" class="place input-group input_place form-control" placeholder="lieu" aria-describedby="sizing-addon2" name="list_places[0]">
-						<input type="number" max="4" min="1" class="child_nb form-control" placeholder="nb d'enfant max pour ce lieu" aria-describedby="sizing-addon2" name="list_child_nbs[0]" value="1">
-						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<label>nombre d'enfant pour ce lieu</label>
+								<input type="number" max="4" min="1" class="child_nb form-control" placeholder="nb d'enfant max" aria-describedby="sizing-addon2" name="list_child_nbs[0]">
+							</div>
+							<div class="col-md-8">
+							<label title="rayon" >Rayon autour du lieu précédement donné où je peux garder | facultatif</label>
+								<input type="number" class="form-control range" placeholder="rayon en km" aria-describedby="sizing-addon2" name="list_range[0]">
+							</div>
+						</div>
+
 					</div>
+					<br />
 					<button type="button" class="input-group btn btn-basicfault add_place_btn">ajouter un lieu de plus</button>
 					<br />
 
-					<label title="rayon" >Rayon autour du lieu précédement donné où je peux garder | facultatif (si vous ne gardez pas chez la famille laissez le champ vide)</label>
-					<input type="text" class="form-control" placeholder="rayon en km" aria-describedby="sizing-addon2">
-					<br />
 
 					<label title="Date et heure">Debut de garde</label>
 					<input required type="date" class="form-control" placeholder="jj/mm/aaaa" aria-describedby="sizing-addon2" name="debutDate" value="{{ date("Y-m-d", $event->debut) }}">

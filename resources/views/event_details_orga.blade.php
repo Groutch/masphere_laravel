@@ -26,7 +26,7 @@
 
 					<div>groupes :
 						| 
-						@foreach(json_decode($event->list_groups) as $group)
+						@foreach(json_decode($event->list_performs) as $group)
 						{{ $group }} | 
 						@endforeach
 					</div>
