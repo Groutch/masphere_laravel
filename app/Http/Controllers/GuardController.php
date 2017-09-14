@@ -18,8 +18,11 @@ class GuardController extends Controller
     public function index(Request $request)
     {
         $guards = $request->user()->guards;
-
-        return view('event_list_proguard', compact('guards'));
+        $events = [];
+        foreach ($guards as $key => $guard) {
+                $events[$key] = $guard->events[0]->nom;
+        }
+        return view('event_list_proguard', compact('guards', 'events'));
     }
 
     /**
@@ -72,7 +75,6 @@ class GuardController extends Controller
      */
     public function show(Request $request, $id)
     {
-
         $guard = $request->user()->guards->where('id', '=', $id)->first();
         return view('guard_details_proguard', compact('guard'));
     }

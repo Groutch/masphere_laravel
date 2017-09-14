@@ -15,14 +15,14 @@ class ExampleTest extends DuskTestCase
 	*
 	* @return void
 	*/
-	public function testLoginSee()
-	{
-		$this->browse(function (Browser $browser) {
-			$browser
-			->visit('/login')
-			->assertSee('Password');
-		});
-	}
+	// public function testLoginSee()
+	// {
+	// 	$this->browse(function (Browser $browser) {
+	// 		$browser
+	// 		->visit('/login')
+	// 		->assertSee('Password');
+	// 	});
+	// }
 
 	// public function testConnection() {
 	// 	$user = User::find(1);
@@ -42,7 +42,7 @@ class ExampleTest extends DuskTestCase
 	// 	$event_bot_name2 = 'eventbot2/'.substr(md5(mt_rand()), 0, 7);
 
 	// 	$this->browse(function($orga, $orga2, $proguard) use ($event_bot_name, $event_bot_name2) {
-			
+
 	// 		$orga
 	// 		->visit('/login')
 	// 		->type('email', 'orga@gmail.com')
@@ -93,7 +93,7 @@ class ExampleTest extends DuskTestCase
 	// 		->assertDontSee('Whoops')
 	// 		;
 
-			
+
 	// 	});
 	// 	$this->assertDatabaseHas('events', [
 	// 		'nom' => $event_bot_name
@@ -103,46 +103,97 @@ class ExampleTest extends DuskTestCase
 	// 		]);
 	// }
 	
-	public function test2ndSenarii(){
+	// public function test2ndSenarii(){
+	// 	// 
+	// 	$randEvent = Event::find(mt_rand(1, count(Event::all())));
+	// 	$event_bot_name3 = 'eventbot3/'.substr(md5(mt_rand()), 0, 7);
 
-		$randEvent = Event::find(mt_rand(1, count(Event::all())));
-		$event_bot_name3 = 'eventbot3/'.substr(md5(mt_rand()), 0, 7);
+	// 	$this->browse(function($orga3, $proguard) use ($randEvent, $event_bot_name3) {
 
-		$this->browse(function($orga3, $proguard) use ($randEvent, $event_bot_name3) {
+	// 		$orga3
+	// 		->visit('/login')
+	// 		->type('email', 'orga2@gmail.com')
+	// 		->type('password', 'azerty')
+	// 		->press('Login')
+	// 		->visit('/event_creation')
+	// 		->type('nom', $event_bot_name3)
+	// 		->type('place', substr(md5(mt_rand()), 0, 7))
+	// 		->type('list_performs[0]', substr(md5(mt_rand()), 0, 7))
+	// 		->press('ajouter un spectacle de plus')
+	// 		->type('list_performs[1]', substr(md5(mt_rand()), 0, 7))
+	// 		->press('ajouter un spectacle de plus')
+	// 		->type('list_performs[2]', substr(md5(mt_rand()), 0, 7))
+	// 		->press('ajouter un spectacle de plus')
+	// 		->type('list_performs[3]', substr(md5(mt_rand()), 0, 7))
+	// 		->press('Créer l\'événement')
+	// 		->waitForText($event_bot_name3)
+	// 		->assertDontSee('Whoops')
+	// 		;
 
-			$orga3
-			->visit('/login')
-			->type('email', 'orga2@gmail.com')
-			->type('password', 'azerty')
-			->press('Login')
-			->visit('/event_creation')
-			->type('nom', $event_bot_name3)
-			->type('place', substr(md5(mt_rand()), 0, 7))
-			->type('list_performs[0]', substr(md5(mt_rand()), 0, 7))
-			->press('ajouter un spectacle de plus')
-			->type('list_performs[1]', substr(md5(mt_rand()), 0, 7))
-			->press('ajouter un spectacle de plus')
-			->type('list_performs[2]', substr(md5(mt_rand()), 0, 7))
-			->press('ajouter un spectacle de plus')
-			->type('list_performs[3]', substr(md5(mt_rand()), 0, 7))
-			->press('Créer l\'événement')
-			->waitForText($event_bot_name3)
-			->assertDontSee('Whoops')
-			;
+	// 		$proguard
+	// 		->visit('/login')
+	// 		->type('email', 'proguard@gmail.com')
+	// 		->type('password', 'azerty')
+	// 		->press('Login')
+	// 		->visit('/event_search')
+	// 		->assertSee($event_bot_name3)
+	// 		->visit('/event_details_proguard/'.$randEvent->id)
+	// 		->assertSee('S\'inscrire')
+	// 		->assertSee($randEvent->nom)
+	// 		->assertDontSee('Whoops')
+	// 		;
+	// 	});
+	// }
 
-			$proguard
-			->visit('/login')
+	// public function testRoutes(){
+	// 	$this->browse(function($orga4, $proguard2, $procult2) {
+	// 		$orga4
+	// 		->visit('login')
+	// 		->type('email', 'proguard@gmail.com')
+	// 		->type('password', 'azerty')
+	// 		->visit('/event_search')
+	// 		->assertSee('')
+	// 		;
+	// 	});
+
+	public function testProgardEvent(){
+		$event = Event::find(2);
+		$text = '';
+		for($i=0; $i<10; $i++){
+			$text .= substr(md5(mt_rand()), 0, mt_rand(2, 4)).' '.substr(md5(mt_rand()), 0, mt_rand(2, 6));
+		}
+		$this->browse(function($browser) use ($event, $text){
+			$browser
+			->visit('login')
 			->type('email', 'proguard@gmail.com')
 			->type('password', 'azerty')
 			->press('Login')
-			->visit('/event_search')
-			->assertSee($event_bot_name3)
-			->visit('/event_details_proguard/'.$randEvent->id)
-			->assertSee('S\'inscrire')
-			->assertSee($randEvent->nom)
-			->assertDontSee('Whoops')
+			->visit('event_search')
+			->waitForText('Détails')
+			->click('#'.$event->id)
+			->waitForText('S\'inscrire')
+			->click('#event_sub_proguard')
+			->type('list_places[0]', 'Au pays des ' . substr(md5(mt_rand()), 0, mt_rand(5, 8)))
+			->type('list_child_nbs[0]', mt_rand(1, 4))
+			->type('list_range[0]', mt_rand(0, 15))
+			->press('ajouter un lieu de plus')
+			->type('list_places[1]', 'plus loin vers' . substr(md5(mt_rand()), 0, mt_rand(4, 7)))
+			->type('list_child_nbs[1]', mt_rand(1, 4))
+			->type('list_range[1]', mt_rand(0, 15))
+			// ->type('debutDate', date("Y-m-d", $event->debut))
+			// ->type('debutHeure', date('H:i', $event->debut))
+			// ->type('finDate', date("Y-m-d", $event->fin))
+			// ->type('finHeure', date('H:i', $event->fin))
+			->type('textbox', $text)
+			->press('Créer l\'annonce')
+			->visit('event_list_proguard')
+			->assertSee('Vos gardes')
+			->assertSee($event->nom)
 			;
 		});
+		// $this->assertDatabaseHas('guards', [
+		// 	'nom' => $event_bot_name
+		// 	]);
 	}
 
 

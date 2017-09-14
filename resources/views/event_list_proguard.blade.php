@@ -8,10 +8,10 @@
 				<div class="panel-heading"><h3>Vos gardes</h3></div>
 				<div class="row">
 					<div class="panel-body">
-						@foreach ($guards as $guard)
+						@foreach ($guards as $key => $guard)
 						<div class="col-xs-12 col-md-6 col-lg-4 guard">
 							<div class="panel panel-default">
-								<div class="panel-heading">Le {{ date( 'd/m/Y', $guard->debut) }}</div>
+								<div class="panel-heading">Le {{ date( 'd/m/Y', $guard->debut) }} sur l'événement : {{ $events[$key] }}</div>
 								<div class="panel-body">
 									@if(date( 'd/m/Y', $guard->debut) === date( 'd/m/Y', $guard->fin))
 									de {{ date( 'h:i', $guard->debut) }} à {{ date( 'h:i', $guard->fin) }}
