@@ -49,14 +49,21 @@ class EventController extends Controller
     	$event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);
+        // $event->duration = $event->fin - $event->debut;
         // dd(json_encode($request->liste_groupes));
-        $event->save();
-        $user = Auth::User();
-        $event->users()->sync($user);
+
+        if($event->debut < $event->fin){
+            $event->save();
+            $user = Auth::User();
+            $event->users()->sync($user);
+            
+            return redirect()->route('event_list_orga');
+        }
+        return back()->withInput();
+
         // $user->events()->sync($event);
         // $event->users()->sync($event);
 
-        return redirect()->route('event_list_orga');
     }
 
     /**
@@ -92,19 +99,20 @@ class EventController extends Controller
     public function showprocult($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
+        $guards_ids = [];
         $guards = [];
         foreach ($event->guards as $keyguard => $guard) {
-            $i=0;
             foreach ($guard->users as $keyuser => $user) {
                 if ($user->roles[0]->slug == "proguard") {
                     $guards[] = [$user, []];
                 }elseif($user->roles[0]->slug == "procult"){
                     $guards[$keyguard][1][] = $guard->users;
-                    $i++;
                 }
             }
+            $guards_ids[] = $guard->id;
         }
-        return view('event_details_procult', compact('event', 'guards'));
+        // dd($guards_ids);
+        return view('event_details_procult', compact('event', 'guards', 'guards_ids'));
     }
 
     /**
@@ -127,8 +135,6 @@ class EventController extends Controller
      */
     public function all(Request $request)
     {
-
-
         $events = Event::all();
 
         $guards_nb = [];
@@ -139,7 +145,6 @@ class EventController extends Controller
             }
             $guards_nb[] = $i;
         }
-
         return view('event_search', compact('events', 'guards_nb'));
     }
 

@@ -69,7 +69,7 @@
 
 								<div class="panel-footer">
 									@if(Auth::user()->roles->implode('slug')=='procult')
-									<a class="btn btn-default" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} gardes)</a>
+									<a class="btn btn-default" id="{{ $event->id }}" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} gardes)</a>
 									@elseif(Auth::user()->roles->implode('slug')=='proguard')
 									<a class="btn btn-default" id="{{ $event->id }}" href="/event_details_proguard/{{ $event->id }}">Détails</a>
 									@elseif(Auth::user()->roles->implode('slug')=='orga')

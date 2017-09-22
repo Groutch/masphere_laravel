@@ -156,28 +156,74 @@ class ExampleTest extends DuskTestCase
 	// 		;
 	// 	});
 
-	public function testProgardEvent(){
+	// public function testProgardEvent(){
+	// 	$event = Event::find(2);
+	// 	$text = '';
+	// 	for($i=0; $i<10; $i++){
+	// 		$text .= substr(md5(mt_rand()), 0, mt_rand(2, 4)).' '.substr(md5(mt_rand()), 0, mt_rand(2, 6));
+	// 	}
+	// 	$this->browse(function($browser) use ($event, $text){
+	// 		$browser
+	// 		->visit('login')
+	// 		->type('email', 'proguard@gmail.com')
+	// 		->type('password', 'azerty')
+	// 		->press('Login')
+	// 		->visit('event_search')
+	// 		->waitForText('Détails')
+	// 		->click('#'.$event->id)
+	// 		->waitForText('S\'inscrire')
+	// 		->click('#event_sub_proguard')
+	// 		->type('list_places[0]', 'Au pays des ' . substr(md5(mt_rand()), 0, mt_rand(5, 8)))
+	// 		->type('list_child_nbs[0]', mt_rand(1, 4))
+	// 		->type('list_range[0]', mt_rand(0, 15))
+	// 		->press('ajouter un lieu de plus')
+	// 		->type('list_places[1]', 'plus loin vers' . substr(md5(mt_rand()), 0, mt_rand(4, 7)))
+	// 		->type('list_child_nbs[1]', mt_rand(1, 4))
+	// 		->type('list_range[1]', mt_rand(0, 15))
+	// 		// ->type('debutDate', date("Y-m-d", $event->debut))
+	// 		// ->type('debutHeure', date('H:i', $event->debut))
+	// 		// ->type('finDate', date("Y-m-d", $event->fin))
+	// 		// ->type('finHeure', date('H:i', $event->fin))
+	// 		->type('textbox', $text)
+	// 		->press('Créer l\'annonce')
+	// 		->visit('event_list_proguard')
+	// 		->assertSee('Vos gardes')
+	// 		->assertSee($event->nom)
+	// 		;
+	// 	});
+	// 	// $this->assertDatabaseHas('guards', [
+	// 	// 	'nom' => $event_bot_name
+	// 	// 	]);
+	// }
+
+	public function testInscriptionProcultsSurProguards(){
 		$event = Event::find(2);
 		$text = '';
 		for($i=0; $i<10; $i++){
-			$text .= substr(md5(mt_rand()), 0, mt_rand(2, 4)).' '.substr(md5(mt_rand()), 0, mt_rand(2, 6));
-		}
-		$this->browse(function($browser) use ($event, $text){
-			$browser
+			$text .= substr(md5(microtime()),rand(0,26),5).' '.substr(md5(microtime()),rand(0,26),5);
+		};
+		$place1 = substr(md5(mt_rand()), 0, mt_rand(5, 8));
+		$place2 = substr(md5(mt_rand()), 0, mt_rand(4, 7));
+
+
+		$this->browse(function($procult, $proguard) use ($event, $text, $place1, $place2){
+
+			$proguard
 			->visit('login')
 			->type('email', 'proguard@gmail.com')
 			->type('password', 'azerty')
 			->press('Login')
 			->visit('event_search')
-			->waitForText('Détails')
 			->click('#'.$event->id)
 			->waitForText('S\'inscrire')
+			->assertSee($event->nom)
 			->click('#event_sub_proguard')
-			->type('list_places[0]', 'Au pays des ' . substr(md5(mt_rand()), 0, mt_rand(5, 8)))
+			->waitForText('Mettre une annonce sur l\'événement')
+			->type('list_places[0]', 'Au pays des ' . $place1)
 			->type('list_child_nbs[0]', mt_rand(1, 4))
 			->type('list_range[0]', mt_rand(0, 15))
 			->press('ajouter un lieu de plus')
-			->type('list_places[1]', 'plus loin vers' . substr(md5(mt_rand()), 0, mt_rand(4, 7)))
+			->type('list_places[1]', 'plus loin vers ' . $place2)
 			->type('list_child_nbs[1]', mt_rand(1, 4))
 			->type('list_range[1]', mt_rand(0, 15))
 			// ->type('debutDate', date("Y-m-d", $event->debut))
@@ -186,7 +232,27 @@ class ExampleTest extends DuskTestCase
 			// ->type('finHeure', date('H:i', $event->fin))
 			->type('textbox', $text)
 			->press('Créer l\'annonce')
-			->visit('event_list_proguard')
+			;
+
+			$procult
+			->visit('login')
+			->type('email', 'procult@gmail.com')
+			->type('password', 'azerty')
+			->press('Login')
+			->visit('event_search')
+			->waitForText('Détails')
+			->click('#'.$event->id)
+			->waitForText('S\'inscrire')
+			->click('#event_sub_procult')
+			->assertSee('Au pays des ' . $place1)
+			->assertSee('plus loin vers ' . $place2)
+			// ->type('debutDate', date("Y-m-d", $event->debut))
+			// ->type('debutHeure', date('H:i', $event->debut))
+			// ->type('finDate', date("Y-m-d", $event->fin))
+			// ->type('finHeure', date('H:i', $event->fin))
+			->type('textbox', $text)
+			->press('Envoyer la demande')
+			->visit('event_list_procult')
 			->assertSee('Vos gardes')
 			->assertSee($event->nom)
 			;

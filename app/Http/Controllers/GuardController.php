@@ -68,6 +68,40 @@ class GuardController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createProcult(Request $request, $id)
+    {
+        // dump($request);
+        $guard = Guard::All()->where("id", "=", $id)->first();
+        // dd($guard);
+        return view('sub_procult_details', compact('guard'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeProcult(Request $request, $id)
+    {
+        $user = Auth::User();
+        $guard = Guard::All()->where('id', '=', $id)->first();
+        $user->guards()->sync($guard);
+        
+        // $guard->events()->sync($event);
+        // $event->guards()->sync($guard);
+        // $guard->users()->sync($user);
+        // $event->users()->sync($event);
+
+        return redirect()->route('event_list_procult');
+        // return redirect()->route('event_search');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -78,7 +112,6 @@ class GuardController extends Controller
         $guard = $request->user()->guards->where('id', '=', $id)->first();
         return view('guard_details_proguard', compact('guard'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
