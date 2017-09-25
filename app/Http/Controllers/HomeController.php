@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -24,11 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(!Auth::check()){
-            return redirect('login');
-            // ->url('/login');
-        }
-        return view('/home');
+        return view('welcome');
     }
     
     public function procult()
