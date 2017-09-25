@@ -104,9 +104,9 @@ class EventController extends Controller
         foreach ($event->guards as $keyguard => $guard) {
             foreach ($guard->users as $keyuser => $user) {
                 if ($user->roles[0]->slug == "proguard") {
-                    $guards[] = [$user, []];
+                    $guards[] = [$user, 0];
                 }elseif($user->roles[0]->slug == "procult"){
-                    $guards[$keyguard][1][] = $guard->users;
+                    $guards[$keyguard][1]++;
                 }
             }
             $guards_ids[] = $guard->id;

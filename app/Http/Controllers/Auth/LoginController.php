@@ -22,14 +22,19 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        if (Auth::user()->roles->implode('slug')=='procult') {
-            return Redirect()->route('procult');
-        } else if (Auth::user()->roles->implode('slug')=='proguard'){
-            return Redirect()->route('proguard');
-        } else if (Auth::user()->roles->implode('slug')=='orga'){
+        // if (Auth::user()->roles->implode('slug')=='procult') {
+        //     return Redirect()->route('procult');
+        // } else if (Auth::user()->roles->implode('slug')=='proguard'){
+        //     return Redirect()->route('proguard');
+        // } else if (Auth::user()->roles->implode('slug')=='orga'){
+        //     return Redirect()->route('orga');
+        // } else if (Auth::user()->roles->implode('slug')=='admin'){
+        //     return Redirect()->route('admin');
+        // }
+        if(Auth::user()->roles->implode('slug')=='orga'){
             return Redirect()->route('orga');
-        } else if (Auth::user()->roles->implode('slug')=='admin'){
-            return Redirect()->route('admin');
+        } else {
+            return redirect('/event_search');
         }
     }
 

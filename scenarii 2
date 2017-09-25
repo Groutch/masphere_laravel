@@ -1,0 +1,13 @@
+scenarii 2
+
+un pro qui garde soit chez lui soit a 14km de chez lui
+ et
+une famille qui a un besoin de garde chez elle dans la zone de 14km
+
+la famille s'inscrit sur le pro, dans le formulaire on lui demande : 
+	choisir chez le pro ou dans la zone donnée ( en locurence dans la zone)
+	"etes vous près a accepter des enfants en plus chez vous ?"
+	recalage des horraires
+
+le pro reçoi le résumé et peu accepter ou refuser (si la demande reste plus de 24/72h elle est supprimé et passe au statut "la demande a été supprimé du a une attente trop longue")
+

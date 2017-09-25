@@ -29,7 +29,7 @@
 					value="{{ date("Y-m-d", $guard->debut) }}"
 					min="{{ date("Y-m-d", $guard->debut) }}"
 					>
-					<input required readonly
+					<input required
 					type="text"
 					class="form-control"
 					placeholder="HH:mm"
@@ -50,7 +50,7 @@
 					value="{{ date("Y-m-d", $guard->fin) }}"
 					max="{{ date("Y-m-d", $guard->fin) }}"
 					>
-					<input required readonly
+					<input required
 					type="text"
 					class="form-control"
 					placeholder="HH:mm"
@@ -61,7 +61,7 @@
 					<br />
 
 					<label title="">Commentaire/Details</label>
-					<textarea type="text" class="form-control" placeholder="exemple : j'ai la galle mais je suis gentil (a vos risques et profits biensur)" aria-describedby="sizing-addon2" name="textbox"></textarea>
+					<textarea type="text" class="form-control" placeholder="exemple : préciser le lieu de garde choisi" aria-describedby="sizing-addon2" name="textbox"></textarea>
 					<br />
 
 					<input type="submit" class="btn btn-default" value="Envoyer la demande">

@@ -39,16 +39,13 @@
 					<div class="row">
 						@foreach ($guards as $key => $guard)
 							<div class="panel panel-default col-md-3">
-								<div class="panel-heading">{{ $guard[0]->name }}</div>
-								<a id="event_sub_procult" class="btn btn-default" href="/event_sub_details_procult/{{ $guards_ids[$key] }}">S'inscrire</a>
-								@if (count($guard[1]))
-									<div class="panel-body">
-										{{ $guard[1] }}
-									@foreach ($guard[1] as $user)
-										{{ $user->name }} <br />
-									@endforeach
-									</div>
-								@endif
+								<div class="panel-heading">
+									{{ $guard[0]->name }} <br /> 
+									@if(count($guard[1]))
+										({{ $guard[1] }} personne.s en attente)
+									@endif
+									<a id="event_sub_procult" class="btn btn-default" href="/event_sub_details_procult/{{ $guards_ids[$key] }}">S'inscrire</a>
+								</div>
 							</div>
 						@endforeach
 					</div>
