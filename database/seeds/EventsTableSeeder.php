@@ -29,6 +29,16 @@ class EventsTableSeeder extends Seeder
             'billetterie' => 'https://www.senscritique.com/bd/Debout_les_morts_Blackest_Night_tome_1/456017',
             'textbox' => 'Qualifie les cellules qui, par mitose, peuvent produire tous les types de cellules d\'un corps, et qui ont ainsi le potentiel de former un animal entier ou une plante entière.',
             ]);
+
+        DB::table('events')->insert([
+            'nom' => 'Albert Einstein',
+            'debut' => time()+(4*24*60*60),
+            'fin' => time()+(5*12*30*60),
+            'list_performs' => '["Prix Nobel de physique","Loi de Nernst-Einstein","Statistique de Bose-Einstein","Mileva Einstein"]',
+            'billetterie' => 'https://fr.wikipedia.org/wiki/Albert_Einstein',
+            'textbox' => 'Albert Einstein, né le 14 mars 1879 à Ulm, dans le Wurtemberg, et mort le 18 avril 1955 à Princeton, dans le New Jersey, est un physicien théoricien qui fut successivement allemand, apatride (1896), suisse (1901) et de double nationalité helvético-américaine (1940).
+            Il est aujourd\'hui considéré comme l\'un des plus grands scientifiques de l\'histoire, et sa renommée dépasse largement le milieu scientifique. Il est la personnalité du xxe siècle selon l\'hebdomadaire Time..',
+            ]);
     }
 }
 
