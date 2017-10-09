@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
+	<div class="pagecontainer row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3>Nouvel événement</h3></div>
@@ -13,7 +13,16 @@
 					<br />
 					
 					<label title="Utiliser l'autocomplétion pour avoir une adresse valide" >Lieu</label>
-					<input required type="text" class="form-control" placeholder="lieu" aria-describedby="sizing-addon2" name="place" value="{{ old('place') }}">
+					<input
+					required
+					id="city"
+					type="text"
+					class="form-control"
+					placeholder="lieu"
+					aria-describedby="sizing-addon2"
+					name="place"
+					value="{{ old('place') }}"
+					>
 					<br />
 
 					<label title="Date et heure" >Debut</label>
@@ -104,5 +113,13 @@
 @endsection
 
 @section('js')
+
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-FwOAdr1WGuFP1vhXI9fT4QMUvYiZnI&libraries=places&callback=initAutocomplete" async defer></script>
+
+<script src="{{ asset('js/map.js') }}"></script>
+
 <script src="{{ asset('js/event_creation.js') }}" type="text/javascript" ></script>
+
 @endsection

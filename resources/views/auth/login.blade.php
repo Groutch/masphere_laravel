@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="pagecontainer row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading"></div>
@@ -59,9 +59,16 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
+                                <div class="col-xs-6">
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        Forgot Your Password?
+                                    </a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a class="btn btn-link" href="{{ route('register') }}">
+                                        Not Registered?
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </form>

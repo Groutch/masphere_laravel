@@ -43,6 +43,7 @@ class EventController extends Controller
     	$debut = strtotime($request->debutDate.' '.$request->debutHeure);
     	$fin = strtotime($request->finDate.' '.$request->finHeure);
 
+
     	$event->debut = strtotime($request->debutDate.' '.$request->debutHeure);
     	$event->fin = strtotime($request->finDate.' '.$request->finHeure);
     	$event->stylemusical = $request->stylemusical;
@@ -56,14 +57,13 @@ class EventController extends Controller
             $event->save();
             $user = Auth::User();
             $event->users()->sync($user);
-            
+
             return redirect()->route('event_list_orga');
         }
         return back()->withInput();
 
         // $user->events()->sync($event);
         // $event->users()->sync($event);
-
     }
 
     /**
@@ -87,6 +87,7 @@ class EventController extends Controller
     public function showproguard($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
+
         return view('event_details_proguard', compact('event'));
     }
 
@@ -102,11 +103,11 @@ class EventController extends Controller
         $guards_ids = [];
         $guards = [];
         foreach ($event->guards as $keyguard => $guard) {
-            foreach ($guard->users as $keyuser => $user) {
+            foreach ($guard->users as $keyuser => $user) { // show the child guard pro on this guard
                 if ($user->roles[0]->slug == "proguard") {
-                    $guards[] = [$user, 0];
-                }elseif($user->roles[0]->slug == "procult"){
-                    $guards[$keyguard][1]++;
+                    $guards[] = [$user, []];
+                }elseif($user->roles[0]->slug == "procult"){ // show the number of famillies waiting for the guard's pro answer
+                    $guards[$keyguard][] = $guard;
                 }
             }
             $guards_ids[] = $guard->id;
@@ -145,7 +146,8 @@ class EventController extends Controller
             }
             $guards_nb[] = $i;
         }
-        return view('event_search', compact('events', 'guards_nb'));
+        $vosgardesbtn = Auth::User()->roles->implode('slug');
+        return view('event_search', compact('events', 'guards_nb', 'vosgardesbtn'));
     }
 
     /**

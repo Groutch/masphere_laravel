@@ -26,7 +26,7 @@ class EventsTableSeeder extends Seeder
             'debut' => time()+(2*24*60*60),
             'fin' => time()+(4*25*60*60),
             'list_performs' => '["multipotent","omnipotent","pluripotent","unipotent"]',
-            'billetterie' => 'https://www.senscritique.com/bd/Debout_les_morts_Blackest_Night_tome_1/456017',
+            'billetterie' => 'https://fr.wikipedia.org/wiki/Totipotence',
             'textbox' => 'Qualifie les cellules qui, par mitose, peuvent produire tous les types de cellules d\'un corps, et qui ont ainsi le potentiel de former un animal entier ou une plante entière.',
             ]);
 

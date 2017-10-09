@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
+	<div class="pagecontainer row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading">recherche</div>
@@ -48,32 +48,34 @@
 			</div>
 			<hr />
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3 id="allornot">Tous les événements</h3></div>
+				<div class="panel-heading">
+					<h3 id="allornot">Résultats de votre recherche</h3>
+				</div>
 				<div class="row">
 					<div class="panel-body">
 						@foreach ($events as $key => $event)
-						<div class="col-xs-12 col-md-6 col-lg-4 event" data-name="{{ $event->nom }}" data-debut="{{ date( 'Y-m-d', $event->debut) }}" data-fin="{{ date('Y-m-d', $event->fin) }}" >
-							<div class="panel panel-default">
-								<div class="panel-heading">{{ $event->nom }}</div>
-								<div class="panel-body">
+						<div class="card event" data-name="{{ $event->nom }}" data-debut="{{ date( 'Y-m-d', $event->debut) }}" data-fin="{{ date('Y-m-d', $event->fin) }}" >
+							<div class="card-block">
+								<h3 class="card-title">{{ $event->nom }}</h3>
+								<div class="card-text">
 									@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
 									le {{ date( 'd/m/Y', $event->debut) }} de
-									{{ date( 'h:i', $event->debut) }} à
-									{{ date( 'h:i', $event->fin) }}
+									{{ date( 'H:i', $event->debut) }} à
+									{{ date( 'H:i', $event->fin) }}
 									@else
-									du {{ date( 'd/m/Y à h:i', $event->debut) }}
-									au {{ date( 'd/m/Y à h:i', $event->fin) }}
+									du {{ date( 'd/m/Y à H:i', $event->debut) }}
+									au {{ date( 'd/m/Y à H:i', $event->fin) }}
 									@endif
 									<div>commentaire : {{ $event->textbox }}</div>
-								</div>
 
-								<div class="panel-footer">
 									@if(Auth::user()->roles->implode('slug')=='procult')
-									<a class="btn btn-default" id="{{ $event->id }}" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} gardes)</a>
+									<a class="btn btn-default" id="event{{ $event->id }}" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} garde
+									@if($guards_nb[$key]>1)
+									s
+									@endif
+									)</a>
 									@elseif(Auth::user()->roles->implode('slug')=='proguard')
-									<a class="btn btn-default" id="{{ $event->id }}" href="/event_details_proguard/{{ $event->id }}">Détails</a>
-									@elseif(Auth::user()->roles->implode('slug')=='orga')
-									<a class="btn btn-default" href="/event_details_orga/{{ $event->id }}">Détails</a>
+									<a class="btn btn-default" id="event{{ $event->id }}" href="/event_details_{{Auth::user()->roles->implode('slug')}}/{{ $event->id }}">Détails</a>
 									@endif
 								</div>
 							</div>
@@ -87,7 +89,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 @endsection
 

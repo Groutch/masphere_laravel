@@ -13,7 +13,7 @@ class MapTestController extends Controller
      */
     public function index()
     {
-        return view('map_test');
+        return view('map');
     }
 
     /**

@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'procult' => \App\Http\Middleware\IsProcult::class,
         'proguard' => \App\Http\Middleware\IsProguard::class,
+        'pro' => \App\Http\Middleware\IsPro::class,
         'orga' => \App\Http\Middleware\IsOrga::class,
         'admin' => \App\Http\Middleware\IsAdmin::class,
     ];

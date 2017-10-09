@@ -1,0 +1,48 @@
+.containerError {
+    /*height: 100vh;
+    width: 100vw;*/
+    height: 100vh;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.errorDiv {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: #91979a;
+}
+
+.cercle {
+    background: rgba(255, 255, 255, .2);
+    border-radius: 100%;
+    margin-bottom: 40px;
+    width: auto;
+
+}
+
+.cercle>h1 {
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.errortitle {
+    font-size: 70px;
+}
+
+.errorDiv>a {
+    font-size: 18px;
+    color:#91979a;
+    text-decoration: underline;
+}
+
+.imgbaby {
+    /*width: ;*/
+    height: 45vh;
+    content: url('../images/cryingbaby3.png');
+}

@@ -2,52 +2,57 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
+	<div class="pagecontainer row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">{{ $event->nom }} de {{ $event->users[0]->name }}</div>
 				<div class="panel-body">
-					@if(date('d/m/Y', $event->debut) === date('d/m/Y', $event->fin))
-						Le {{ date( 'd/m/Y', $event->debut) }} 
-						@if (date( 'h:i', $event->debut) !== date( 'h:i', $event->fin))
-							de
-						@endif
-						{{ date( 'h:i', $event->debut) }}
-						@if (date( 'h:i', $event->debut) !== date( 'h:i', $event->fin))
-							à {{ date( 'h:i', $event->fin) }}
-						@endif
-					@else
-						Du {{ date( 'd/m/Y à h:i', $event->debut) }}
-						au {{ date( 'd/m/Y à h:i', $event->fin) }}
-					@endif
-					<br />
-					<br />
-					@if ($event->list_performs)
-						<div>
-							| @foreach(json_decode($event->list_performs) as $group)
-								{{ $group }} | 
-							@endforeach
-						</div>
-					@endif
-					<br />
-
-					<div>{{ $event->textbox }}</div>
-				</div>
-				<div class="panel-footer">
-					<a class="btn btn-default" href="{{ $event->billetterie }}" target="_blank">BILLETTERIE</a>
-					<hr />
-					<div class="row">
-						@foreach ($guards as $key => $guard)
-							<div class="panel panel-default col-md-3">
-								<div class="panel-heading">
-									{{ $guard[0]->name }} <br /> 
-									@if(count($guard[1]))
-										({{ $guard[1] }} personne.s en attente)
-									@endif
-									<a id="event_sub_procult" class="btn btn-default" href="/event_sub_details_procult/{{ $guards_ids[$key] }}">S'inscrire</a>
+					<div class="card">
+						<div class="card-block">
+							<h3 class="card-title">{{ $event->nom }} de {{ $event->users[0]->name }}</h3>
+							<div class="card-text">
+								@if(date('d/m/Y', $event->debut) === date('d/m/Y', $event->fin))
+								Le {{ date( 'd/m/Y', $event->debut) }} 
+								@if (date( 'H:i', $event->debut) !== date( 'H:i', $event->fin))
+								de
+								@endif
+								{{ date( 'H:i', $event->debut) }}
+								@if (date( 'H:i', $event->debut) !== date( 'H:i', $event->fin))
+								à {{ date( 'H:i', $event->fin) }}
+								@endif
+								@else
+								Du {{ date( 'd/m/Y à H:i', $event->debut) }}
+								au {{ date( 'd/m/Y à H:i', $event->fin) }}
+								@endif
+								<br />
+								<br />
+								@if ($event->list_performs)
+								<div>
+									| @foreach(json_decode($event->list_performs) as $group)
+									{{ $group }} | 
+									@endforeach
 								</div>
+								@endif
+								<br />
+
+								<div>{{ $event->textbox }}</div>
 							</div>
-						@endforeach
+							<a class="btn btn-default" href="{{ $event->billetterie }}" target="_blank">BILLETTERIE</a>
+							@if($guards)
+							<hr />
+							<div class="row">
+								@foreach ($guards as $key => $guard)
+								<div class="panel panel-default col-md-3">
+								{{ $guard[0]->name }} <br /> 
+								@if(count($guard[1]))
+								({{ $guard[1] }} personne.s en attente)
+								<br /> 
+								@endif
+								<a class="event_sub_procult btn btn-default" href="/event_sub_details_procult/{{ $guards_ids[$key] }}">S'inscrire</a>
+								</div>
+								@endforeach
+							</div>
+							@endif
+						</div>
 					</div>
 				</div>
 			</div>

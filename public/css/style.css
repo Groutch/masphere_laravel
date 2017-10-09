@@ -2,14 +2,22 @@ body:before {
     content: "";
     position: fixed;
     height: 100%; width: 100%;
-    background: url("https://image.freepik.com/photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435.jpg") no-repeat center center;
-    background-size: cover;
-    z-index: -1; /* Keep the background behind the content */
-    -webkit-filter: blur(3px);
-    -webkit-background-size: cover; /* pour Chrome et Safari */
-    -moz-background-size: cover; /* pour Firefox */
-    -o-background-size: cover; /* pour Opera */
-    background-size: cover; /* version standardisée */
+    /*background: url("https://image.freepik.com/photos-libre/quot-pere-a-cheveux-court-portant-un-enfant-en-bas-age-sur-les-epaules-quot_1304-4145.jpg") no-repeat center center;*/
+    /*background: url("https://image.freepik.com/photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435.jpg") no-repeat center center;*/
+
+    /*background: url("https://image.freepik.com/photos-libre/pupille-fille-ecrivant-sur-tableau-noir_23-2147659211.jpg") no-repeat center center;*/
+    /* background-size: cover;
+    /* z-index: -1; /* Keep the background behind the content */
+    /* -webkit-filter: blur(4px);
+    /* -webkit-background-size: cover; /* pour Chrome et Safari */
+    /* -moz-background-size: cover; /* pour Firefox */
+    /* -o-background-size: cover; /* pour Opera */
+    /* background-size: cover; /* version standardisée */
+}
+
+.pagecontainer {
+    padding-top: 8vh;
+    padding-bottom: 4vh;
 }
 
 .panel {
@@ -40,6 +48,17 @@ body:before {
     height: 100%;
 }
 
+.panel-default>.panel-footer{
+    /*background: #4281A4;*/
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    height: 100%;
+}
+
 label {
     color: black;
     font-weight: bold;
@@ -53,6 +72,7 @@ form label {
 .form-control {
     border-radius: 0px;
 }
+
 
 .btn-link>.linkpassword {
     text-align: center;
@@ -141,12 +161,11 @@ a.navbar-brand {
     border: none;
 }
 
-
-.form-control:focus {
+/*.form-control:focus {
     background: #FFE5E2;
     opacity: .8;
     border: none;
-}
+}*/
 
 
 input:-webkit-autofill {
@@ -154,6 +173,7 @@ input:-webkit-autofill {
     opacity: .8;
     -webkit-box-shadow: 0 0 0 30px white inset;
 }
+
 input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 30px #FFE5E2 inset;
 }
@@ -173,6 +193,7 @@ a>.btn-link {
 textarea {
     width: 100%;
     border: 1px grey solid;
+    resize: none;
 }
 
 .container-bottom {
@@ -249,6 +270,7 @@ textarea {
     background: white;
     border: none;
     margin-bottom: 10px;
+    word-wrap: break-word;
     /*box-shadow: 0px 3px 10px 1px black;*/
 }
 
@@ -269,6 +291,7 @@ textarea {
     width: 49.5%;
     font-size: 16px;
 }
+
 .choisir {
     /*background: #007f00;*/
     background: transparent;
@@ -349,5 +372,5 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
+

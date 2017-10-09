@@ -32,9 +32,11 @@ class LoginController extends Controller
         //     return Redirect()->route('admin');
         // }
         if(Auth::user()->roles->implode('slug')=='orga'){
-            return Redirect()->route('orga');
-        } else {
-            return redirect('/event_search');
+            return redirect('/event_list_orga');
+        } elseif (Auth::user()->roles->implode('slug')=='procult') {
+            return redirect('/event_list_procult');
+        } elseif (Auth::user()->roles->implode('slug')=='proguard') {
+            return redirect('/event_list_proguard');
         }
     }
 
