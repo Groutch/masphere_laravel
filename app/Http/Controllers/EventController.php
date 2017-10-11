@@ -51,7 +51,7 @@ class EventController extends Controller
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);
         // $event->duration = $event->fin - $event->debut;
-        // dd(json_encode($request->liste_groupes));
+        // dd(json_encode($request->list_performs));
 
         if($event->debut < $event->fin){
             $event->save();
@@ -100,20 +100,12 @@ class EventController extends Controller
     public function showprocult($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
-        $guards_ids = [];
-        $guards = [];
-        foreach ($event->guards as $keyguard => $guard) {
-            foreach ($guard->users as $keyuser => $user) { // show the child guard pro on this guard
-                if ($user->roles[0]->slug == "proguard") {
-                    $guards[] = [$user, []];
-                }elseif($user->roles[0]->slug == "procult"){ // show the number of famillies waiting for the guard's pro answer
-                    $guards[$keyguard][] = $guard;
-                }
-            }
-            $guards_ids[] = $guard->id;
-        }
-        // dd($guards_ids);
-        return view('event_details_procult', compact('event', 'guards', 'guards_ids'));
+        $guards = $event->guards->map(function($a){
+            $decoded_list_places = json_decode($a->list_places);
+            $a->list_places = $decoded_list_places;
+            return $a;
+        });
+        return view('event_details_procult', compact('event', 'guards'));
     }
 
     /**

@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity=""/>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+
 <link rel="stylesheet" href="{{ asset('css/map.css') }}">
 
 @endsection
@@ -45,8 +47,7 @@
 								, et je peux me déplacer de {{ $place->range }}km
 								@endif
 							</div>
-							<div hidden class="place">
-					        </div>
+
 							@endforeach
 							{{ $guard->textbox }}
 						</div>
@@ -62,17 +63,34 @@
                         >
                     </div>
                     <input
-                    id="lat"
+                    id="inplat"
                     type="number"
                     step=".001"
+					{{-- value="" --}}
                     style="display : none;" 
                     >
                     <input
-                    id="long"
+                    id="inplong"
                     type="number"
                     step='0.001'
+					{{-- value="" --}}
                     style="display : none;"
                     >
+                    {{-- 
+                    <input
+                    id="markclicklat"
+                    type="number"
+                    step=".001"
+					value=""
+                    style="display : none;" 
+                    >
+                    <input
+                    id="markclicklong"
+                    type="number"
+                    step='0.001'
+					value=""
+                    style="display : none;"
+                    > --}}
                 </div>
 		        <form method="post" action="/event_sub_procult/{{ $guard->id }}" class="form panel-body">
 		        	{{ csrf_field() }}
@@ -142,8 +160,10 @@
 <script src="{{ asset('js/sub_procult_details.js') }}" type="text/javascript" ></script>
 
 <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-FwOAdr1WGuFP1vhXI9fT4QMUvYiZnI&libraries=places&callback=initAutocomplete" async defer></script>
+
 
 <script src="{{ asset('js/map.js') }}"></script>
 

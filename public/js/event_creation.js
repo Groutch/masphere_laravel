@@ -21,7 +21,7 @@
 	}
 
 	$('.add_perform_btn').on('click', function(){
-		$('.perform_receiver').append('<div class="input-group input_group"><input type="text" class="input-group form-control" placeholder="nom du groupe" aria-describedby="sizing-addon2"><span class="input-group-btn"><button type="button" class="input-group btn btn-danger suppr_perform_btn">suppr</button></span></div>');
+		$('.perform_receiver').append('<div class="input-group input_group"><input type="text" class="input-group form-control" placeholder="nom de l\'artiste/performer" aria-describedby="sizing-addon2"><span class="input-group-btn"><button type="button" class="input-group btn btn-danger suppr_perform_btn">suppr</button></span></div>');
 
 		attrNamelist_performsX();
 

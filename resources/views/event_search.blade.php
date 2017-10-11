@@ -30,8 +30,8 @@
 					</div>
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1 col-xs-12">
-							<label title="">Groupe</label>
-							<input id="" type="text" class="input-group input_group form-control" placeholder="nom du groupe" aria-describedby="sizing-addon2" name="liste_groupes[0]">
+							<label title="">Artistes/Performers</label>
+							<input id="" type="text" class="input-group input_group form-control" placeholder="nom de l'artiste/performers" aria-describedby="sizing-addon2">
 							<br />
 						</div>
 					</div>

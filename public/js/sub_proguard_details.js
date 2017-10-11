@@ -13,7 +13,6 @@ var i = 0,j = 1;
 
 function listeners(){
 	$('.child_nb').unbind('focusout').on('focusout', function(){
-		console.log('azesd');
 		if($(this).val() < 1 ){
 			$(this).val(1);
 		}else if($(this).val() > 4){

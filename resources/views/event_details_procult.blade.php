@@ -37,17 +37,24 @@
 								<div>{{ $event->textbox }}</div>
 							</div>
 							<a class="btn btn-default" href="{{ $event->billetterie }}" target="_blank">BILLETTERIE</a>
-							@if($guards)
+							@if(count($guards))
 							<hr />
 							<div class="row">
 								@foreach ($guards as $key => $guard)
 								<div class="panel panel-default col-md-3">
-								{{ $guard[0]->name }} <br /> 
-								@if(count($guard[1]))
-								({{ $guard[1] }} personne.s en attente)
-								<br /> 
-								@endif
-								<a class="event_sub_procult btn btn-default" href="/event_sub_details_procult/{{ $guards_ids[$key] }}">S'inscrire</a>
+									{{-- {{ $guard->users[0]->name }} <br />  --}}
+									@if(count($guard->list_places)>1)
+										@foreach ($guard->list_places as $place)
+											{{ $place->name }} <br /> 
+										@endforeach
+									@else
+										{{ $guard->list_places[0]->name }} <br /> 
+									@endif
+									@if(count($guard->users)>1)
+										({{ count($guard->users)-1 }} personne.s en attente)
+										<br /> 
+									@endif
+									<a class="event_sub_procult btn btn-default" href="/event_sub_details_procult/{{ $guard->id }}">S'inscrire</a>
 								</div>
 								@endforeach
 							</div>

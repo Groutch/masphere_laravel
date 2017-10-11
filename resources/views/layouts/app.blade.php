@@ -48,7 +48,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<!-- Authentication Links -->
 						@guest
-						<li><a href="{{ route('login') }}">Login</a></li>
+						<li><a href="{{ route('login') }}"><span class="fa fa-sign-in"></span> Login</a></li>
 						<li><a href="{{ route('register') }}">Register</a></li>
 						@else
                         {{-- <li class="dropdown">
@@ -76,7 +76,7 @@
                         	document.getElementById('logout-form').submit();"
 							id="logoutlink" 
                         	>
-                        	{{ Auth::user()->name }} Logout</a>
+                        	{{ Auth::user()->name }} Logout <span class="fa fa-sign-in"></span> </a>
 
                         	<form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                         		{{ csrf_field() }}
