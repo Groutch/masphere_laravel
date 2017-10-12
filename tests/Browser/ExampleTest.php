@@ -288,7 +288,7 @@ class ExampleTest extends DuskTestCase
 			->click('#event'.$event->id)
 			->waitForText('S\'inscrire')
 			->click('.event_sub_procult')
-			->assertSee('7 Rue Léon Gambetta, Toulouse, France')
+			->assertSee('38 Rue Kruger, Toulouse, France')
 			// ->type('place', '6 Rue d\'Austerlitz, Toulouse, France')
 			
 			// ->type('debutDate', date("Y-m-d", $event->debut))
@@ -298,6 +298,7 @@ class ExampleTest extends DuskTestCase
 			->type('textbox', $text)
 			->press('Envoyer la demande')
 			->assertSee($event->nom)
+			->assertSee('38 Rue Kruger, Toulouse, France')
 			->click('#logoutlink')
 			;
 

@@ -5,9 +5,9 @@
 	<div class="pagecontainer row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">recherche</div>
-				{{-- <form method="get" action="{{ route('event_search') }}" class="form"> --}}
-				{{-- {{ csrf_field() }} --}}
+				<div class="panel-heading">recherche
+				{{-- {{ Auth::user()->roles->implode('slug') }} --}}
+				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1 col-xs-12">

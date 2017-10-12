@@ -19,8 +19,9 @@ class CreateGuardsTable extends Migration
             $table->string('debut');
             $table->string('fin');
             $table->string('textbox');
-            $table->string('list_procult')->nullable();
+            $table->string('list_procult')->nullable(); // [['name'=>'machin', 'id' => n], ['name'=>'autre', 'id' => n], ['name'=>'encore autre', 'id' => n]]
             $table->string('statut')->nullable();
+            $table->string('concluding_procult')->nullable(); // ['name'=>'machin_conclu', 'id' => n]
             $table->timestamps();
         });
     }

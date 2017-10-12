@@ -129,17 +129,13 @@ class EventController extends Controller
     public function all(Request $request)
     {
         $events = Event::all();
+        $guards_nb = Event::all()->map(function($event){
+            // dump(count($event->guards));
+            return count($event->guards);
+        });
 
-        $guards_nb = [];
-        foreach ($events as $eventkey => $event) {
-            $i=0;
-            foreach ($event->guards as $keyguard => $guard) {
-                $i++;
-            }
-            $guards_nb[] = $i;
-        }
-        $vosgardesbtn = Auth::User()->roles->implode('slug');
-        return view('event_search', compact('events', 'guards_nb', 'vosgardesbtn'));
+        // dd($guards_nb);
+        return view('event_search', compact('events', 'guards_nb'));
     }
 
     /**

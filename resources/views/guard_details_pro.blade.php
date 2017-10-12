@@ -9,7 +9,7 @@
 				
 					<div class="card">
 						<div class="card-block">
-							<div class="card-title"><label>Garde du {{ date('d/m/Y', $guard->debut) }}</label></div>
+							<h3 class="card-title"><label>Garde du {{ date('d/m/Y', $guard->debut) }}</label></h3>
 							<div class="card-text">
 								@if(date('d/m/Y', $guard->debut) === date('d/m/Y', $guard->fin))
 								Le {{ date( 'd/m/Y', $guard->debut) }} 
