@@ -27,7 +27,7 @@ class EventController extends Controller
      */
     public function create()
     {
-    	return view('event_creation');
+        return view('event_creation');
     }
 
     /**
@@ -38,16 +38,100 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-    	$event = new Event;
-    	$event->nom = $request->nom;
-    	$debut = strtotime($request->debutDate.' '.$request->debutHeure);
-    	$fin = strtotime($request->finDate.' '.$request->finHeure);
 
+        function geocode($city){
+            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+            $string = file_get_contents($fullurl); // get json content
+            $geoloc = json_decode($string, true); //json decoder
 
-    	$event->debut = strtotime($request->debutDate.' '.$request->debutHeure);
-    	$event->fin = strtotime($request->finDate.' '.$request->finHeure);
-    	$event->stylemusical = $request->stylemusical;
-    	$event->billetterie = $request->billetterie;
+            $coords = $geoloc['results'][0]['geometry']['location'];
+            // $lat = $coords['lat'];
+            // $long = $coords['long'];
+            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+        }
+
+        $event = new Event;
+
+        $event->nom = $request->nom;
+        $debut = strtotime($request->debutDate.' '.$request->debutHeure);
+        $fin = strtotime($request->finDate.' '.$request->finHeure);
+
+        $geo = geocode($request->place);
+        $event->lat = $geo['lat'];
+        $event->long = $geo['long'];
+        $event->place = $request->place;
+
+        $event->debut = strtotime($request->debutDate.' '.$request->debutHeure);
+        $event->fin = strtotime($request->finDate.' '.$request->finHeure);
+        $event->place = $request->place;
+        $event->stylemusical = $request->stylemusical;
+        $event->billetterie = $request->billetterie;
+        $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
+        $event->list_performs = json_encode($request->list_performs);
+        // $event->duration = $event->fin - $event->debut;
+        // dd(json_encode($request->list_performs));
+
+        if($event->debut < $event->fin){
+            $event->save();
+            $user = Auth::User();
+            $event->users()->sync($user);
+
+            return redirect()->route('event_list_orga');
+        }
+        return back()->withInput();
+
+        // $event->users()->sync($event);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $event = Event::all()->where('id', $id)->first();
+
+        return view('event_edition', compact('event'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        function geocode($city){
+            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+            $string = file_get_contents($fullurl); // get json content
+            $geoloc = json_decode($string, true); //json decoder
+
+            $coords = $geoloc['results'][0]['geometry']['location'];
+            // $lat = $coords['lat'];
+            // $long = $coords['long'];
+            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+        }
+
+        $event = Event::all()->where('id', $id)->first();
+
+        $event->nom = $request->nom;
+        $debut = strtotime($request->debutDate.' '.$request->debutHeure);
+        $fin = strtotime($request->finDate.' '.$request->finHeure);
+
+        $geo = geocode($request->place);
+        $event->lat = $geo['lat'];
+        $event->long = $geo['long'];
+        $event->place = $request->place;
+
+        $event->debut = strtotime($request->debutDate.' '.$request->debutHeure);
+        $event->fin = strtotime($request->finDate.' '.$request->finHeure);
+        $event->place = $request->place;
+        $event->stylemusical = $request->stylemusical;
+        $event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);
         // $event->duration = $event->fin - $event->debut;
@@ -63,7 +147,10 @@ class EventController extends Controller
         return back()->withInput();
 
         // $user->events()->sync($event);
-        // $event->users()->sync($event);
+        
+        
+        
+        return view('event_edition', compact('event'));
     }
 
     /**
@@ -75,6 +162,7 @@ class EventController extends Controller
     public function showorga($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
+
         return view('event_details_orga', compact('event'));
     }
 
@@ -179,29 +267,6 @@ class EventController extends Controller
 
         return redirect()->route('event_list_proguard');
         // return redirect()->route('event_search');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

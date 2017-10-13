@@ -57,6 +57,8 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::group(['middleware'=>'orga'], function(){
 		Route::get('/orga', 'HomeController@orga')->name('orga');
 		Route::get('/event_creation', 'EventController@create')->name('event_form');
+		Route::get('/event_edit/{id}', 'EventController@edit')->name('event_edit');
+		Route::post('/event_update/{id}', 'EventController@update')->name('event_update');
 		Route::post('/event_creation/post', 'EventController@store')->name('event_post');
 		Route::get('/event_list_orga', 'EventController@userall')->name('event_list_orga');
 		Route::get('/event_details_orga/{id}', 'EventController@showorga')->name('event_details_orga');

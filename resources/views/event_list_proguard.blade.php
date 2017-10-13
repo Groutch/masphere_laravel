@@ -11,7 +11,7 @@
 					@foreach ($guards as $key => $guard)
 					<div class="card guard">
 						<div class="card-block">
-							<div class="card-title"><label for="">{{ $events[$key] }}</label>, le {{ date( 'd/m/Y', $guard->debut) }}</div>
+							<h3 class="card-title"><label for="">{{ $events[$key] }}</label>, le {{ date( 'd/m/Y', $guard->debut) }}</h3>
 							<div class="card-text">
 								@if(date( 'd/m/Y', $guard->debut) === date( 'd/m/Y', $guard->fin))
 								de {{ date( 'H:i', $guard->debut) }} à {{ date( 'H:i', $guard->fin) }}

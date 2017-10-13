@@ -22,7 +22,7 @@
 						<div class="card-block">
 							@foreach( json_decode($guard->list_places) as $key => $place)
 							{{-- {{ dd($place) }} --}}
-							<div class="card-title place" id="place{{ $place->place_id }}">
+							<h3 class="card-title place" id="place{{ $place->place_id }}">
 								Lieu de garde à "{{ $place->name }}"	
 								<input readonly hidden
 								class="lat"
@@ -40,7 +40,7 @@
 								class="child_nb"
 								value="{{ $place->child_nb }}"
 								>
-							</div>
+							</h3>
 							<div class="card-text">
 								pour {{ $place->child_nb }} enfant.s
 								@if(gettype($place->range) == 'number')

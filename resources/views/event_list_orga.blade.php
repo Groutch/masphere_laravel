@@ -12,7 +12,10 @@
 						<div class="col-xs-12 col-md-6 col-lg-4 event">
 							<div class="card">
 								<div class="card-block">
-									<div class="card-title">{{ $event->nom }}</div>
+									<h3 class="card-title">
+										{{ $event->nom }}
+										<a href="{{ route('event_edit', $event->id) }}"><span class="fa fa-pencil"></span></a>
+									</h3>
 									<div class="card-text">
 										@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
 										le {{ date( 'd/m/Y', $event->debut) }} de

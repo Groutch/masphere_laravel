@@ -18,8 +18,9 @@ class CreateEventsTable extends Migration
             $table->string('nom')->unique();
             $table->string('debut');
             $table->string('fin');
-            $table->integer('lat')->nullable();
-            $table->integer('long')->nullable();
+            $table->integer('lat');
+            $table->integer('long');
+            $table->string('place');
             $table->string('list_performs')->nullable();
             $table->string('stylemusical')->nullable();
             $table->string('billetterie')->nullable();
