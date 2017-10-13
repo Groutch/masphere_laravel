@@ -135,9 +135,8 @@ class GuardController extends Controller
      */
     public function createProcult(Request $request, $id)
     {
-        // dump($request);
     	$guard = Guard::All()->where("id", "=", $id)->first();
-        // dd($guard);
+
     	return view('sub_procult_details', compact('guard'));
     }
 

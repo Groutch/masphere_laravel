@@ -148,9 +148,20 @@ class EventController extends Controller
 
         // $user->events()->sync($event);
         
-        
-        
         return view('event_edition', compact('event'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Event::all()->where('id', $id)->first()->delete();
+
+        return redirect()->route('event_list_orga');
     }
 
     /**
@@ -267,16 +278,5 @@ class EventController extends Controller
 
         return redirect()->route('event_list_proguard');
         // return redirect()->route('event_search');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

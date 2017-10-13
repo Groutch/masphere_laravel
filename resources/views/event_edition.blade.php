@@ -8,8 +8,8 @@
 				<div class="panel-heading"><h3>Nouvel événement</h3></div>
 				<form
 				method="post"
-				action="/event_update/{{$event->id}}"
-				{{-- action="{{ route('event_update', {{$event->id}}) }}" --}}
+				{{-- action="/event_update/{{$event->id}}" --}}
+				action="{{ route('event_update', ['id' => $event->id]) }}"
 				class="form panel-body">
 					{{ csrf_field() }}
 					<label title="Nommer l'événement" >Nom</label>
