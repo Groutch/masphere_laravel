@@ -152,7 +152,6 @@ class GuardController extends Controller
     	$guard = Guard::All()->where('id', '=', $id)->first();
     	$user->guards()->sync($guard);
 
-
     	if(!$guard->list_procult){
     		$procults = [];
     	}else{

@@ -21,6 +21,35 @@ class EventController extends Controller
     }
 
     /**
+     * redirect /event_list_orga if the concerned event is not owned by the inline user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verifEventOwner($eventId, $user)
+    {
+        $userEventsIds = $user->events->map(function($a){
+            return $a->id;
+        });
+        return $userEventsIds->contains($eventId);
+    }
+
+    /**
+     * redirect /event_list_orga if the concerned event is not owned by the inline user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function geocode($city){
+            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+            $string = file_get_contents($fullurl); // get json content
+            $geoloc = json_decode($string, true); //json decoder
+
+            $coords = $geoloc['results'][0]['geometry']['location'];
+            // $lat = $coords['lat'];
+            // $long = $coords['long'];
+            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+        }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -39,24 +68,13 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
-        function geocode($city){
-            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-            $string = file_get_contents($fullurl); // get json content
-            $geoloc = json_decode($string, true); //json decoder
-
-            $coords = $geoloc['results'][0]['geometry']['location'];
-            // $lat = $coords['lat'];
-            // $long = $coords['long'];
-            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
-        }
-
         $event = new Event;
 
         $event->nom = $request->nom;
         $debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $fin = strtotime($request->finDate.' '.$request->finHeure);
 
-        $geo = geocode($request->place);
+        $geo = $this->geocode($request->place);
         $event->lat = $geo['lat'];
         $event->long = $geo['long'];
         $event->place = $request->place;
@@ -91,6 +109,10 @@ class EventController extends Controller
      */
     public function edit($id)
     {
+        if(!$this->verifEventOwner($id, Auth::User())){
+            return redirect('/event_list_orga');
+        }
+
         $event = Event::all()->where('id', $id)->first();
 
         return view('event_edition', compact('event'));
@@ -105,16 +127,10 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        function geocode($city){
-            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-            $string = file_get_contents($fullurl); // get json content
-            $geoloc = json_decode($string, true); //json decoder
-
-            $coords = $geoloc['results'][0]['geometry']['location'];
-            // $lat = $coords['lat'];
-            // $long = $coords['long'];
-            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+        if(!$this->verifEventOwner($id, Auth::User())){
+            return redirect('/event_list_orga');
         }
+
 
         $event = Event::all()->where('id', $id)->first();
 
@@ -122,7 +138,7 @@ class EventController extends Controller
         $debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $fin = strtotime($request->finDate.' '.$request->finHeure);
 
-        $geo = geocode($request->place);
+        $geo = $this->geocode($request->place);
         $event->lat = $geo['lat'];
         $event->long = $geo['long'];
         $event->place = $request->place;
@@ -159,6 +175,9 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
+        if(!$this->verifEventOwner($id, Auth::User())){
+            return redirect('/event_list_orga');
+        }
         Event::all()->where('id', $id)->first()->delete();
 
         return redirect()->route('event_list_orga');
@@ -216,6 +235,7 @@ class EventController extends Controller
     public function userall(Request $request)
     {
         $events = $request->user()->events;
+
         return view('event_list_orga', compact('events'));
     }
 

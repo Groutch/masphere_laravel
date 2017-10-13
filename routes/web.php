@@ -54,15 +54,27 @@ Route::group(['middleware'=>'auth'], function () {
 	});
 
 	// ORGA ONLY
-	Route::group(['middleware'=>'orga'], function(){
+	Route::group(['middleware'=>'orga:id'], function(){
 		Route::get('/orga', 'HomeController@orga')->name('orga');
 		Route::get('/event_creation', 'EventController@create')->name('event_form');
-		Route::post('/event_creation/post', 'EventController@store')->name('event_post');
 		Route::get('/event_list_orga', 'EventController@userall')->name('event_list_orga');
 		Route::get('/event_details_orga/{id}', 'EventController@showorga')->name('event_details_orga');
 		Route::get('/event_edit/{id}', 'EventController@edit')->name('event_edit');
-		Route::post('/event_update/{id}', 'EventController@update')->name('event_update');
-		Route::get('/event_delete/{id}', 'EventController@destroy')->name('event_delete');
+		Route::get('/event_delete/{id}', 'EventController@destroy')
+		->name('event_delete')
+		// ->middleware('orga:'.$id)
+		;
+		Route::post('/event_creation/post', 'EventController@store')
+		->name('event_post')
+		// ->middleware('')
+		;
+		Route::post('/event_update/{id}', ['middleware' => 'auth:owner', function ($id) {
+
+		}]);
+		Route::post('/event_update/{id}', 'EventController@update')
+		->name('event_update')
+		// ->middleware('')
+		;
 	});
 
 	// ADMIN ONLY
