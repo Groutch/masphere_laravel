@@ -14,7 +14,7 @@
 								<div class="card-block">
 									<h3 class="card-title">
 										{{ $event->nom }}
-										<span class="fa fa-times text-danger deleteEvent" dataeventid="{{$event->id}}"></span>
+										<span class="fa fa-times text-danger deleteEvent" id="deleteEvent{{$event->id}}" dataeventid="{{$event->id}}"></span>
 									</h3>
 									<div class="card-text">
 										@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
@@ -52,7 +52,7 @@
 										href="{{route('event_delete', ['id'=>$event->id])}}"
 										type="button"
 										class="btn btn-danger"
-										id='modalSubmit'>
+										id='modalSubmitEvent{{$event->id}}'>
 										Valider</a>
 										<button
 										type="button"

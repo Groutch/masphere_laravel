@@ -44,11 +44,6 @@ class ExampleTest extends DuskTestCase
 		$event_bot_name = 'eventbot/'.substr(md5(mt_rand()), 0, 7);
 		$event_bot_name2 = 'eventbot2/'.substr(md5(mt_rand()), 0, 7);
 
-		// create
-		// search
-		// dashboard
-		// profil
-
 		$this->browse(function($orga, $orga2, $proguard) use ($event_bot_name, $event_bot_name2) {
 
 			$orga
@@ -115,6 +110,26 @@ class ExampleTest extends DuskTestCase
 		$this->assertDatabaseHas('events', [
 			'nom' => $event_bot_name2
 			]);
+		// test delete no fonctionel il ne capte pas le lien de validation de suppression
+		// $this->browse(function($orga) use ($event_bot_name) {
+		// 	$orga
+		// 	->visit('/login')
+		// 	->type('email', 'orga@gmail.com')
+		// 	->type('password', 'azerty')
+		// 	->press('Login')
+		// 	->assertSee($event_bot_name)
+		// 	->assertDontSee('Whoops')
+		// 	->click('#deleteEvent4')
+		// 	->click('#modalSubmitEvent4')
+		// 	->assertDontSee($event_bot_name)
+		// 	->click('#logoutlink')
+		// 	;
+			
+		// });
+
+		// $this->assertDatabaseHas('events', [
+		// 	'nom' => $event_bot_name
+		// 	]);
 	}
 	
 	public function test2ndSenarii(){
@@ -164,7 +179,6 @@ class ExampleTest extends DuskTestCase
 			;
 		});
 	}
-
 
 	public function testProgardEvent(){
 
@@ -304,6 +318,18 @@ class ExampleTest extends DuskTestCase
 
 		});
 	}
+
+	// public function testEditionEventOwnedAndNotOwned(){
+	// 	$this->browse(function($procult, $proguard) use ($event, $text){
+			
+	// 	}
+	// }
+
+
+
+
+
+
 
 		// $this->assertDatabaseHas('guards', [
 		// 	'nom' => $event_bot_name,

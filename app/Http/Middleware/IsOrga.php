@@ -15,7 +15,7 @@ class IsOrga
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $id)
+    public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::User()->roles->implode('slug') !== 'orga') {
             return redirect('/home');

@@ -10,6 +10,20 @@ use App\Guard;
 
 class GuardController extends Controller
 {
+
+    /**
+     * redirect /event_list_orga if the concerned event is not owned by the inline user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verifGuardOwner($guardId, $user)
+    {
+        $userGuardsIds = $user->guards->map(function($a){
+            return $a->id;
+        });
+        return $userGuardsIds->contains($guardId);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -57,25 +71,6 @@ class GuardController extends Controller
      */
     public function store(Request $request, $id)
     {
-     //    function geocode($city){
-     //     // $cityclean = str_replace (" ", "+", $city);
-     //     $details_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . $city . "&lang=fr&key=AIzaSyCbDnwlE6W0EO0LIIp16f4yqgzye78ENRY";
-
-     //     $ch = curl_init();
-     //     curl_setopt($ch, CURLOPT_URL, $details_url);
-     //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-     //     $geoloc = json_decode(curl_exec($ch), true);
-
-     //     dd($geoloc);
-
-     //     $step1 = $geoloc['results'];
-     //     $step2 = $step1['geometry'];
-     //     $coords = $step2['location'];
-     //     $geoloc['results'][0]['geometry']['location']['lat'];
-
-     //     return ['lat' => $coords['lat'], 'long' => $coords['lng']];
-
-     // }
 
     	function geocode($city){
     		$fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
@@ -91,9 +86,7 @@ class GuardController extends Controller
         $guard = new Guard;
 
         $guard->list_places = json_encode($request->list_places);
-
         $result_list_places = [];
-
 
         foreach ($request->list_places as $key => $place) {
         	$geo = geocode($request->list_places[$key]);
@@ -185,6 +178,7 @@ class GuardController extends Controller
     	$guard = $request->user()->guards->where('id', '=', $id)->first();
     	return view('guard_details_pro', compact('guard'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -204,6 +198,29 @@ class GuardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {
+        //
+    }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editProcult($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProcult(Request $request, $id)
     {
         //
     }
