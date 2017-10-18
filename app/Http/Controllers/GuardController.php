@@ -58,9 +58,21 @@ class GuardController extends Controller
      */
     public function create(Request $request, $id)
     {
-        // dump($request);
-    	$event = Event::All()->where("id", "=", $id)->first();
-    	return view('sub_proguard_details', compact('event'));
+        $event = Event::All()->where("id", "=", $id)->first();
+
+        $userName = Auth::User()->name;
+
+        $usersNames = $event->guards->map(function($a){
+            return $a->users[0]->name;
+        });
+        if($usersNames->contains($userName)){
+            // return redirect()->back()->withMessage('Deja inscrit ');
+            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cet événement']);
+        }
+
+        // if(){
+            return view('sub_proguard_details', compact('event'));
+        // }
     }
 
     /**
@@ -72,14 +84,25 @@ class GuardController extends Controller
     public function store(Request $request, $id)
     {
 
-    	function geocode($city){
-    		$fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+        $userName = Auth::User()->name;
+    	$event = Event::All()->where("id", "=", $id)->first();
+
+        $usersNames = $event->guards->map(function($a){
+            return $a->users[0]->name;
+        });
+        if($usersNames->contains($userName)){
+            // return redirect()->back()->withMessage('Deja inscrit ');
+            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cet événement']);
+        }
+
+        function geocode($city){
+            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
             $string = file_get_contents($fullurl); // get json content
             $geoloc = json_decode($string, true); //json decoder
 
             $coords = $geoloc['results'][0]['geometry']['location'];
-			// $lat = $coords['lat'];
-			// $long = $coords['long'];
+            // $lat = $coords['lat'];
+            // $long = $coords['long'];
             return ['lat' => $coords['lat'], 'long' => $coords['lng']];
         }
 
@@ -89,17 +112,17 @@ class GuardController extends Controller
         $result_list_places = [];
 
         foreach ($request->list_places as $key => $place) {
-        	$geo = geocode($request->list_places[$key]);
-        	$lat = $geo['lat'];
-        	$long = $geo['long'];
-        	$result_list_places[] = [
-        	'place_id' => $key,
-        	'lat' => $lat,
-        	'long' => $long,
-        	'name' => $request->list_places[$key],
-        	'child_nb' => $request->list_child_nbs[$key],
-        	'range' => $request->list_range[$key],
-        	];
+            $geo = geocode($request->list_places[$key]);
+            $lat = $geo['lat'];
+            $long = $geo['long'];
+            $result_list_places[] = [
+            'place_id' => $key,
+            'lat' => $lat,
+            'long' => $long,
+            'name' => $request->list_places[$key],
+            'child_nb' => $request->list_child_nbs[$key],
+            'range' => $request->list_range[$key],
+            ];
         }
         $guard->list_places = json_encode($result_list_places);
 
@@ -107,15 +130,22 @@ class GuardController extends Controller
         $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
         $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
 
-        // dd($guard);
-        $guard->save();
-        $user = Auth::User();
-        $event = Event::All()->where("id", "=", $id)->first();
-        $guard->events()->sync($event);
-        // $event->guards()->sync($guard);
-        $guard->users()->sync($user);
-        // $user->events()->sync($event);
-        // $event->users()->sync($event);
+        // $userId = Auth::User()->id;
+
+        if (true) {
+            // dd($guard);
+            $guard->save();
+            $user = Auth::User();
+            $event = Event::All()->where("id", "=", $id)->first();
+            $guard->events()->sync($event);
+            // $event->guards()->sync($guard);
+            $guard->users()->sync($user);
+            // $user->events()->sync($event);
+            // $event->users()->sync($event);
+        }else{
+            return redirect()->back()->withInput();
+        }
+
 
         return redirect()->route('event_list_proguard');
         // return redirect()->route('event_search');

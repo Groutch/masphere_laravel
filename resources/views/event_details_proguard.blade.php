@@ -37,6 +37,11 @@
 								<div>{{ $event->textbox }}</div>
 
 								<a id="event_sub_proguard" class="btn btn-default" href="/event_sub_details_proguard/{{ $event->id }}">S'inscrire</a>
+								@if($errors->any())
+								<div class="errors alert alert-danger" role="alert">
+									<strong>{{$errors->first()}}</strong>
+								</div>
+								@endif
 								
 							</div>
 						</div>
@@ -49,4 +54,5 @@
 @endsection
 
 @section('js')
+<script src="{{asset('js/event_details_proguard.js')}}"></script>
 @endsection

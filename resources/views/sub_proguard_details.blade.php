@@ -16,10 +16,9 @@
 				<div class="panel-heading"><h3>Mettre une annonce sur l'événement</h3></div>
 				<form method="post" action="/event_sub_proguard/{{ $event->id }}" class="form panel-body">
 					{{ csrf_field() }}
-
 					<label title="avoir une/des adresse.s valide.s permet d'être répertorié sur la carte">Lieu de grade chez moi/Lieu de travail</label>
 					<div class="place_receiver">
-						<input
+						<input required 
 						id="city"
 						type="text"
 						class="localstorage_inp place input-group input_place form-control"

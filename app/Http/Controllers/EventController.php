@@ -205,8 +205,10 @@ class EventController extends Controller
     public function showproguard($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
-
-        return view('event_details_proguard', compact('event'));
+        if($event){
+            return view('event_details_proguard', compact('event'));
+        }
+        redirect('event_details_proguard');
     }
 
     /**
@@ -218,12 +220,18 @@ class EventController extends Controller
     public function showprocult($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
-        $guards = $event->guards->map(function($a){
-            $decoded_list_places = json_decode($a->list_places);
-            $a->list_places = $decoded_list_places;
-            return $a;
-        });
-        return view('event_details_procult', compact('event', 'guards'));
+        // dd($event);
+        if($event !== null){
+        
+            $guards = $event->guards->map(function($a){
+                $decoded_list_places = json_decode($a->list_places);
+                $a->list_places = $decoded_list_places;
+                return $a;
+            });
+            return view('event_details_procult', compact('event', 'guards'));
+        
+        }
+        redirect('/afet');
     }
 
     /**
@@ -267,6 +275,7 @@ class EventController extends Controller
     {
         // dump($request);
         $event = Event::All()->where("id", "=", $id)->first();
+
         return view('sub_proguard_details', compact('event'));
     }
 
@@ -287,14 +296,8 @@ class EventController extends Controller
         $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
         $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
 
-        $guard->save();
         $user = Auth::User();
         $event = Event::All()->where("id", "=", $id)->first();
-        $guard->events()->sync($event);
-        // $event->guards()->sync($guard);
-        $guard->users()->sync($user);
-        // $user->events()->sync($event);
-        // $event->users()->sync($event);
 
         return redirect()->route('event_list_proguard');
         // return redirect()->route('event_search');
