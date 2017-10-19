@@ -17,7 +17,7 @@ class IsOrga
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::User()->roles->implode('slug') !== 'orga') {
+        if (Auth::User()->roles->implode('slug') !== 'orga' && Auth::User()->roles->implode('slug') !== 'admin') {
             return redirect('/home');
         }
 

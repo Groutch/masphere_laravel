@@ -178,7 +178,26 @@ class EventController extends Controller
         if(!$this->verifEventOwner($id, Auth::User())){
             return redirect('/event_list_orga');
         }
-        Event::all()->where('id', $id)->first()->delete();
+
+        $event = Event::all()->where('id', $id)->first();
+
+        $event_guards = $event->guards;
+
+        $event_guards->map(function($a){
+            // $statut = $a->statut;
+            $a->statut = 4;
+            $a->events()->detach();
+            return $a;
+        });
+
+        foreach ($event->guards as $event_guard) {
+            $guard = Guard::all()->where('id', $event_guard->id)->first();
+            $guard->statut = 4;
+            $guard->save();
+        }
+
+        // dd($event_guards);
+        $event->delete();
 
         return redirect()->route('event_list_orga');
     }

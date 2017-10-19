@@ -51,6 +51,7 @@ Route::group(['middleware'=>'auth'], function () {
 		Route::post('/event_sub_proguard/{id}', 'GuardController@store')->name('event_sub_proguard');
 		Route::get('/event_list_proguard/', 'GuardController@index')->name('event_list_proguard');
 		Route::get('/event_details_proguard/{id}', 'EventController@showproguard')->name('event_details_proguard');
+		Route::get('/guard_delete/{id}', 'GuardController@destroy')->name('guard_delete');
 	});
 
 	// ORGA ONLY

@@ -32,23 +32,10 @@ class GuardController extends Controller
     public function index(Request $request)
     {
     	$guards = $request->user()->guards;
-    	$events = [];
-    	$guards_usernbs = [];
 
-    	foreach ($guards as $keyguard => $guard) {
-    		$events[$keyguard] = $guard->events[0]->nom;
-    		$guards_usernbs[$keyguard] = [];
 
-    		// if($guard->list_procult){
-    		// 	// dump('coucou');
-    		// 	foreach (json_decode($guard->list_procult) as $keyuser => $user) {
-    		// 		$guards_usernbs[$keyguard][] = ['id'=>$user[0], 'name'=>$user[1]];
-    		// 	}
-    		// }
-    	}
-        // return view('event_details_procult', compact('event', 'guards', 'guards_ids'));
 
-    	return view('event_list_proguard', compact('guards', 'events', 'guards_usernbs'));
+    	return view('event_list_proguard', compact('guards'));
     }
 
     /**
@@ -85,7 +72,7 @@ class GuardController extends Controller
     {
 
         $userName = Auth::User()->name;
-    	$event = Event::All()->where("id", "=", $id)->first();
+        $event = Event::All()->where("id", "=", $id)->first();
 
         $usersNames = $event->guards->map(function($a){
             return $a->users[0]->name;
@@ -152,15 +139,36 @@ class GuardController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = Auth::User();
+        $guard = Guard::All()->where("id", "=", $id)->first();
+
+        if(!$this->verifGuardOwner($id, $user)){
+            return redirect('/event_list_proguard');
+        }
+
+        $guard->users()->detach();
+        $guard->delete();
+
+        return redirect('/event_list_proguard');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function createProcult(Request $request, $id)
     {
-    	$guard = Guard::All()->where("id", "=", $id)->first();
+        $guard = Guard::All()->where("id", "=", $id)->first();
 
-    	return view('sub_procult_details', compact('guard'));
+        return view('sub_procult_details', compact('guard'));
     }
 
     /**
@@ -171,29 +179,29 @@ class GuardController extends Controller
      */
     public function storeProcult(Request $request, $id)
     {
-    	$user = Auth::User();
-    	$guard = Guard::All()->where('id', '=', $id)->first();
-    	$user->guards()->sync($guard);
+        $user = Auth::User();
+        $guard = Guard::All()->where('id', '=', $id)->first();
+        $user->guards()->sync($guard);
 
-    	if(!$guard->list_procult){
-    		$procults = [];
-    	}else{
-    		$procults = json_decode($guard->list_procult);
-    	}
+        if(!$guard->list_procult){
+            $procults = [];
+        }else{
+            $procults = json_decode($guard->list_procult);
+        }
 
-    	$procults[] = [
-    	$user->name,
-    	strtotime($request->debutDate.' '.$request->debutHeure),
-    	strtotime($request->finDate.' '.$request->finHeure),
-    	$request->textbox,
-    	$user->id
-    	];
+        $procults[] = [
+        $user->name,
+        strtotime($request->debutDate.' '.$request->debutHeure),
+        strtotime($request->finDate.' '.$request->finHeure),
+        $request->textbox,
+        $user->id
+        ];
 
-    	$guard->list_procult = json_encode($procults);
+        $guard->list_procult = json_encode($procults);
 
-    	$guard->save();
+        $guard->save();
 
-    	return redirect()->route('event_list_procult');
+        return redirect()->route('event_list_procult');
         // return redirect()->route('event_search');
     }
 
@@ -205,8 +213,8 @@ class GuardController extends Controller
      */
     public function show(Request $request, $id)
     {
-    	$guard = $request->user()->guards->where('id', '=', $id)->first();
-    	return view('guard_details_pro', compact('guard'));
+        $guard = $request->user()->guards->where('id', '=', $id)->first();
+        return view('guard_details_pro', compact('guard'));
     }
 
     /**
@@ -251,17 +259,6 @@ class GuardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function updateProcult(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }
