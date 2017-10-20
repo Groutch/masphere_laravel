@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Event;
 use App\User;
 use App\Guard;
+use App\Urequest;
 
 class GuardController extends Controller
 {
@@ -33,7 +34,7 @@ class GuardController extends Controller
     {
     	$guards = $request->user()->guards;
 
-
+        // ajouter quelque chose : 
 
     	return view('event_list_proguard', compact('guards'));
     }
@@ -70,7 +71,6 @@ class GuardController extends Controller
      */
     public function store(Request $request, $id)
     {
-
         $userName = Auth::User()->name;
         $event = Event::All()->where("id", "=", $id)->first();
 
@@ -133,7 +133,6 @@ class GuardController extends Controller
             return redirect()->back()->withInput();
         }
 
-
         return redirect()->route('event_list_proguard');
         // return redirect()->route('event_search');
     }
@@ -153,9 +152,13 @@ class GuardController extends Controller
             return redirect('/event_list_proguard');
         }
 
-        $guard->users()->detach();
-        $guard->delete();
+        // dd($guard->users());
+        // [0]->detach()
+        // ;
 
+        if(false){
+            $guard->delete();
+        }
         return redirect('/event_list_proguard');
     }
 
@@ -179,30 +182,41 @@ class GuardController extends Controller
      */
     public function storeProcult(Request $request, $id)
     {
+
+        function geocode($city){
+            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+            $string = file_get_contents($fullurl); // get json content
+            $geoloc = json_decode($string, true); //json decoder
+
+            $coords = $geoloc['results'][0]['geometry']['location'];
+            // $lat = $coords['lat'];
+            // $long = $coords['long'];
+            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+        }
+
         $user = Auth::User();
         $guard = Guard::All()->where('id', '=', $id)->first();
         $user->guards()->sync($guard);
 
-        if(!$guard->list_procult){
-            $procults = [];
-        }else{
-            $procults = json_decode($guard->list_procult);
-        }
+        $urequest = new Urequest;
 
-        $procults[] = [
-        $user->name,
-        strtotime($request->debutDate.' '.$request->debutHeure),
-        strtotime($request->finDate.' '.$request->finHeure),
-        $request->textbox,
-        $user->id
-        ];
+        $geo = geocode($request->place);
+        $lat = $geo['lat'];
+        $long = $geo['long'];
 
-        $guard->list_procult = json_encode($procults);
+        $urequest->place = $request->place ;
+        $urequest->lat = $lat;
+        $urequest->long = $long;
 
-        $guard->save();
+        $urequest->debut = strtotime($request->debutDate.' '.$request->debutHeure);
+        $urequest->fin = strtotime($request->finDate.' '.$request->finHeure);
+        $urequest->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
+            
+        $urequest->save();
+        $urequest->guards()->sync($guard);
+        // $guard->urequests()->sync($urequest);
 
         return redirect()->route('event_list_procult');
-        // return redirect()->route('event_search');
     }
 
     /**

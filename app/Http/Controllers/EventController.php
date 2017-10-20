@@ -82,7 +82,6 @@ class EventController extends Controller
         $event->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $event->fin = strtotime($request->finDate.' '.$request->finHeure);
         $event->place = $request->place;
-        $event->stylemusical = $request->stylemusical;
         $event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);
@@ -146,7 +145,6 @@ class EventController extends Controller
         $event->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $event->fin = strtotime($request->finDate.' '.$request->finHeure);
         $event->place = $request->place;
-        $event->stylemusical = $request->stylemusical;
         $event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);

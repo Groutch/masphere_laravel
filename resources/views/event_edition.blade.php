@@ -76,11 +76,7 @@
 					value="{{$event->billetterie}}" 
 					>
 					<br />
-					{{-- 
-					<label title="">Style musical | facultatif</label>
-					<input type="text" class="form-control" placeholder="stylemusical" aria-describedby="sizing-addon2" name="stylemusical" value="">
-					<br />
-					 --}}
+					
 					<label title="">Commentaire | facultatif</label>
 					<textarea type="text"
 					class="form-control"

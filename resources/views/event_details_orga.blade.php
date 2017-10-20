@@ -38,7 +38,6 @@
 								<div>commentaire : {{ $event->textbox }}</div>
 								@endif
 								<div>lien billetterie : <a  href="{{ $event->billetterie }}" target="_blank" >{{ $event->billetterie }}</a> </div>
-								<div>style : {{ $event->stylemusical }}</div>
 								<div>date de création : {{ $event->created_at }}</div>
 							</div>
 						</div>

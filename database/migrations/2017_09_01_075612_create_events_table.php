@@ -22,7 +22,6 @@ class CreateEventsTable extends Migration
             $table->integer('long');
             $table->string('place');
             $table->string('list_performs')->nullable();
-            $table->string('stylemusical')->nullable();
             $table->string('billetterie')->nullable();
             $table->longText('textbox')->nullable();
             $table->timestamps();

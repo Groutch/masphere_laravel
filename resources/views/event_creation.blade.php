@@ -63,10 +63,6 @@
 					<input type="url" class="form-control" placeholder="http://example.com/billetterie" aria-describedby="sizing-addon2" name="billetterie">
 					<br />
 
-					<label title="">Style musical | facultatif</label>
-					<input type="text" class="form-control" placeholder="stylemusical" aria-describedby="sizing-addon2" name="stylemusical">
-					<br />
-
 					<label title="">Commentaire | facultatif</label>
 					<textarea type="text" class="form-control" placeholder="Commentaire" aria-describedby="sizing-addon2" name="textbox"></textarea>
 					<br />

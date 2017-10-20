@@ -54,12 +54,15 @@
 					</div>
 				</div>
 		        <div id="mapid"></div>
+		        <form method="post" action="/event_sub_procult/{{ $guard->id }}" class="form panel-body">
+		        	{{ csrf_field() }}
 				<div class="row">
                     <div class="col-xs-12 col-md-12">
                         <input
                         id="city"
-                        class="form-control"
                         type="text"
+                        name="place"
+                        class="form-control"
                         >
                     </div>
                     <input
@@ -92,8 +95,6 @@
                     style="display : none;"
                     > --}}
                 </div>
-		        <form method="post" action="/event_sub_procult/{{ $guard->id }}" class="form panel-body">
-		        	{{ csrf_field() }}
 
 		        	<label title="Date et heure">Debut de garde</label>
 

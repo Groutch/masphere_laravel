@@ -36,32 +36,31 @@
 									| 
 									@endforeach
 								</div>
-
 								@if ($guard->textbox)
 								<div><label for="">commentaire : </label><br />{{ $guard->textbox }}</div>
 								@endif
 								<div>date de création : {{ $guard->created_at }}</div>
 
-								@if($guard->list_procult)
+								@if($guard->userrequests)
 								<div class="card">
 									@if(Auth::User()->roles->implode('slug') == 'proguard')
 										<label>Propositions pour cette garde</label>
 									@else
 										<label>Votre proposition pour cette garde</label>
 									@endif
-									@foreach (json_decode($guard->list_procult) as $keyuser => $user)
-									@if(Auth::User()->roles->implode('slug') == 'proguard' || Auth::User()->id == $user[4])
+									@foreach ($guard->userrequests as $userrequest)
+									@if(Auth::User()->roles->implode('slug') == 'proguard' || Auth::User()->id == $userrequest->users[0]->id)
 
 									<div class="card">
-										Le {{ date( 'd/m/Y', $user[1]) }} 
-										@if(date( 'd/m/Y', $user[1]) === date( 'd/m/Y', $user[2]))
-											de {{ date( 'H:i', $user[1]) }} à {{ date( 'H:i', $user[2]) }}
+										Le {{ date( 'd/m/Y', $userrequest->debut) }} 
+										@if(date( 'd/m/Y', $userrequest->debut) === date( 'd/m/Y', $userrequest->fin))
+											de {{ date( 'H:i', $userrequest->debut) }} à {{ date( 'H:i', $userrequest->fin) }}
 										@else
-											{{ date( 'à H:i', $user[1]) }}
-											au {{ date( 'd/m/Y à H:i', $user[2]) }}
+											{{ date( 'à H:i', $userrequest->debut) }}
+											au {{ date( 'd/m/Y à H:i', $userrequest->fin) }}
 										@endif
 										@if ($guard->textbox)
-											<div>commentaire : {{ $user[3] }}</div>
+											<div>commentaire : {{ $userrequest->textbox }}</div>
 										@endif
 									</div>
 									@endif

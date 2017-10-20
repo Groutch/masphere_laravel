@@ -14,4 +14,8 @@ class Guard extends Model
     {
         return $this->belongsToMany('\App\User');
     }
+    public function urequests()
+	{
+		return $this->belongsToMany('App\Urequest');
+	}
 }

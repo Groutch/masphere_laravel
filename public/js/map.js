@@ -23,11 +23,13 @@ $('.place').each(function(){
 $('.place').on('click', function(){
 	lat = $(this).children('.lat').val();
 	long = $(this).children('.long').val();
-	map.setView([lat, long], 18);
+	if($('#mapid').length){	
+		map.setView([lat, long], 18);
+	}
 });
 
 // var map = L.map('mapid').setView([$('#lat').val(), $('#long').val()], 6);
-if($('#mapid')){
+if($('#mapid').length){
 	var map = L.map('mapid').setView([refpoint['lat'], refpoint['long']], 11);
 }
 
