@@ -17,13 +17,13 @@
 						</div>
 						
 						<div class="col-md-10 col-md-offset-1 col-xs-12">
-							<label title="Date et heure" >Commence au plus tôt</label>
+							<label title="Date" >Commence au plus tôt</label>
 							<input id="search_debut" type="date" class="form-control" placeholder="jj/mm/aaaa" aria-describedby="sizing-addon2" name="debut" value="<?php echo date("Y-m-d", time()+7200); ?>">
 							<br />
 						</div>
 						
 						<div class="col-md-10 col-md-offset-1 col-xs-12">
-							<label title="Date et heure" >Fini au plus tard</label>
+							<label title="Date" >Fini au plus tard</label>
 							<input id="search_fin" type="date" class="form-control" placeholder="jj/mm/aaaa" aria-describedby="sizing-addon2" name="fin" value="">
 							<br />
 						</div>

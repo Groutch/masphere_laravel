@@ -152,9 +152,7 @@ class GuardController extends Controller
             return redirect('/event_list_proguard');
         }
 
-        // dd($guard->users());
-        // [0]->detach()
-        // ;
+        $guard->users()->detach();
 
         if(false){
             $guard->delete();
@@ -169,6 +167,7 @@ class GuardController extends Controller
      */
     public function createProcult(Request $request, $id)
     {
+
         $guard = Guard::All()->where("id", "=", $id)->first();
 
         return view('sub_procult_details', compact('guard'));
@@ -196,22 +195,24 @@ class GuardController extends Controller
 
         $user = Auth::User();
         $guard = Guard::All()->where('id', '=', $id)->first();
+
         $user->guards()->sync($guard);
 
         $urequest = new Urequest;
 
         $geo = geocode($request->place);
+
         $lat = $geo['lat'];
         $long = $geo['long'];
 
-        $urequest->place = $request->place ;
+        $urequest->place = $request->place;
         $urequest->lat = $lat;
         $urequest->long = $long;
 
         $urequest->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $urequest->fin = strtotime($request->finDate.' '.$request->finHeure);
         $urequest->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
-            
+
         $urequest->save();
         $urequest->guards()->sync($guard);
         // $guard->urequests()->sync($urequest);

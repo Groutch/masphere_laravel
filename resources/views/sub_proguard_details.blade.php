@@ -67,7 +67,7 @@
 					value="{{ date("Y-m-d", $event->debut) }}"
 					>
 					<input required
-					type="text" class="localstorage_inp form-control"
+					type="time" class="localstorage_inp form-control"
 					placeholder="HH:mm"
 					aria-describedby="sizing-addon2"
 					name="debutHeure"
@@ -85,7 +85,7 @@
 					value="{{ date("Y-m-d", $event->fin) }}"
 					>
 					<input required
-					type="text"
+					type="time"
 					class="localstorage_inp form-control"
 					placeholder="HH:mm"
 					aria-describedby="sizing-addon2"

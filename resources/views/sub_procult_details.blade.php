@@ -109,7 +109,7 @@
 		        	>
 		        	<input required
 		        	name="debutHeure"
-		        	type="text"
+		        	type="time"
 		        	class="form-control"
 		        	placeholder="HH:mm"
 		        	aria-describedby="sizing-addon2"
@@ -130,7 +130,7 @@
 		        	>
 		        	<input required
 		        	name="finHeure"
-		        	type="text"
+		        	type="time"
 		        	class="form-control"
 		        	placeholder="HH:mm"
 		        	aria-describedby="sizing-addon2"

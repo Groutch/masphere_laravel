@@ -33,7 +33,7 @@
 						echo old('debutDate');
 					}
 					?>">
-					<input required type="text" class="form-control" placeholder="HH:mm" aria-describedby="sizing-addon2" name="debutHeure" value="<?php
+					<input required type="time" class="form-control" placeholder="HH:mm" aria-describedby="sizing-addon2" name="debutHeure" value="<?php
 					if(!old('debutHeure')){
 						echo date('H:i', time()+7200);
 					}else{
@@ -50,7 +50,7 @@
 						echo old('finDate');
 					}
 					?>">
-					<input required type="text" class="form-control" placeholder="HH:mm" aria-describedby="sizing-addon2" name="finHeure" value="<?php
+					<input required type="time" class="form-control" placeholder="HH:mm" aria-describedby="sizing-addon2" name="finHeure" value="<?php
 					if(!old('finheure')){
 						echo date('H:i', time()+7200);
 					}else{

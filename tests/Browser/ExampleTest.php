@@ -224,6 +224,7 @@ class ExampleTest extends DuskTestCase
 			->assertSee('Vos gardes')
 			// ->waitForText('COUCOUCOUCOUCU')
 			->assertSee($event->nom)
+			->assertDontSee('Whoops')
 			->click('#logoutlink')
 			;
 		});
@@ -270,12 +271,11 @@ class ExampleTest extends DuskTestCase
 			// ->type('finHeure', date('H:i', $event->fin))
 			->type('textbox', $text)
 			->press('Créer l\'annonce')
+			->assertDontSee('Whoops')
 			->click('#logoutlink')
 			;
 
 		});
-
-		
 	}
 
 	public function testInscriptionProcultsSurProguardspart2(){
@@ -304,15 +304,17 @@ class ExampleTest extends DuskTestCase
 			->click('.event_sub_procult')
 			->assertSee('38 Rue Kruger, Toulouse, France')
 			// ->type('place', '6 Rue d\'Austerlitz, Toulouse, France')
-			
+
 			// ->type('debutDate', date("Y-m-d", $event->debut))
 			// ->type('debutHeure', date('H:i', $event->debut))
 			// ->type('finDate', date("Y-m-d", $event->fin))
 			// ->type('finHeure', date('H:i', $event->fin))
 			->type('textbox', $text)
 			->press('Envoyer la demande')
-			->assertSee($event->nom)
-			->assertSee('38 Rue Kruger, Toulouse, France')
+			// ->assertSee($event->nom)
+			->assertDontSee('Whoops')
+			->waitForText('38 Rue Kruger, Toulouse, France')
+			// ->assertSee('38 Rue Kruger, Toulouse, France')
 			->click('#logoutlink')
 			;
 
@@ -323,29 +325,6 @@ class ExampleTest extends DuskTestCase
 	// 	$this->browse(function($procult, $proguard) use ($event, $text){
 			
 	// 	}
-	// }
-
-
-
-
-
-
-
-		// $this->assertDatabaseHas('guards', [
-		// 	'nom' => $event_bot_name,
-		// 	'nom' => $event_bot_name
-		// 	]);
-
-	// public function testConnectionOrga() {
-	// 	$user = User::find(1);
-	// 	$this->browse(function ($browser) use ($user) {
-	// 		$browser
-	// 		->visit('/login')
-	// 		->type('email', $user->email)
-	// 		->type('password', 'azerty')
-	// 		->press('Login')
-	// 		->assertPathIs('/orga');
-	// 	});
 	// }
 
 }
