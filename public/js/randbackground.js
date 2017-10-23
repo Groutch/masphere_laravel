@@ -1,10 +1,10 @@
 (function(){
-	// console.log('coucou random');
+	// images url
 	var images = [
 		// 'https://image.freepik.com/photos-libre/quot-pere-a-cheveux-court-portant-un-enfant-en-bas-age-sur-les-epaules-quot_1304-4145.jpg',
-		'photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435', // https://image.freepik.com/photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435.jpg
-		'photos-libre/jeune-parent-joue-avec-un-garcon-enfantin_1304-4269',
-		'photos-libre/jeune-famille-dans-la-rue_1157-4584'
+		'https://image.freepik.com/photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435.jpg', // https://image.freepik.com/photos-libre/parc-de-bonheur-deux-portrait-brune_1157-3435.jpg
+		'https://image.freepik.com/photos-libre/jeune-parent-joue-avec-un-garcon-enfantin_1304-4269.jpg',
+		'https://image.freepik.com/photos-libre/jeune-famille-dans-la-rue_1157-4584.jpg'
 	];
 
 	var randimg = images[Math.ceil(Math.random()*(images.length-1))];
@@ -19,7 +19,7 @@
 
 	$('#bg')
 	// .css('background-color', '#9E9E9E')
-	.css('background', 'url(https://image.freepik.com/'+randimg+'.jpg) no-repeat center center')
+	.css('background', 'url('+randimg+') no-repeat center center')
 	.css('height', '100%')
 	.css('width', '100%')
 	.css('background-size', 'cover')

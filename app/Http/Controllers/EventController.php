@@ -39,14 +39,18 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function geocode($city){
-            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-            $string = file_get_contents($fullurl); // get json content
-            $geoloc = json_decode($string, true); //json decoder
+            if ($city) {
+                $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+                $string = file_get_contents($fullurl); // get json content
+                $geoloc = json_decode($string, true); //json decoder
 
-            $coords = $geoloc['results'][0]['geometry']['location'];
-            // $lat = $coords['lat'];
-            // $long = $coords['long'];
-            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+                $coords = $geoloc['results'][0]['geometry']['location'];
+                // $lat = $coords['lat'];
+                // $long = $coords['long'];
+                return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+            }else{
+                return ['lat' => '', 'long' => ''];
+            }
         }
 
     /**

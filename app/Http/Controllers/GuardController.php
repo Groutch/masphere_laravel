@@ -183,14 +183,19 @@ class GuardController extends Controller
     {
 
         function geocode($city){
-            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-            $string = file_get_contents($fullurl); // get json content
-            $geoloc = json_decode($string, true); //json decoder
+            if ($city) {
+                $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+                $string = file_get_contents($fullurl); // get json content
+                $geoloc = json_decode($string, true); //json decoder
 
-            $coords = $geoloc['results'][0]['geometry']['location'];
-            // $lat = $coords['lat'];
-            // $long = $coords['long'];
-            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+                $coords = $geoloc['results'][0]['geometry']['location'];
+                // $lat = $coords['lat'];
+                // $long = $coords['long'];
+                return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+            }else{
+                return ['lat' => null, 'long' => null];
+            }
+
         }
 
         $user = Auth::User();
@@ -205,7 +210,7 @@ class GuardController extends Controller
         $lat = $geo['lat'];
         $long = $geo['long'];
 
-        $urequest->place = $request->place;
+        $urequest->place = $request->place?$request->place:$guard->list_places[0];
         $urequest->lat = $lat;
         $urequest->long = $long;
 

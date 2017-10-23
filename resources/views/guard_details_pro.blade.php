@@ -39,17 +39,27 @@
 									<div><label for="">commentaire : </label><br />{{ $guard->textbox }}</div><br />
 								@endif
 								{{-- <div>date de création : {{ $guard->created_at }}</div> --}}
-
-								@if(count($guard->urequests))
+								{{dd(
+									$guard->urequests->search(function ($item, $key) {
+								    return $item->id == 2;
+								})
+								)}}
+								@if($guard->urequests->search(function ($item, $key) {
+								    return $item->id;
+								})->first())
 									<div class="card">
 										@if(Auth::User()->roles->implode('slug') == 'proguard')
-											<label>Propositions pour cette garde</label>
+											@if (count($guard->urequests))
+												<label>Propositions pour cette garde</label>
+											@endif
 										@else
-											<label>Votre proposition pour cette garde</label>
+											@if (count($guard->urequests))
+												<label>Votre proposition pour cette garde</label>
+											@endif
 										@endif
 									@foreach ($guard->urequests as $urequest)
-									{{dd($urequest)}}
-										@if(Auth::User()->roles->implode('slug') == 'proguard' || Auth::User()->id == $urequest->users[0]->id)
+									{{-- {{dd($urequest->guards->first()->users->first()->id)}} --}}
+										@if(Auth::User()->roles->implode('slug') == 'proguard' || array_search(Auth::User()->id, haystack)  == $urequest->guards->first()->users->first()->id)
 
 										<div class="card">
 											Le {{ date( 'd/m/Y', $urequest->debut) }} 

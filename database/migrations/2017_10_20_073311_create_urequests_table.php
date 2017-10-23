@@ -16,8 +16,8 @@ class CreateUrequestsTable extends Migration
         Schema::create('urequests', function (Blueprint $table) {
             $table->increments('id');
             $table->string('place');
-            $table->string('lat');
-            $table->string('long');
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
             $table->string('debut');
             $table->string('fin');
             $table->longText('textbox');
