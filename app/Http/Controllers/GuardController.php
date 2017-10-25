@@ -213,6 +213,7 @@ class GuardController extends Controller
         $urequest->place = $request->place?$request->place:$guard->list_places[0];
         $urequest->lat = $lat;
         $urequest->long = $long;
+        $urequest->user_id = $user->id;
 
         $urequest->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $urequest->fin = strtotime($request->finDate.' '.$request->finHeure);
@@ -220,6 +221,7 @@ class GuardController extends Controller
 
         $urequest->save();
         $urequest->guards()->sync($guard);
+
         // $guard->urequests()->sync($urequest);
 
         return redirect()->route('event_list_procult');
