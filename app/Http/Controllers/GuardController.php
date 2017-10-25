@@ -191,12 +191,14 @@ class GuardController extends Controller
      */
     public function storeProcult(Request $request, $id)
     {
+        $user = Auth::User();
+        $guard = Guard::All()->where('id', '=', $id)->first();
 
         $usersNames = $guard->users->map(function($a){
             return $a->name;
         });
 
-        if($usersNames->contains($userName)){
+        if($usersNames->contains($user->name)){
             return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
         };
 
@@ -215,9 +217,6 @@ class GuardController extends Controller
             }
 
         }
-
-        $user = Auth::User();
-        $guard = Guard::All()->where('id', '=', $id)->first();
 
         $user->guards()->sync($guard);
 
