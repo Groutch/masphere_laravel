@@ -41,8 +41,8 @@
 								{{-- <div>date de création : {{ $guard->created_at }}</div> --}}
 								{{dd(
 									$guard->urequests->search(function ($item, $key) {
-								    return $item->id == 2;
-								})
+								    	return $item->id == 2;
+									})
 								)}}
 								@if($guard->urequests->search(function ($item, $key) {
 								    return $item->id;
