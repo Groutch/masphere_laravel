@@ -39,6 +39,11 @@
 							<a class="btn btn-default" href="{{ $event->billetterie }}" target="_blank">BILLETTERIE</a>
 							@if(count($guards))
 							<hr />
+								@if($errors->any())
+								<div class="errors alert alert-danger" role="alert">
+									<strong>{{$errors->first()}}</strong>
+								</div>
+								@endif
 							<div class="row">
 								@foreach ($guards as $key => $guard)
 								<div class="panel panel-default col-md-3">

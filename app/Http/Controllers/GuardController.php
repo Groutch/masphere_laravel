@@ -169,6 +169,16 @@ class GuardController extends Controller
     {
 
         $guard = Guard::All()->where("id", "=", $id)->first();
+        $userName = Auth::User()->name;
+
+        $usersNames = $guard->users->map(function($a){
+            return $a->name;
+        });
+
+        if($usersNames->contains($userName)){
+            // return redirect()->back()->withMessage('Deja inscrit ');
+            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
+        }
 
         return view('sub_procult_details', compact('guard'));
     }
@@ -181,6 +191,14 @@ class GuardController extends Controller
      */
     public function storeProcult(Request $request, $id)
     {
+
+        $usersNames = $guard->users->map(function($a){
+            return $a->name;
+        });
+
+        if($usersNames->contains($userName)){
+            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
+        };
 
         function geocode($city){
             if ($city) {

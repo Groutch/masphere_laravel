@@ -38,14 +38,8 @@
 								@if ($guard->textbox)
 									<div><label for="">commentaire : </label><br />{{ $guard->textbox }}</div><br />
 								@endif
-								{{-- <div>date de création : {{ $guard->created_at }}</div> --}}
-								{{-- {{dd(
-									$guard->urequests->search(function ($item, $key) {
-								    return $item->id == 2;
-								})
-								)}} --}}
+
 								@if($guard->urequests)
-								{{-- {{dd($guard->urequests)}} --}}
 									<div class="card">
 										@if(Auth::User()->roles->implode('slug') == 'proguard')
 											@if (count($guard->urequests))
