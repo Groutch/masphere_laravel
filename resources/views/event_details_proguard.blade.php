@@ -41,8 +41,8 @@
 						</div>
 					</div>
 					@if($errors->any())
-					<div class="errors alert alert-danger" role="alert">
-						<strong>{{$errors->first()}}</strong>
+					<div >
+						<strong>{{dd($errors->first())}}</strong>
 					</div>
 					@endif
 				</div>

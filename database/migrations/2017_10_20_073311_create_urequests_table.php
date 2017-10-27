@@ -15,6 +15,7 @@ class CreateUrequestsTable extends Migration
     {
         Schema::create('urequests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('place');
             $table->string('lat')->nullable();
             $table->string('long')->nullable();

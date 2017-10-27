@@ -169,6 +169,16 @@ class GuardController extends Controller
     {
 
         $guard = Guard::All()->where("id", "=", $id)->first();
+        $userName = Auth::User()->name;
+
+        $usersNames = $guard->users->map(function($a){
+            return $a->name;
+        });
+
+        if($usersNames->contains($userName)){
+            // return redirect()->back()->withMessage('Deja inscrit ');
+            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
+        }
 
         return view('sub_procult_details', compact('guard'));
     }
@@ -181,6 +191,16 @@ class GuardController extends Controller
      */
     public function storeProcult(Request $request, $id)
     {
+        $user = Auth::User();
+        $guard = Guard::All()->where('id', '=', $id)->first();
+
+        $usersNames = $guard->users->map(function($a){
+            return $a->name;
+        });
+
+        if($usersNames->contains($user->name)){
+            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
+        };
 
         function geocode($city){
             if ($city) {
@@ -198,9 +218,6 @@ class GuardController extends Controller
 
         }
 
-        $user = Auth::User();
-        $guard = Guard::All()->where('id', '=', $id)->first();
-
         $user->guards()->sync($guard);
 
         $urequest = new Urequest;
@@ -213,6 +230,7 @@ class GuardController extends Controller
         $urequest->place = $request->place?$request->place:$guard->list_places[0];
         $urequest->lat = $lat;
         $urequest->long = $long;
+        $urequest->user_id = $user->id;
 
         $urequest->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $urequest->fin = strtotime($request->finDate.' '.$request->finHeure);
@@ -220,6 +238,7 @@ class GuardController extends Controller
 
         $urequest->save();
         $urequest->guards()->sync($guard);
+
         // $guard->urequests()->sync($urequest);
 
         return redirect()->route('event_list_procult');

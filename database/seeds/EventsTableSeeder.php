@@ -14,8 +14,8 @@ class EventsTableSeeder extends Seeder
 
         DB::table('events')->insert([
             'nom' => 'Debout Les Morts',
-            'lat' => 43.594083,
-            'long' => 1.449471,
+            'lat' => '43.594083',
+            'long' => '1.449471',
             'place' => 'Muséum de Toulouse, Allée Jules Guesde, Toulouse, France',
             'debut' => time()+(24*60*60),
             'fin' => time()+(2*25*60*60),
@@ -26,8 +26,8 @@ class EventsTableSeeder extends Seeder
 
         DB::table('events')->insert([
             'nom' => 'Totipotent',
-            'lat' => 43.608292,
-            'long' => 1.441766,
+            'lat' => '43.608292',
+            'long' => '1.441766',
             'place' => 'Basilique Saint-Sernin de Toulouse, Place Saint-Sernin, Toulouse, France',
             'debut' => time()+(2*24*60*60),
             'fin' => time()+(4*25*60*60),
@@ -38,8 +38,8 @@ class EventsTableSeeder extends Seeder
 
         DB::table('events')->insert([
             'nom' => 'Albert Einstein',
-            'lat' => 43.641478,
-            'long' => 1.450577,
+            'lat' => '43.641478',
+            'long' => '1.450577',
             'place' => 'Metronum, Toulouse, France',
             'debut' => time()+(4*24*60*60),
             'fin' => time()+(5*12*30*60),
