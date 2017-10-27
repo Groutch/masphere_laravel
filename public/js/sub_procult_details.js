@@ -5,7 +5,4 @@
 	$('input').on('submit', function(e){
 		e.preventDefault();
 	})
-	// $('body').mousemove(function(e){
-		// console.log(e.pageX + ' ' + e.pageY);
-	// })
 })()
