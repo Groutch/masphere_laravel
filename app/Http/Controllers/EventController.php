@@ -21,7 +21,8 @@ class EventController extends Controller
     }
 
     /**
-     * redirect /event_list_orga if the concerned event is not owned by the inline user.
+     * take hte id of an event and an user (User::where('id', $id)) 
+     * and return a boolean true if the concerned event is owned by the inline user.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,7 +35,8 @@ class EventController extends Controller
     }
 
     /**
-     * redirect /event_list_orga if the concerned event is not owned by the inline user.
+     * take a string générated by autocomplete
+     * and return an array with lat and long.
      *
      * @return \Illuminate\Http\Response
      */
@@ -54,7 +56,7 @@ class EventController extends Controller
         }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new event.
      *
      * @return \Illuminate\Http\Response
      */
@@ -64,14 +66,13 @@ class EventController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created event in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
         $event = new Event;
 
         $event->nom = $request->nom;
@@ -101,11 +102,10 @@ class EventController extends Controller
         }
         return back()->withInput();
 
-        // $event->users()->sync($event);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified event.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -122,7 +122,7 @@ class EventController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified event in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -170,7 +170,7 @@ class EventController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified event from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -205,7 +205,7 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified event for user who have orga role.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -218,7 +218,7 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified event for user who have proguard role.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -233,7 +233,7 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified event for user who have procult role.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -256,7 +256,7 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user's events.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -269,7 +269,7 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display all events and the number of guard on each of them.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -278,7 +278,6 @@ class EventController extends Controller
     {
         $events = Event::all();
         $guards_nb = Event::all()->map(function($event){
-            // dump(count($event->guards));
             return count($event->guards);
         });
 
@@ -287,7 +286,7 @@ class EventController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form used by proguard for create a guard on an event.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -301,7 +300,7 @@ class EventController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created guard in storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

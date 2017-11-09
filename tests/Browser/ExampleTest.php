@@ -137,47 +137,47 @@ class ExampleTest extends DuskTestCase
 		$randEvent = Event::find(mt_rand(1, count(Event::all())));
 		$event_bot_name3 = 'eventbot3/'.substr(md5(mt_rand()), 0, 7);
 
-		$this->browse(function($orga3, $proguard) use ($randEvent, $event_bot_name3) {
+$this->browse(function($orga3, $proguard) use ($randEvent, $event_bot_name3) {
 
-			$orga3
-			->visit('/')
-			->type('email', 'orga2@gmail.com')
-			->type('password', 'azerty')
-			->press('Login')
-			->click('#create')
-			->type('nom', $event_bot_name3)
-			->type('billetterie', 'https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal')
-			->type('place', '7 Rue Léon Gambetta, Toulouse, France')
-			->type('finHeure', '23:30')
-			->type('list_performs[0]', substr(md5(mt_rand()), 0, 7))
-			->press('ajouter un spectacle de plus')
-			->type('list_performs[1]', substr(md5(mt_rand()), 0, 7))
-			->press('ajouter un spectacle de plus')
-			->type('list_performs[2]', substr(md5(mt_rand()), 0, 7))
-			->press('ajouter un spectacle de plus')
-			->type('list_performs[3]', substr(md5(mt_rand()), 0, 7))
-			->type('textbox', substr(md5(mt_rand()), 0, 7))
-			->press('Créer l\'événement')
-			->waitForText($event_bot_name3)
-			->assertSee($event_bot_name3)
-			->assertDontSee('Whoops')
-			->click('#logoutlink')
-			;
+	$orga3
+	->visit('/')
+	->type('email', 'orga2@gmail.com')
+	->type('password', 'azerty')
+	->press('Login')
+	->click('#create')
+	->type('nom', $event_bot_name3)
+	->type('billetterie', 'https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal')
+	->type('place', '7 Rue Léon Gambetta, Toulouse, France')
+	->type('finHeure', '23:30')
+	->type('list_performs[0]', substr(md5(mt_rand()), 0, 7))
+	->press('ajouter un spectacle de plus')
+	->type('list_performs[1]', substr(md5(mt_rand()), 0, 7))
+	->press('ajouter un spectacle de plus')
+	->type('list_performs[2]', substr(md5(mt_rand()), 0, 7))
+	->press('ajouter un spectacle de plus')
+	->type('list_performs[3]', substr(md5(mt_rand()), 0, 7))
+	->type('textbox', substr(md5(mt_rand()), 0, 7))
+	->press('Créer l\'événement')
+	->waitForText($event_bot_name3)
+	->assertSee($event_bot_name3)
+	->assertDontSee('Whoops')
+	->click('#logoutlink')
+	;
 
-			$proguard
-			->visit('/')
-			->type('email', 'proguard@gmail.com')
-			->type('password', 'azerty')
-			->press('Login')
-			->click('#search')
-			->assertSee($event_bot_name3)
-			->visit('/event_details_proguard/'.$randEvent->id)
-			->assertSee('S\'inscrire')
-			->assertSee($randEvent->nom)
-			->assertDontSee('Whoops')
-			->click('#logoutlink')
-			;
-		});
+	$proguard
+	->visit('/')
+	->type('email', 'proguard@gmail.com')
+	->type('password', 'azerty')
+	->press('Login')
+	->click('#search')
+	->assertSee($event_bot_name3)
+	->visit('/event_details_proguard/'.$randEvent->id)
+	->assertSee('S\'inscrire')
+	->assertSee($randEvent->nom)
+	->assertDontSee('Whoops')
+	->click('#logoutlink')
+	;
+});
 	}
 
 	public function testProgardEvent(){

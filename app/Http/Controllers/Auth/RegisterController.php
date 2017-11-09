@@ -68,7 +68,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        $user->roles()->sync(Role::where('slug', $data['profile'])->first());
+        $role = Role::where('slug', $data['profile'])->first();
+        $user->roles()->sync($role);
         return $user;
     }
 }
