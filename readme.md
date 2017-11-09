@@ -8,12 +8,12 @@ The website has 3 type of users.
 - They can from there see the list of the events they organize.
 - They can add/delete/update events.
 
-### childcare pro | This section is specifically designed for childcare pro and they can navigate through 3 sections: research, dashboard, profil.
+### Childcare pro | This section is specifically designed for childcare pro and they can navigate through 3 sections: research, dashboard, profil.
 - research : from there they can search for events and sign up to warn that they can keep children for the duration of the performance.
 - dashboard : here the users will find a summary of all the proposals they have posted.
 - profil : users description and more informations (not in place for now).
 
-### artists and cultural professional technicians | This section is specifically designed for artists/cultural professional technicians, they can navigate through 3 sections: research, dashboard, profil.
+### Artists and cultural professional technicians | They can navigate through 3 sections: research, dashboard, profil.
 - research : from there they can search for events and sign up on proposals created by childcare professionals.
 - dashboard : here the users will find a summary of all the proposals they have choosed.
 - profil : users description and more informations (not in place for now).
