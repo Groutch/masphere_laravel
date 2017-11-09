@@ -13,7 +13,8 @@ class GuardController extends Controller
 {
 
     /**
-     * redirect /event_list_orga if the concerned event is not owned by the inline user.
+     * take the id of an event and an user (User::where('id', $id)) 
+     * and return a boolean true if the concerned event is owned by the inline user.
      *
      * @return \Illuminate\Http\Response
      */
@@ -26,7 +27,7 @@ class GuardController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display the specified user's guards.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,13 +35,11 @@ class GuardController extends Controller
     {
     	$guards = $request->user()->guards;
 
-        // ajouter quelque chose : 
-
     	return view('event_list_proguard', compact('guards'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new guard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -64,7 +63,7 @@ class GuardController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created guard in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -138,7 +137,7 @@ class GuardController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified guard from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -161,7 +160,7 @@ class GuardController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form used by procult for create a request on an guard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -184,7 +183,7 @@ class GuardController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created urequest in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -245,7 +244,7 @@ class GuardController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified guards.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
