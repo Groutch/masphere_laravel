@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Event;
-use App\User;
-use App\Guard;
-use App\Urequest;
+use App\Model\Event;
+use App\Model\User;
+use App\Model\Guard;
+use App\Model\Urequest;
 
 class GuardController extends Controller
 {

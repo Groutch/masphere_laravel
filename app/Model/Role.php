@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,8 +8,13 @@ class Role extends Model
 {
 	protected $hidden = ['id'];
 	
+	/*
+     *
+     * link function to link User
+     *
+     */	
     public function users()
 	{
-		return $this->belongsToMany('App\User');
+		return $this->belongsToMany('App\Model\User');
 	}
 }

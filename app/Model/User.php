@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,19 +27,34 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /*
+     *
+     * link function to link Event
+     *
+     */
     public function events()
     {
-        return $this->belongsToMany('\App\Event');
+        return $this->belongsToMany('\App\Model\Event');
     }
 
+    /*
+     *
+     * link function to link Role
+     *
+     */
     public function roles()
     {
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany('App\Model\Role');
     }
 
+    /*
+     *
+     * link function to link Guard
+     *
+     */
     public function guards()
     {
-        return $this->belongsToMany('App\Guard');
+        return $this->belongsToMany('App\Model\Guard');
     }
 
 }

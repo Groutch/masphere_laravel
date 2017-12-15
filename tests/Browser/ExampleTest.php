@@ -5,8 +5,8 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use App\User;
-use App\Event;
+use App\Model\User;
+use App\Model\Event;
 
 class ExampleTest extends DuskTestCase
 {
@@ -55,7 +55,7 @@ class ExampleTest extends DuskTestCase
 			->type('nom', $event_bot_name)
 			->type('billetterie', 'https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal')
 			->type('place', '16 Rue de l\'Industrie, Toulouse, France')
-			->type('finHeure', '23:30')
+			// ->type('finHeure', '23:30')
 			->type('list_performs[0]', substr(md5(mt_rand()), 0, 7))
 			->press('ajouter un spectacle de plus')
 			->type('list_performs[1]', substr(md5(mt_rand()), 0, 7))
@@ -65,6 +65,7 @@ class ExampleTest extends DuskTestCase
 			->type('list_performs[3]', substr(md5(mt_rand()), 0, 7))
 			->type('textbox', substr(md5(mt_rand()), 0, 7))
 			->press('Créer l\'événement')
+			->visit('/event_list_orga')
 			->waitForText($event_bot_name)
 			->assertSee($event_bot_name)
 			->assertDontSee('Whoops')
