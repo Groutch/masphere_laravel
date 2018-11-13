@@ -53,13 +53,9 @@ class GuardController extends Controller
             return $a->users[0]->name;
         });
         if($usersNames->contains($userName)){
-            // return redirect()->back()->withMessage('Deja inscrit ');
             return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cet événement']);
         }
-
-        // if(){
             return view('sub_proguard_details', compact('event'));
-        // }
     }
 
     /**
@@ -77,18 +73,10 @@ class GuardController extends Controller
             return $a->users[0]->name;
         });
         if($usersNames->contains($userName)){
-            // return redirect()->back()->withMessage('Deja inscrit ');
             return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cet événement']);
         }
 
         function geocode($city){
-            // $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-            // $string = file_get_contents($fullurl); // get json content
-            // $geoloc = json_decode($string, true); //json decoder
-
-            // $coords = $geoloc['results'][0]['geometry']['location'];
-            // // $lat = $coords['lat'];
-            // // $long = $coords['long'];
             $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
             $string = file_get_contents($fullurl); // get json content
             $geoloc = json_decode($string, true); //json decoder
@@ -96,7 +84,6 @@ class GuardController extends Controller
         }
 
         $guard = new Guard;
-
         $guard->list_places = json_encode($request->list_places);
         $result_list_places = [];
 
@@ -119,24 +106,17 @@ class GuardController extends Controller
         $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
         $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
 
-        // $userId = Auth::User()->id;
-
         if (true) {
-            // dd($guard);
             $guard->save();
             $user = Auth::User();
             $event = Event::All()->where("id", "=", $id)->first();
             $guard->events()->sync($event);
-            // $event->guards()->sync($guard);
             $guard->users()->sync($user);
-            // $user->events()->sync($event);
-            // $event->users()->sync($event);
         }else{
             return redirect()->back()->withInput();
         }
 
         return redirect()->route('event_list_proguard');
-        // return redirect()->route('event_search');
     }
 
     /**
@@ -178,7 +158,6 @@ class GuardController extends Controller
         });
 
         if($usersNames->contains($userName)){
-            // return redirect()->back()->withMessage('Deja inscrit ');
             return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
         }
 
@@ -206,16 +185,9 @@ class GuardController extends Controller
 
         function geocode($city){
             if ($city) {
-                // $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-                // $string = file_get_contents($fullurl); // get json content
-                // $geoloc = json_decode($string, true); //json decoder
-
-                // $coords = $geoloc['results'][0]['geometry']['location'];
-                // // $lat = $coords['lat'];
-                // // $long = $coords['long'];
                 $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
-                $string = file_get_contents($fullurl); // get json content
-                $geoloc = json_decode($string, true); //json decoder
+                $string = file_get_contents($fullurl); 
+                $geoloc = json_decode($string, true); 
                 return ['lat' => $geoloc['lat'], 'long' => $geoloc['lon']];
             }else{
                 return ['lat' => null, 'long' => null];
@@ -243,8 +215,6 @@ class GuardController extends Controller
 
         $urequest->save();
         $urequest->guards()->sync($guard);
-
-        // $guard->urequests()->sync($urequest);
 
         return redirect()->route('event_list_procult');
     }

@@ -41,22 +41,15 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function geocode($city){
-            if ($city) {
-                // $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
-                // $string = file_get_contents($fullurl); // get json content
-                // $geoloc = json_decode($string, true); //json decoder
-
-                // $coords = $geoloc['results'][0]['geometry']['location'];
-                // // $lat = $coords['lat'];
-                // // $long = $coords['long'];
-                $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
-                $string = file_get_contents($fullurl); // get json content
-                $geoloc = json_decode($string, true); //json decoder
-                return ['lat' => $geoloc['lat'], 'long' => $geoloc['lon']];
-            }else{
-                return ['lat' => '', 'long' => ''];
-            }
+        if ($city) {
+            $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
+            $string = file_get_contents($fullurl);
+            $geoloc = json_decode($string, true);
+            return ['lat' => $geoloc['lat'], 'long' => $geoloc['lon']];
+        }else{
+            return ['lat' => '', 'long' => ''];
         }
+    }
 
     /**
      * Show the form for creating a new event.
@@ -93,9 +86,6 @@ class EventController extends Controller
         $event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);
-        // $event->duration = $event->fin - $event->debut;
-        // dd(json_encode($request->list_performs));
-
         if($event->debut < $event->fin){
             $event->save();
             $user = Auth::User();
@@ -155,9 +145,6 @@ class EventController extends Controller
         $event->billetterie = $request->billetterie;
         $event->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
         $event->list_performs = json_encode($request->list_performs);
-        // $event->duration = $event->fin - $event->debut;
-        // dd(json_encode($request->list_performs));
-
         if($event->debut < $event->fin){
             $event->save();
             $user = Auth::User();
@@ -165,10 +152,7 @@ class EventController extends Controller
 
             return redirect()->route('event_list_orga');
         }
-        return back()->withInput();
-
-        // $user->events()->sync($event);
-        
+        return back()->withInput();      
         return view('event_edition', compact('event'));
     }
 
@@ -189,7 +173,6 @@ class EventController extends Controller
         $event_guards = $event->guards;
 
         $event_guards->map(function($a){
-            // $statut = $a->statut;
             $a->statut = 4;
             $a->events()->detach();
             return $a;
@@ -200,8 +183,6 @@ class EventController extends Controller
             $guard->statut = 4;
             $guard->save();
         }
-
-        // dd($event_guards);
         $event->delete();
 
         return redirect()->route('event_list_orga');
@@ -244,16 +225,14 @@ class EventController extends Controller
     public function showprocult($id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
-        // dd($event);
         if($event !== null){
-        
+            
             $guards = $event->guards->map(function($a){
                 $decoded_list_places = json_decode($a->list_places);
                 $a->list_places = $decoded_list_places;
                 return $a;
             });
             return view('event_details_procult', compact('event', 'guards'));
-        
         }
         redirect('/afet');
     }
@@ -283,8 +262,6 @@ class EventController extends Controller
         $guards_nb = Event::all()->map(function($event){
             return count($event->guards);
         });
-
-        // dd($guards_nb);
         return view('event_search', compact('events', 'guards_nb'));
     }
 
@@ -323,6 +300,5 @@ class EventController extends Controller
         $event = Event::All()->where("id", "=", $id)->first();
 
         return redirect()->route('event_list_proguard');
-        // return redirect()->route('event_search');
     }
 }
