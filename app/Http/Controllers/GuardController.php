@@ -82,14 +82,17 @@ class GuardController extends Controller
         }
 
         function geocode($city){
-            $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+            // $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+            // $string = file_get_contents($fullurl); // get json content
+            // $geoloc = json_decode($string, true); //json decoder
+
+            // $coords = $geoloc['results'][0]['geometry']['location'];
+            // // $lat = $coords['lat'];
+            // // $long = $coords['long'];
+            $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
             $string = file_get_contents($fullurl); // get json content
             $geoloc = json_decode($string, true); //json decoder
-
-            $coords = $geoloc['results'][0]['geometry']['location'];
-            // $lat = $coords['lat'];
-            // $long = $coords['long'];
-            return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+            return ['lat' => $geoloc['lat'], 'long' => $geoloc['lon']];
         }
 
         $guard = new Guard;
@@ -203,14 +206,17 @@ class GuardController extends Controller
 
         function geocode($city){
             if ($city) {
-                $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+                // $fullurl = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($city) . "&lang=fr&key=AIzaSyBoZgHPmD27VzTcCSz4UlSm32GqtfYLsuk";
+                // $string = file_get_contents($fullurl); // get json content
+                // $geoloc = json_decode($string, true); //json decoder
+
+                // $coords = $geoloc['results'][0]['geometry']['location'];
+                // // $lat = $coords['lat'];
+                // // $long = $coords['long'];
+                $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
                 $string = file_get_contents($fullurl); // get json content
                 $geoloc = json_decode($string, true); //json decoder
-
-                $coords = $geoloc['results'][0]['geometry']['location'];
-                // $lat = $coords['lat'];
-                // $long = $coords['long'];
-                return ['lat' => $coords['lat'], 'long' => $coords['lng']];
+                return ['lat' => $geoloc['lat'], 'long' => $geoloc['lon']];
             }else{
                 return ['lat' => null, 'long' => null];
             }
