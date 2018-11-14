@@ -21,7 +21,4 @@
 		attrNamelist_performsX();
 		scroll(0, window.pageYOffset + 36);
 	})
-	// $('body').mousemove(function(e){
-		// console.log(e.pageX + ' ' + e.pageY);
-	// })
 })()
