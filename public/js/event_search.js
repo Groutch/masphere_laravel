@@ -1,7 +1,5 @@
 (function(){
 
-	console.log('coucousearch');
-
 	function events_filter(){
 
 		var inpname = $('#search_text_input').val().toLowerCase(),
@@ -13,7 +11,6 @@
 		if(!inpfin){
 			inpfin = undefined;
 		}
-		// console.log((new Date(inpdebut).getTime()/1000));
 		$('.event').each(function(e, i) {
 			var t = $(this),
 			name = t.attr('data-name').toLowerCase(),
@@ -27,28 +24,15 @@
 				totaleventtemp--;
 			}
 		});
-
 		if(totaleventtemp == 0){
 			$('#no-event-found').show();
 		}else{
 			$('#no-event-found').hide();
 		}
-	};events_filter()
-
-	$('#search_text_input').on('keyup', function(){
+	};
+	events_filter()
+	$('#event').on('click',function(){
 		events_filter();
-	});
-
-	$('#search_text_input').on('focusout', function(){
-		events_filter();
-	});
-
-	$('#search_fin').on('change', function(){
-		events_filter();
-	});
-
-	$('#search_debut').on('change', function(){
-		events_filter();
-	});
+	})
 
 })();

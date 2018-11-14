@@ -44,6 +44,7 @@
 						</div>
 					</div> --}}
 				</div>
+				<button type="submit" id="event" class="btn btn-primary">Rechercher</button>
 				{{-- </form> --}}
 			</div>
 			<hr />
