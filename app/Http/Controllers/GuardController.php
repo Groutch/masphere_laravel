@@ -211,7 +211,7 @@ class GuardController extends Controller
 
         $urequest->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $urequest->fin = strtotime($request->finDate.' '.$request->finHeure);
-        $urequest->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
+        $urequest->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $user->name.'/'.$request->textbox);//
 
         $urequest->save();
         $urequest->guards()->sync($guard);
