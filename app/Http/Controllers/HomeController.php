@@ -26,7 +26,14 @@ class HomeController extends Controller
     {
         return redirect('event_search');
     }
-    
+    /**
+     * Display the specified user's information.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUsers($name){
+        return Auth::user();
+    }
     public function procult()
     {
         return 'procult'.Auth::user()->roles->implode('slug');

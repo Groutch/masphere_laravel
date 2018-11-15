@@ -22,6 +22,7 @@ Route::get('/', function(){
 	return redirect('/home');
 });
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profil/{id}','HomeController@admin')->name('profile');
 
 // AUTH ONLY
 Route::group(['middleware'=>'auth'], function () {

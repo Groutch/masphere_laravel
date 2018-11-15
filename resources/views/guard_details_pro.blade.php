@@ -36,7 +36,7 @@
 									@endforeach
 								</div>
 								@if ($guard->textbox)
-									<div><label for="">commentaire : </label><br />{{ $guard->textbox }}</div><br />
+									<div><label for="">commentaire de : </label><br />{{ $guard->textbox }}</div><br />
 								@endif
 								@if($guard->urequests)
 									<div class="card">
@@ -61,7 +61,12 @@
 												au {{ date( 'd/m/Y à H:i', $urequest->fin) }}
 											@endif
 											@if ($guard->textbox)
-												<div>commentaire : {{ $urequest->textbox }}</div>
+											<?php 
+												$name=explode('/',$urequest->textbox)[0];
+												$com=explode('/',$urequest->textbox)[1];
+												$iduser=explode('/',$urequest->textbox)[2];
+											?>
+												<div>commentaire de <a href="<?php echo '/profil/'.$iduser ?>"><strong>{{ $name }}</strong></a> : <p>{{ $com }}</p></div>
 											@endif
 										</div>
 										@endif
