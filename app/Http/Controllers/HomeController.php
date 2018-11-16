@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\User;
+use App\Model\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,8 +33,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getUsers($name){
-        return Auth::user();
+    public function getUsers($id){
+        $infoUser = User::All()->where('id',$id)->first();
+        $roleName = $infoUser->roles->implode('name');
+        
+        return view('dashboard', compact('infoUser','roleName'));
+        
     }
     public function procult()
     {
