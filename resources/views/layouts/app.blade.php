@@ -12,7 +12,9 @@
 
 	<!-- Styles -->
 	@yield('css')
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
@@ -111,10 +113,11 @@
     	<div class="dashboard-button">
     		<a id="dashboard" class="linkmenu" href="/event_list_{{ Auth::user()->roles->implode('slug') }}">
     			<i class="fa fa-list fa-2x" aria-hidden="true"></i>
-    			<p class="textmenu">Mais aiveinneman</p>
+    			<p class="textmenu">Mes évènements</p>
     		</a>
     	</div>
-    	<div class="dispo-page">
+		<!-- bouton d'affichage de son propre profil doublon avec les infos dans evenements -->
+    	<!-- <div class="dispo-page">
     		<a id="profil" class="linkmenu" href="/profil/{{Auth::user()->id}}">
     			<i class="fa fa-user fa-2x" aria-hidden="true"></i>
     			@if(Auth::user()->roles->implode('slug') == 'orga')
@@ -123,7 +126,13 @@
     			<p class="textmenu">Mon Profil</p>
     			@endif
     		</a>
-    	</div>
+    	</div> -->
+		<div class="search-button">
+			<a id="create" class="linkmenu" href="/map_test">
+    			<i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+    			<p class="textmenu">Map des events</p>
+			</a>
+		</div>
     </div>
     @endguest
 
