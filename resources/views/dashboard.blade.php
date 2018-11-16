@@ -15,7 +15,7 @@
 							@endif
 							
                             <div class="card-text">
-                                {{$roleName}} - {{ $infoUser->email}}</p>
+                                <p>{{$roleName}} - {{ $infoUser->email}}</p>
                             </div>
 						</div>
 					</div>
