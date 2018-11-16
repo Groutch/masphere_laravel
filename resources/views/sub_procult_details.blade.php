@@ -47,127 +47,129 @@
 								, et je peux me déplacer de {{ $place->range }}km
 								@endif
 							</div>
-
 							@endforeach
-							<?php echo explode('/',$guard->textbox); ?>
+							<?php 
+							echo explode('/',$guard->textbox)[1];
+							echo  '<br>Posé par : <a href="/profil/'.explode('/',$guard->textbox)[2].'"><strong>'.explode('/',$guard->textbox)[0].'</strong></a>';
+							?>
 						</div>
 					</div>
 				</div>
-		        <div id="mapid"></div>
-		        <form method="post" action="/event_sub_procult/{{ $guard->id }}" class="form panel-body">
-		        	{{ csrf_field() }}
-				<div class="row">
-                    <div class="col-xs-12 col-md-12">
-                        <input
-                        id="city"
-                        type="text"
-                        name="place"
-                        class="form-control"
-                        >
-                    </div>
-                    <input
-                    id="inplat"
-                    type="number"
-                    step=".001"
-					{{-- value="" --}}
-                    style="display : none;" 
-                    >
-                    <input
-                    id="inplong"
-                    type="number"
-                    step='0.001'
-					{{-- value="" --}}
-                    style="display : none;"
-                    >
-                    {{-- 
-                    <input
-                    id="markclicklat"
-                    type="number"
-                    step=".001"
-					value=""
-                    style="display : none;" 
-                    >
-                    <input
-                    id="markclicklong"
-                    type="number"
-                    step='0.001'
-					value=""
-                    style="display : none;"
-                    > --}}
-                </div>
+				<div id="mapid"></div>
+				<form method="post" action="/event_sub_procult/{{ $guard->id }}" class="form panel-body">
+					{{ csrf_field() }}
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<input
+							id="city"
+							type="text"
+							name="place"
+							class="form-control"
+							>
+						</div>
+						<input
+						id="inplat"
+						type="number"
+						step=".001"
+						{{-- value="" --}}
+						style="display : none;" 
+						>
+						<input
+						id="inplong"
+						type="number"
+						step='0.001'
+						{{-- value="" --}}
+						style="display : none;"
+						>
+						{{-- 
+							<input
+							id="markclicklat"
+							type="number"
+							step=".001"
+							value=""
+							style="display : none;" 
+							>
+							<input
+							id="markclicklong"
+							type="number"
+							step='0.001'
+							value=""
+							style="display : none;"
+							> --}}
+						</div>
 
-		        	<label title="Date et heure">Debut de garde</label>
+						<label title="Date et heure">Debut de garde</label>
 
-		        	<input required readonly
-		        	name="debutDate"
-		        	type="date"
-		        	class="form-control"
-		        	placeholder="jj/mm/aaaa"
-		        	aria-describedby="sizing-addon2"
-		        	value="{{ date("Y-m-d", $guard->debut) }}"
-		        	min="{{ date("Y-m-d", $guard->debut) }}"
-		        	>
-		        	<input required
-		        	name="debutHeure"
-		        	type="time"
-		        	class="form-control"
-		        	placeholder="HH:mm"
-		        	aria-describedby="sizing-addon2"
-		        	value="{{ date('H:i', $guard->debut) }}"
-		        	>
-		        	<br />
+						<input required readonly
+						name="debutDate"
+						type="date"
+						class="form-control"
+						placeholder="jj/mm/aaaa"
+						aria-describedby="sizing-addon2"
+						value="{{ date("Y-m-d", $guard->debut) }}"
+						min="{{ date("Y-m-d", $guard->debut) }}"
+						>
+						<input required
+						name="debutHeure"
+						type="time"
+						class="form-control"
+						placeholder="HH:mm"
+						aria-describedby="sizing-addon2"
+						value="{{ date('H:i', $guard->debut) }}"
+						>
+						<br />
 
-		        	<label title="Date et heure" >Fin de garde</label>
+						<label title="Date et heure" >Fin de garde</label>
 
-		        	<input required readonly 
-		        	name="finDate"
-		        	type="date"
-		        	class="form-control"
-		        	placeholder="jj/mm/aaaa"
-		        	aria-describedby="sizing-addon2"
-		        	value="{{ date("Y-m-d", $guard->fin) }}"
-		        	max="{{ date("Y-m-d", $guard->fin) }}"
-		        	>
-		        	<input required
-		        	name="finHeure"
-		        	type="time"
-		        	class="form-control"
-		        	placeholder="HH:mm"
-		        	aria-describedby="sizing-addon2"
-		        	value="{{ date('H:i', $guard->fin) }}"
-		        	>
-		        	<br />
+						<input required readonly 
+						name="finDate"
+						type="date"
+						class="form-control"
+						placeholder="jj/mm/aaaa"
+						aria-describedby="sizing-addon2"
+						value="{{ date("Y-m-d", $guard->fin) }}"
+						max="{{ date("Y-m-d", $guard->fin) }}"
+						>
+						<input required
+						name="finHeure"
+						type="time"
+						class="form-control"
+						placeholder="HH:mm"
+						aria-describedby="sizing-addon2"
+						value="{{ date('H:i', $guard->fin) }}"
+						>
+						<br />
 
-		        	<label title="">Commentaire/Details</label>
-		        	<textarea
-		        	name="textbox"
-		        	type="text"
-		        	class="form-control"
-		        	placeholder="exemple : préciser le lieu de garde choisi, l'age des enfants, un numero de telephone, proposer des horraires semblable"
-		        	aria-describedby="sizing-addon2"
-		        	></textarea>
-		        	<br />
+						<label title="">Commentaire/Details</label>
+						<textarea
+						name="textbox"
+						type="text"
+						class="form-control"
+						placeholder="exemple : préciser le lieu de garde choisi, l'age des enfants, un numero de telephone, proposer des horraires semblable"
+						aria-describedby="sizing-addon2"
+						></textarea>
+						<br />
 
-		        	<input type="submit" class="btn btn-default" value="Envoyer la demande">
-		        </form>
-		    </div>
+						<input type="submit" class="btn btn-default" value="Envoyer la demande">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-@endsection
+	@endsection
 
-@section('js')
+	@section('js')
 
-<script src="{{ asset('js/sub_procult_details.js') }}" type="text/javascript" ></script>
+	<script src="{{ asset('js/sub_procult_details.js') }}" type="text/javascript" ></script>
 
-<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-FwOAdr1WGuFP1vhXI9fT4QMUvYiZnI&libraries=places&callback=initAutocomplete" async defer></script>
-
-
-<script src="{{ asset('js/map.js') }}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-FwOAdr1WGuFP1vhXI9fT4QMUvYiZnI&libraries=places&callback=initAutocomplete" async defer></script>
 
 
+	<script src="{{ asset('js/map.js') }}"></script>
 
-@endsection
+
+
+	@endsection
