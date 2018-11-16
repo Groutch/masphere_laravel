@@ -36,7 +36,12 @@
 									@endforeach
 								</div>
 								@if ($guard->textbox)
-									<div><label for="">commentaire de : </label><br />{{ $guard->textbox }}</div><br />
+								<?php 
+									$guardname=explode('/',$guard->textbox)[0];
+									$guardcom=explode('/',$guard->textbox)[1];
+									$guardid=explode('/',$guard->textbox)[2];
+								 ?>
+									<div><label for="">commentaire du créateur :  <a href="<?php echo '/profil/'.$guardid ?>"><strong>{{$guardname}}</strong></a> : </label><br />{{ $guardcom }}</div><br />
 								@endif
 								@if($guard->urequests)
 									<div class="card">

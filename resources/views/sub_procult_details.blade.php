@@ -49,7 +49,7 @@
 							</div>
 
 							@endforeach
-							{{ $guard->textbox }}
+							<?php echo explode('/',$guard->textbox); ?>
 						</div>
 					</div>
 				</div>
