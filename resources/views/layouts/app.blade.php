@@ -111,11 +111,11 @@
     	<div class="dashboard-button">
     		<a id="dashboard" class="linkmenu" href="/event_list_{{ Auth::user()->roles->implode('slug') }}">
     			<i class="fa fa-list fa-2x" aria-hidden="true"></i>
-    			<p class="textmenu">Mon dashboard</p>
+    			<p class="textmenu">Mais aiveinneman</p>
     		</a>
     	</div>
     	<div class="dispo-page">
-    		<a id="profil" class="linkmenu" href="/family/annonce">
+    		<a id="profil" class="linkmenu" href="/profil/{{Auth::user()->id}}">
     			<i class="fa fa-user fa-2x" aria-hidden="true"></i>
     			@if(Auth::user()->roles->implode('slug') == 'orga')
     			<p class="textmenu">Profil Organisateur</p>

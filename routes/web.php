@@ -22,12 +22,12 @@ Route::get('/', function(){
 	return redirect('/home');
 });
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/profil/{id}','HomeController@admin')->name('profile');
+
 
 // AUTH ONLY
 Route::group(['middleware'=>'auth'], function () {
 	Route::get('/logout');
-
+	Route::get('/profil/{id}','HomeController@getUsers')->name('profile');
 	Route::get('/map_test', 'MapTestController@index')->name('map_test');
 	Route::get('/event_search', 'EventController@all')->name('event_search');
 	// PORCULT ONLY
