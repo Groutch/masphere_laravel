@@ -30,6 +30,7 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::get('/profil/{id}','HomeController@getUsers')->name('profile');
 	Route::get('/map_test', 'MapTestController@index')->name('map_test');
 	Route::get('/event_search', 'EventController@all')->name('event_search');
+	Route::get('/edit/account','UserController@edit')->name('edit_account');
 	// PORCULT ONLY
 	Route::group(['middleware'=>'procult'], function () {
 		Route::get('/procult', 'HomeController@procult')->name('procult');
