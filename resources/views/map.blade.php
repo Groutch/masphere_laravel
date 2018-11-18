@@ -15,11 +15,14 @@
     <div class="pagecontainer row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">MAP TEST</div>
+                <div class="panel-heading">Carte des évènements</div>
                 <div class="card">
                         <div id="mapid"></div>
 						<div class="card-block">
-                            
+                        <input readonly hidden
+								class="slug"
+								value="{{Auth::User()->roles->implode('slug')}}"
+                                >
 							@foreach( $places as $key => $place)
 							{{-- var_dump($place->lat) --}} 
 							<h3 class="card-title place" id="place{{ $place->id }}">
@@ -35,14 +38,10 @@
 								class="radius"
 								value="{{-- $place->range --}}NaN"
 								>
-								<input readonly hidden
-								class="child_nb"
-								value="{{-- $place->child_nb --}}0"
-                                >
                                 <input readonly hidden
 								class="idev"
 								value="{{ $place->id }}"
-								>
+                                >
 							</h3>
 							@endforeach
 						</div>
