@@ -5,7 +5,8 @@
 	<div class="pagecontainer row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				
+				<!-- ALED DASHBOARD PROFIL -->
+				<a href="/edit/account"><button class="btn btn-primary">Editez mon compte</button></a>
 				<div class="panel-body">
 					<div class="card">
 						<div class="card-block">

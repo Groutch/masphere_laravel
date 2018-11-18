@@ -8,6 +8,8 @@
 				<div class="panel-heading"><h3>Vos événement</h3></div>
 				<div class="row">
 					<div class="panel-body">
+						<!-- ALED DASHBOARD 2 -->
+						<a href="/edit/account"><button class="btn btn-primary">Editez mon compte</button></a>
 						@foreach ($events as $event)
 						<div class="col-xs-12 col-md-6 col-lg-4 event">
 							<div class="card">
