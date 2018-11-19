@@ -6,13 +6,18 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<!-- ALED DASHBOARD PROFIL -->
-				<a href="/edit/account"><button class="btn btn-primary">Editer mon compte</button></a>
 				<div class="panel-body">
 					<div class="card">
 						<div class="card-block">
-							<h3 class="card-title">Profil de {{ Auth::user()->name }}</h3>
+							<h3 class="card-title">
+								@if(Auth::user()->id!=$infoUser->id)
+								Profil de {{ $infoUser->name }}
+								@else
+								Mon profil <a href="/edit/account"><button class="btn btn-info">Editer mon compte</button></a>
+								@endif
+							</h3>
                             <div class="card-text">
-							<p> {{Auth::user()->roles[0]->name}} - {{ Auth::user()->email}}</p>
+							<p> {{$infoUser->roles[0]->name}} - {{ $infoUser->email}}</p>
 							
                             </div>
 						</div>

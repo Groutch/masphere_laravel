@@ -5,18 +5,24 @@
 	<div class="pagecontainer row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3>Vos événement</h3></div>
+				<div class="panel-heading"><h3>
+				@if(Auth::user()->id==$infoUser->id)
+				Vos événement <a href="/edit/account"><button class="btn btn-info">Editer mon compte</button></a>
+				@else
+				Les évènements de {{$infoUser->name}}
+				@endif
+			</h3></div>
 				<div class="row">
 					<div class="panel-body">
-						<!-- ALED DASHBOARD 2 -->
-						<a href="/edit/account"><button class="btn btn-primary">Editer mon compte</button></a>
 						@foreach ($events as $event)
 						<div class="col-xs-12 col-md-6 col-lg-4 event">
 							<div class="card">
 								<div class="card-block">
 									<h3 class="card-title">
 										{{ $event->nom }}
+										@if(Auth::user()->id==$infoUser->id)
 										<span class="fa fa-times text-danger deleteEvent" id="deleteEvent{{$event->id}}" dataeventid="{{$event->id}}"></span>
+										@endif
 									</h3>
 									<div class="card-text">
 										@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
@@ -30,14 +36,13 @@
 										@if ($event->textbox)
 										<div>commentaire : {{ $event->textbox }}</div>
 										@endif
+										@if(Auth::user()->id==$infoUser->id)
 										<a class="btn btn-default" href="{{route('event_details_orga', ['id'=>$event->id])}}">Détails</a>
 										{{-- <a class="btn btn-default" href="event_details_orga/{{ $event->id }}">Détails</a> --}}
-										<a href="{{ route('event_edit', $event->id) }}">
-											<span class="fa-stack fa-lg">
-												<i class="fa fa-square fa-stack-2x"></i>
-												<i class="fa fa-pencil fa-inverse fa-stack-1x"></i>
-											</span>
+										<a class="btn btn-warning" href="{{ route('event_edit', $event->id) }}">
+											Edit
 										</a>
+										@endif
 									</div>
 								</div>
 							</div>
