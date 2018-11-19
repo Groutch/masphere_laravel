@@ -6,7 +6,7 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading">recherche
-				{{-- {{ Auth::user()->roles->implode('slug') }} --}}
+					{{-- {{ Auth::user()->roles->implode('slug') }} --}}
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -44,52 +44,52 @@
 						</div>
 					</div> --}}
 				</div>
-				<button type="submit" id="event" class="btn btn-primary">Rechercher</button>
-				{{-- </form> --}}
+				<a href="#results"><button type="submit" id="event" class="btn btn-primary">Rechercher</button></a>
+			{{-- </form> --}}
+		</div>
+		<hr />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 id="allornot">Résultats de votre recherche</h3>
 			</div>
-			<hr />
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 id="allornot">Résultats de votre recherche</h3>
-				</div>
-				<div class="row">
-					<div class="panel-body">
-						@foreach ($events as $key => $event)
-						<div class="card event" data-name="{{ $event->nom }}" data-debut="{{ date( 'Y-m-d', $event->debut) }}" data-fin="{{ date('Y-m-d', $event->fin) }}" >
-							<div class="card-block">
-								<h3 class="card-title">{{ $event->nom }}</h3>
-								<div class="card-text">
-									@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
-									le {{ date( 'd/m/Y', $event->debut) }} de
-									{{ date( 'H:i', $event->debut) }} à
-									{{ date( 'H:i', $event->fin) }}
-									@else
-									du {{ date( 'd/m/Y à H:i', $event->debut) }}
-									au {{ date( 'd/m/Y à H:i', $event->fin) }}
-									@endif
-									<div>commentaire : {{ $event->textbox }}</div>
+			<div class="row">
+				<div class="panel-body" id="results">
+					@foreach ($events as $key => $event)
+					<div class="card event" data-name="{{ $event->nom }}" data-debut="{{ date( 'Y-m-d', $event->debut) }}" data-fin="{{ date('Y-m-d', $event->fin) }}" >
+						<div class="card-block">
+							<h3 class="card-title">{{ $event->nom }}</h3>
+							<div class="card-text">
+								@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
+								le {{ date( 'd/m/Y', $event->debut) }} de
+								{{ date( 'H:i', $event->debut) }} à
+								{{ date( 'H:i', $event->fin) }}
+								@else
+								du {{ date( 'd/m/Y à H:i', $event->debut) }}
+								au {{ date( 'd/m/Y à H:i', $event->fin) }}
+								@endif
+								<div>commentaire : {{ $event->textbox }}</div>
 
-									@if(Auth::user()->roles->implode('slug')=='procult')
-									<a class="btn btn-default" id="event{{ $event->id }}" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} garde
+								@if(Auth::user()->roles->implode('slug')=='procult')
+								<a class="btn btn-default" id="event{{ $event->id }}" href="/event_details_procult/{{ $event->id }}">Détails ({{ $guards_nb[$key] }} garde
 									@if($guards_nb[$key]>1)
 									s
 									@endif
-									)</a>
-									@elseif(Auth::user()->roles->implode('slug')=='proguard')
-									<a class="btn btn-default" id="event{{ $event->id }}" href="/event_details_{{Auth::user()->roles->implode('slug')}}/{{ $event->id }}">Détails</a>
-									@endif
-								</div>
+								)</a>
+								@elseif(Auth::user()->roles->implode('slug')=='proguard')
+								<a class="btn btn-default" id="event{{ $event->id }}" href="/event_details_{{Auth::user()->roles->implode('slug')}}/{{ $event->id }}">Détails</a>
+								@endif
 							</div>
 						</div>
-						@endforeach
-						<div class="col-xs-12 col-md-12 col-lg-4" id="no-event-found" hidden>
-							aucun événement trouvé
-						</div>
+					</div>
+					@endforeach
+					<div class="col-xs-12 col-md-12 col-lg-4" id="no-event-found" hidden>
+						aucun événement trouvé
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 @endsection
 

@@ -6,18 +6,22 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<!-- ALED DASHBOARD PROFIL -->
-				<a href="/edit/account"><button class="btn btn-primary">Editer mon compte</button></a>
 				<div class="panel-body">
 					<div class="card">
 						<div class="card-block">
-							<h3 class="card-title">Profil de {{ Auth::user()->name }}</h3>
+							<h3 class="card-title">
+								@if(Auth::user()->id!=$infoUser->id)
+								Profil de {{ $infoUser->name }}
+								@else
+								Mon profil <a href="/edit/account"><button class="btn btn-info">Editer mon compte</button></a>
+								@endif
+							</h3>
                             <div class="card-text">
-							<p> {{Auth::user()->roles[0]->name}} - {{ Auth::user()->email}}</p>
-							
+							<p> {{$infoUser->roles[0]->name}} - {{ $infoUser->email}}</p>
+							<p>Trouvez ci-dessous les évènements auxquels je suis attaché :</p>
                             </div>
 						</div>
 					</div>
-				<div class="panel-heading"><h3>Vos gardes</h3></div>
 				{{-- {{dd($guards)}} --}}
 					@foreach ($guards as $key => $guard)
 					<div class="card guard">
@@ -46,7 +50,7 @@
 								{{ $place->name }} | 
 								@endforeach
 								<div>
-									<a class="btn btn-default" href="guard_details_pro/{{ $guard->id }}">Détails</a>
+									<a class="btn btn-default" href="/guard_details_pro/{{ $guard->id }}">Détails</a>
 								</div>
 							</div>
 							@endif
