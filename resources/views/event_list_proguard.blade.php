@@ -50,7 +50,7 @@
 								{{ $place->name }} | 
 								@endforeach
 								<div>
-									<a class="btn btn-default" href="guard_details_pro/{{ $guard->id }}">Détails</a>
+									<a class="btn btn-default" href="/guard_details_pro/{{ $guard->id }}">Détails</a>
 								</div>
 							</div>
 							@endif

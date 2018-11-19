@@ -33,9 +33,7 @@ class GuardController extends Controller
      */
     public function index(Request $request)
     {
-    	$guards = $request->user()->guards;
-
-    	return view('event_list_proguard', compact('guards'));
+        //
     }
 
     /**
@@ -116,7 +114,7 @@ class GuardController extends Controller
             return redirect()->back()->withInput();
         }
 
-        return redirect()->route('event_list_proguard');
+        return redirect()->route('event_search');
     }
 
     /**
@@ -131,7 +129,7 @@ class GuardController extends Controller
         $guard = Guard::All()->where("id", "=", $id)->first();
 
         if(!$this->verifGuardOwner($id, $user)){
-            return redirect('/event_list_proguard');
+            return redirect('/profil/'.$user->id);
         }
 
         $guard->users()->detach();
@@ -139,7 +137,7 @@ class GuardController extends Controller
         if(false){
             $guard->delete();
         }
-        return redirect('/event_list_proguard');
+        return redirect('/profil/'.$user->id);
     }
 
     /**
@@ -216,7 +214,7 @@ class GuardController extends Controller
         $urequest->save();
         $urequest->guards()->sync($guard);
 
-        return redirect()->route('event_list_procult');
+        return redirect()->route('event_search');
     }
 
     /**
