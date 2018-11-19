@@ -3,6 +3,8 @@ var offset = 0;
 while (!$('#place'+offset).length){
 	offset++;
 }
+var slug = $('.slug').val();
+console.log(slug)
 var refpoint = {
 	lat : $('#place'+offset).children('.lat').val(),
 	long : $('#place'+offset).children('.long').val(),
@@ -14,13 +16,13 @@ $('.place').each(function(){
 	lat = $(this).children('.lat').val();
 	long = $(this).children('.long').val();
 	rad = $(this).children('.radius').val()*1000;
-	child_nb = $(this).children('.child_nb').val();
+	idev = $(this).children('.idev').val();
 
 	places.push({
 		lat : lat,
 		long : long,
 		rad : rad,
-		child_nb : child_nb
+		idev : idev
 	})
 });
 
@@ -28,7 +30,7 @@ if($('#mapid').length){
 	var map = L.map('mapid').setView([refpoint['lat'], refpoint['long']], 11);
 }
 
-function mark(lat, long, rad){
+function mark(lat, long, rad,idev){
 
 	var redMarker = L.AwesomeMarkers.icon({
 		prefix: 'fa',
@@ -41,7 +43,7 @@ function mark(lat, long, rad){
 	// var marker = L.marker([lat, long])
 	var marker = L.marker([lat, long], {icon: redMarker})
 	.addTo(map);
-	// marker.bindPopup("<b>Hello world!</b><br>I am a popup.")
+	marker.bindPopup('<a href="/event_details_'+slug+'/'+idev+'"><button class="btn btn-primary">Voir event</button></a>')
 }
 
 
@@ -57,7 +59,7 @@ function initMap(){
 	// mark(refpoint.lat, refpoint.long, refpoint.rad);
 	for(i=0; i<places.length; i++){
 		console.log('coucouplace');
-		mark(places[i].lat, places[i].long, places[i].rad);
+		mark(places[i].lat, places[i].long, places[i].rad, places[i].idev);
 	}
 
 }initMap();
@@ -139,42 +141,5 @@ function geolocation(data) {
 
 	markclick
 	.setLatLng([lat, long])
-	.setIcon(colorMarker)
-	;
+	.setIcon(colorMarker);
 }
-
-// MAP PLACE MARKER ON CLICK
-// map.on('click', function(e){
-// 	$("#markclicklat").val(e.latlng.lat).html();
-// 	$("#markclicklong").val(e.latlng.long).html();
-// 	markclick.setLatLng(e.latlng);
-// })
-
-// $('#submit').on('click', function() {
-// 	geocodeLatLng(geocoder, map, infowindow);
-// });
-
-// function geocodeLatLng(geocoder, map, infowindow) {
-
-// 	var lat = $('#lat').val();
-// 	var long = $('#long').val();
-
-// 	var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
-// 	geocoder.geocode({'location': latlng}, function(results, status) {
-// 		if (status === 'OK') {
-// 			if (results[1]) {
-// 				map.setZoom(11);
-// 				var marker = new google.maps.Marker({
-// 					position: latlng,
-// 					map: map
-// 				});
-// 				infowindow.setContent(results[1].formatted_address);
-// 				infowindow.open(map, marker);
-// 			} else {
-// 				window.alert('No results found');
-// 			}
-// 		} else {
-// 			window.alert('Geocoder failed due to: ' + status);
-// 		}
-// 	});
-// }
