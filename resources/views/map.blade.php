@@ -42,6 +42,14 @@
 								class="idev"
 								value="{{ $place->id }}"
                                 >
+                                <input readonly hidden
+								class="nom"
+								value="{{ $place->nom }}"
+                                >
+                                <input readonly hidden
+								class="placeNom"
+								value="{{ $place->place }}"
+								>
 							</h3>
 							@endforeach
 						</div>

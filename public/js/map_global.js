@@ -4,7 +4,7 @@ while (!$('#place'+offset).length){
 	offset++;
 }
 var slug = $('.slug').val();
-console.log(slug)
+
 var refpoint = {
 	lat : $('#place'+offset).children('.lat').val(),
 	long : $('#place'+offset).children('.long').val(),
@@ -17,20 +17,25 @@ $('.place').each(function(){
 	long = $(this).children('.long').val();
 	rad = $(this).children('.radius').val()*1000;
 	idev = $(this).children('.idev').val();
+	nom = $(this).children('.nom').val();
+	placeNom = $(this).children('.placeNom').val();
 
 	places.push({
 		lat : lat,
 		long : long,
 		rad : rad,
-		idev : idev
+		idev : idev,
+		nom : nom,
+		placeNom : placeNom
 	})
 });
+
 
 if($('#mapid').length){
 	var map = L.map('mapid').setView([refpoint['lat'], refpoint['long']], 11);
 }
 
-function mark(lat, long, rad,idev){
+function mark(lat, long, rad, idev, nom, placeNom){
 
 	var redMarker = L.AwesomeMarkers.icon({
 		prefix: 'fa',
@@ -43,7 +48,7 @@ function mark(lat, long, rad,idev){
 	// var marker = L.marker([lat, long])
 	var marker = L.marker([lat, long], {icon: redMarker})
 	.addTo(map);
-	marker.bindPopup('<a href="/event_details_'+slug+'/'+idev+'"><button class="btn btn-primary">Voir event</button></a>')
+	marker.bindPopup('<h3>'+nom+'</h3><p>'+placeNom+'</p><a href="/event_details_'+slug+'/'+idev+'"><button class="btn btn-primary">Voir event</button></a>')
 }
 
 
@@ -53,13 +58,8 @@ function initMap(){
 		id: 'mapbox.streets',
 		accessToken: 'pk.eyJ1IjoiY3lyaWxkZW5veWVsbGUiLCJhIjoiY2o3dm80bzBoNTI3ODMybnUweGRoOWZmdiJ9.-E8SEOtLZ1qbBjb5SEHtww'
 	}).addTo(map);
-
-	// var marker = L.marker([45, 1.33]).addTo(map)
-	// marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-	// mark(refpoint.lat, refpoint.long, refpoint.rad);
 	for(i=0; i<places.length; i++){
-		console.log('coucouplace');
-		mark(places[i].lat, places[i].long, places[i].rad, places[i].idev);
+		mark(places[i].lat, places[i].long, places[i].rad, places[i].idev, places[i].nom, places[i].placeNom);
 	}
 
 }initMap();
