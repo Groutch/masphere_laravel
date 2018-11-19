@@ -18,11 +18,10 @@
 							</h3>
                             <div class="card-text">
 							<p> {{$infoUser->roles[0]->name}} - {{ $infoUser->email}}</p>
-							
+							<p>Trouvez ci-dessous les évènements auxquels je suis attaché :</p>
                             </div>
 						</div>
 					</div>
-				<div class="panel-heading"><h3>Vos gardes</h3></div>
 				{{-- {{dd($guards)}} --}}
 					@foreach ($guards as $key => $guard)
 					<div class="card guard">

@@ -111,7 +111,7 @@
     		@endif
     	</div>
     	<div class="dashboard-button">
-    		<a id="dashboard" class="linkmenu" href="/event_list_{{ Auth::user()->roles->implode('slug') }}">
+    		<a id="dashboard" class="linkmenu" href="/profil/{{Auth::user()->id}}">
     			<i class="fa fa-list fa-2x" aria-hidden="true"></i>
     			<p class="textmenu">Mes évènements</p>
     		</a>
