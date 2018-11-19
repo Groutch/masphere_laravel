@@ -8,6 +8,8 @@ use App\Model\Event;
 use App\Model\User;
 use App\Model\Guard;
 use App\Model\Urequest;
+use App\Mail\Email;
+use Illuminate\Support\Facades\Mail;
 
 class GuardController extends Controller
 {
@@ -104,7 +106,7 @@ class GuardController extends Controller
 
         $guard->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
-        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $userName.'/'.$request->textbox.'/'.Auth::user()->id);
+        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
 
         if (true) {
             $guard->save();
@@ -174,6 +176,15 @@ class GuardController extends Controller
     {
         $user = Auth::User();
         $guard = Guard::All()->where('id', '=', $id)->first();
+        $textbox = $guard->textbox;
+        $idProGuard= explode("/", $textbox)[2];
+
+        $mail= User::find($idProGuard)->email;
+        $objMail = new \stdClass();
+        $objMail->valid = $user->name." a envoyé une demande de garde pour l'event : ".$guard->events[0]->nom;
+        $objMail->sender = "";
+        $objMail->receiver = User::find($idProGuard)->name;
+        Mail::to($mail)->send(new Email($objMail));
 
         $usersNames = $guard->users->map(function($a){
             return $a->name;
