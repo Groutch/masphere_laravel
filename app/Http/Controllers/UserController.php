@@ -32,12 +32,14 @@ class UserController extends Controller
 	{
 		$current=Auth::user();
 		$user=User::find($current->id);
+		if(password_verify($request->checkpass,$user->password)){
 		$user->name=$request->name;
 		$user->email=$request->email;
 		if(strlen($request->newpass)>7){
 			$user->password=$request->newpass;
 		}
 		$user->save();
+	}
 		return redirect()->route('edit_account');
 	}
 }
