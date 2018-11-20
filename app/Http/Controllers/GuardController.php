@@ -8,6 +8,7 @@ use App\Model\Event;
 use App\Model\User;
 use App\Model\Guard;
 use App\Model\Urequest;
+use App\Model\Role;
 
 
 
@@ -56,7 +57,7 @@ class GuardController extends Controller
         if($usersNames->contains($userName)){
             return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cet événement']);
         }
-            return view('sub_proguard_details', compact('event'));
+        return view('sub_proguard_details', compact('event'));
     }
 
     /**
@@ -93,12 +94,12 @@ class GuardController extends Controller
             $lat = $geo['lat'];
             $long = $geo['long'];
             $result_list_places[] = [
-            'place_id' => $key,
-            'lat' => $lat,
-            'long' => $long,
-            'name' => $request->list_places[$key],
-            'child_nb' => $request->list_child_nbs[$key],
-            'range' => $request->list_range[$key],
+                'place_id' => $key,
+                'lat' => $lat,
+                'long' => $long,
+                'name' => $request->list_places[$key],
+                'child_nb' => $request->list_child_nbs[$key],
+                'range' => $request->list_range[$key],
             ];
         }
         $guard->list_places = json_encode($result_list_places);
@@ -152,16 +153,18 @@ class GuardController extends Controller
 
         $guard = Guard::All()->where("id", "=", $id)->first();
         $userName = Auth::User()->name;
-
-        $usersNames = $guard->users->map(function($a){
-            return $a->name;
-        });
-
-        if($usersNames->contains($userName)){
-            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
+        $urequests=Auth::User()->urequests;
+        $t=[];
+        foreach($urequests as $u){
+            array_push($t,$u->guards[0]->id);
+        }
+        $gId=$guard->id;
+        if(in_array($gId,$t)){   
+            return redirect()->back()->withErrors(['Vous êtes déjà inscrit sur cette garde.']);
+        }else{
+            return view('sub_procult_details', compact('guard'));
         }
 
-        return view('sub_procult_details', compact('guard'));
     }
 
     /**
@@ -193,15 +196,6 @@ class GuardController extends Controller
             echo 'Caught exception: '. $e->getMessage() ."\n";
         }
         
-
-        $usersNames = $guard->users->map(function($a){
-            return $a->name;
-        });
-
-        if($usersNames->contains($user->name)){
-            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cette garde']);
-        };
-
         function geocode($city){
             if ($city) {
                 $fullurl = "https://koumoul.com/s/geocoder/api/v1/coord?q=". urlencode($city);
@@ -212,8 +206,7 @@ class GuardController extends Controller
                 return ['lat' => null, 'long' => null];
             }
 
-        }
-
+        } 
         $user->guards()->sync($guard);
 
         $urequest = new Urequest;
@@ -234,6 +227,7 @@ class GuardController extends Controller
 
         $urequest->save();
         $urequest->guards()->sync($guard);
+
 
         return redirect()->route('event_search');
     }
