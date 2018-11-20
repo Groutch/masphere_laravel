@@ -16,17 +16,15 @@
 								Mon profil <a href="/edit/account"><button class="btn btn-info">Editer mon compte</button></a>
 								@endif
 							</h3>
-                            <div class="card-text">
-							<p> {{$infoUser->roles[0]->name}} - {{ $infoUser->email}}</p>
-							<p>Trouvez ci-dessous les évènements auxquels je suis attaché :</p>
-                            </div>
+							<div class="card-text">
+								<p> {{$infoUser->roles[0]->name}} - {{ $infoUser->email}}</p>
+								<p>Trouvez ci-dessous les évènements auxquels je suis attaché :</p>
+							</div>
 						</div>
 					</div>
-				{{-- {{dd($guards)}} --}}
 					@foreach ($guards as $key => $guard)
 					<div class="card guard">
 						<div class="card-block">
-						{{-- {{dd($guard->events[0])}} --}}
 							<input hidden
 							type="text"
 							id="statutguard{{ $guard->id }}"
@@ -45,7 +43,7 @@
 								au {{ date( 'd/m/Y à H:i', $guard->fin) }}
 								@endif
 								<br />
-								 | 
+								| 
 								@foreach(json_decode($guard->list_places) as $place)
 								{{ $place->name }} | 
 								@endforeach
@@ -65,5 +63,5 @@
 @endsection
 
 @section('js')
-	<script src="{{ asset('js/event_list_proguard.js') }}"></script>
+<script src="{{ asset('js/event_list_proguard.js') }}"></script>
 @endsection

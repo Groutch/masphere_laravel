@@ -21,20 +21,6 @@ class EventController extends Controller
     }
 
     /**
-     * take hte id of an event and an user (User::where('id', $id)) 
-     * and return a boolean true if the concerned event is owned by the inline user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function verifEventOwner($eventId, $user)
-    {
-        $userEventsIds = $user->events->map(function($a){
-            return $a->id;
-        });
-        return $userEventsIds->contains($eventId);
-    }
-
-    /**
      * take a string générated by autocomplete
      * and return an array with lat and long.
      *
@@ -91,7 +77,7 @@ class EventController extends Controller
             $user = Auth::User();
             $event->users()->sync($user);
 
-            return redirect()->route('event_list_orga');
+            return redirect()->route('home');
         }
         return back()->withInput();
 
@@ -263,42 +249,5 @@ class EventController extends Controller
             return count($event->guards);
         });
         return view('event_search', compact('events', 'guards_nb'));
-    }
-
-    /**
-     * Show the form used by proguard for create a guard on an event.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function SubProGuardDetails(Request $request, $id)
-    {
-        // dump($request);
-        $event = Event::All()->where("id", "=", $id)->first();
-
-        return view('sub_proguard_details', compact('event'));
-    }
-
-    /**
-     * Store a newly created guard in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function SubProGuard(Request $request, $id)
-    {
-        $guard = new Guard;
-        $guard->list_places = json_encode($request->list_places);
-        $guard->list_child_nbs = json_encode($request->list_child_nbs);
-        $guard->list_range = json_encode($request->list_range); // rayon autour du quel le pro peut garder.
-
-        $guard->debut = strtotime($request->debutDate.' '.$request->debutHeure);
-        $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
-        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
-
-        $user = Auth::User();
-        $event = Event::All()->where("id", "=", $id)->first();
-
-        return redirect()->route('event_list_proguard');
     }
 }
