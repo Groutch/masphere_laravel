@@ -46,11 +46,10 @@ class HomeController extends Controller
             $urequests=$infoUser->urequests;
             $tab= [];
             foreach($urequests as $ureq){
-                array_push($tab,$ureq->guards[0]->events[0]->id);
-
+                array_push($tab,$ureq->guards[0]->events[0]);
             }
-            dd($tab);
-            //return view('event_list_proguard',compact('infoUser','roleName','guards'));
+            $tab=array_unique($tab);
+            return view('event_list_proguard',compact('infoUser','roleName','guards','tab'));
         }
     }
     public function procult()

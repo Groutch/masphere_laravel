@@ -22,6 +22,7 @@
 							</div>
 						</div>
 					</div>
+					@if($infoUser->roles[0]->name=="pro de la guarde")
 					@foreach ($guards as $key => $guard)
 					<div class="card guard">
 						<div class="card-block">
@@ -55,6 +56,35 @@
 						</div>
 					</div>
 					@endforeach
+					@else
+					@foreach ($tab as $key => $event)
+					<div class="card guard">
+						<div class="card-block">
+							<input hidden
+							type="text"
+							id="statutguard{{ $event->id }}"
+							class="statut"
+							datastatut="{{ $event->statut }}"
+							>
+							<h3 class="card-title"><label for="">{{ $event->nom }}</label>, le {{ date( 'd/m/Y', $event->debut) }}</h3>
+							<div class="card-text">
+								@if(date( 'd/m/Y', $event->debut) === date( 'd/m/Y', $event->fin))
+								de {{ date( 'H:i', $event->debut) }} à {{ date( 'H:i', $event->fin) }}
+								@else
+								{{ date( 'à H:i', $event->debut) }}
+								au {{ date( 'd/m/Y à H:i', $event->fin) }}
+								@endif
+								<br />
+								| 
+								{{ $event->place }} | 
+								<div>
+									<a class="btn btn-default" href="/guard_details_pro/{{ $event->id }}">Détails</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endforeach
+					@endif
 				</div>
 			</div>
 		</div>
