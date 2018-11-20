@@ -150,7 +150,6 @@ class GuardController extends Controller
      */
     public function createProcult(Request $request, $id)
     {
-
         $guard = Guard::All()->where("id", "=", $id)->first();
         $userName = Auth::User()->name;
         $urequests=Auth::User()->urequests;

@@ -19,6 +19,19 @@ class EventController extends Controller
     {
         //
     }
+    /**
+     * take hte id of an event and an user (User::where('id', $id)) 
+     * and return a boolean true if the concerned event is owned by the inline user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verifEventOwner($eventId, $user)
+    {
+        $userEventsIds = $user->events->map(function($a){
+            return $a->id;
+        });
+        return $userEventsIds->contains($eventId);
+    }
 
     /**
      * take a string générated by autocomplete
@@ -212,7 +225,7 @@ class EventController extends Controller
     {
         $event = Event::All()->where("id", "=", $id)->first();
         if($event !== null){
-            
+
             $guards = $event->guards->map(function($a){
                 $decoded_list_places = json_decode($a->list_places);
                 $a->list_places = $decoded_list_places;
