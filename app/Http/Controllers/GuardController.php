@@ -105,12 +105,7 @@ class GuardController extends Controller
 
         $guard->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
-<<<<<<< HEAD
-        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $userName.'/'.$request->textbox.'/'.Auth::User()->id);
-=======
         $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $userName."/".$request->textbox."/".Auth::User()->id);
->>>>>>> 302680724d23127e9352eee2e1af6fda8908a71a
-
         if (true) {
             $guard->save();
             $user = Auth::User();

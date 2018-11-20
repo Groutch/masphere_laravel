@@ -42,7 +42,8 @@ class HomeController extends Controller
         if($roleName=="organisateur"){
             return view('event_list_orga',compact('infoUser','roleName','events'));
         }else{
-            return view('event_list_proguard',compact('infoUser','roleName','guards'));
+            dd($infoUser->guards);
+            #return view('event_list_proguard',compact('infoUser','roleName','guards'));
         }
     }
     public function procult()
