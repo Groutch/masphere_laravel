@@ -52,21 +52,5 @@ class HomeController extends Controller
             return view('event_list_proguard',compact('infoUser','roleName','guards','tab'));
         }
     }
-    public function procult()
-    {
-        return 'procult'.Auth::user()->roles->implode('slug');
-    }
-    public function proguard()
-    {
-        return 'proguard'.Auth::user()->roles->implode('slug');
-    }
-    public function orga()
-    {
-        return;
-    }
-    public function admin()
-    {
-        return 'role : '.Auth::user()->roles->implode('slug');
-    }
 
 }
