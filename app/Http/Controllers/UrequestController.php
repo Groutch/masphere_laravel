@@ -8,8 +8,7 @@ use App\Model\Event;
 use App\Model\User;
 use App\Model\Guard;
 use App\Model\Urequest;
-use App\Mail\Email;
-use Illuminate\Support\Facades\Mail;
+
 
 class UrequestController extends Controller
 {
@@ -35,11 +34,21 @@ class UrequestController extends Controller
         $urequest=Urequest::find($id);
         $user_id=$urequest->user_id;
         $mail= User::find($user_id)->email;
-        $objMail = new \stdClass();
-        $objMail->valid = "Votre demande de guarde n'est pas acceptée";
-        $objMail->sender = Auth::user()->name;
-        $objMail->receiver = User::find($user_id)->name;
-        Mail::to($mail)->send(new Email($objMail));
+        $email = new \SendGrid\Mail\Mail(); 
+        $email->setFrom("masphere@outlook.fr", "MaSphere");
+        $email->setSubject("MaSphere : Demande de garde refusée");
+        $email->addTo($mail, User::find($user_id)->name);
+        $email->addContent("text/plain", "Votre demande de garde n'est pas acceptée");
+        $email->addContent("text/html", "Votre demande de garde n'est pas acceptée");
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $response = $sendgrid->send($email);
+            print $response->statusCode() . "\n";
+            print_r($response->headers());
+            print $response->body() . "\n";
+        } catch (Exception $e) {
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
         $urequest->statut=1;
         $urequest->save();
     	return redirect()->route('guard_details_pro', ['id' => $request->input('guard')]);
@@ -56,11 +65,21 @@ class UrequestController extends Controller
         $urequest=Urequest::find($id);
         $user_id=$urequest->user_id;
         $mail= User::find($user_id)->email;
-        $objMail = new \stdClass();
-        $objMail->valid = "Votre demande de guarde est acceptée";
-        $objMail->sender = Auth::user()->name;
-        $objMail->receiver = User::find($user_id)->name;
-        Mail::to($mail)->send(new Email($objMail));
+        $email = new \SendGrid\Mail\Mail(); 
+        $email->setFrom("masphere@outlook.fr", "MaSphere");
+        $email->setSubject("MaSphere : Demande de garde acceptée");
+        $email->addTo($mail, User::find($user_id)->name);
+        $email->addContent("text/plain", "Votre demande de garde est acceptée");
+        $email->addContent("text/html", "Votre demande de garde est acceptée");
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $response = $sendgrid->send($email);
+            print $response->statusCode() . "\n";
+            print_r($response->headers());
+            print $response->body() . "\n";
+        } catch (Exception $e) {
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
         $urequest->statut=2;
         $urequest->save();
         //Mail::to("receiver@example.com")->send(new Email($objDemo));

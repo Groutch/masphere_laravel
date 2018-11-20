@@ -8,8 +8,9 @@ use App\Model\Event;
 use App\Model\User;
 use App\Model\Guard;
 use App\Model\Urequest;
-use App\Mail\Email;
-use Illuminate\Support\Facades\Mail;
+
+
+
 
 class GuardController extends Controller
 {
@@ -104,7 +105,7 @@ class GuardController extends Controller
 
         $guard->debut = strtotime($request->debutDate.' '.$request->debutHeure);
         $guard->fin = strtotime($request->finDate.' '.$request->finHeure);
-        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $request->textbox);
+        $guard->textbox = preg_replace("/\r\n|\r|\n/", '<br/>', $userName."/".$request->textbox."/".Auth::User()->id);
 
         if (true) {
             $guard->save();
@@ -176,13 +177,23 @@ class GuardController extends Controller
         $guard = Guard::All()->where('id', '=', $id)->first();
         $textbox = $guard->textbox;
         $idProGuard= explode("/", $textbox)[2];
-
         $mail= User::find($idProGuard)->email;
-        $objMail = new \stdClass();
-        $objMail->valid = $user->name." a envoyé une demande de garde pour l'event : ".$guard->events[0]->nom;
-        $objMail->sender = "";
-        $objMail->receiver = User::find($idProGuard)->name;
-        Mail::to($mail)->send(new Email($objMail));
+        $email = new \SendGrid\Mail\Mail(); 
+        $email->setFrom("masphere@outlook.fr", "MaSphere");
+        $email->setSubject("Demande de garde");
+        $email->addTo($mail, User::find($idProGuard)->name);
+        $email->addContent("text/plain", $user->name." à l'adresse : ".$user->email." a envoyé une demande de garde pour l'event : ".$guard->events[0]->nom);
+        $email->addContent("text/html", "<b>".$user->name."</b> à l'adresse : <A HREF='mailto:".$user->email."'>".$user->email."</A> a envoyé une demande de garde pour l'event : <h3>".$guard->events[0]->nom."</h3>");
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $response = $sendgrid->send($email);
+            print $response->statusCode() . "\n";
+            print_r($response->headers());
+            print $response->body() . "\n";
+        } catch (Exception $e) {
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
+        
 
         $usersNames = $guard->users->map(function($a){
             return $a->name;
