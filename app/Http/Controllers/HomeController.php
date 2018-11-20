@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\User;
 use App\Model\Role;
 use App\Model\Event;
+use App\Model\Urequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,8 +43,8 @@ class HomeController extends Controller
         if($roleName=="organisateur"){
             return view('event_list_orga',compact('infoUser','roleName','events'));
         }else{
-            dd($infoUser->guards);
-            #return view('event_list_proguard',compact('infoUser','roleName','guards'));
+            dd($infoUser->urequests);
+            //return view('event_list_proguard',compact('infoUser','roleName','guards'));
         }
     }
     public function procult()
