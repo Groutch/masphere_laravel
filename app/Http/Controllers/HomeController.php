@@ -43,7 +43,13 @@ class HomeController extends Controller
         if($roleName=="organisateur"){
             return view('event_list_orga',compact('infoUser','roleName','events'));
         }else{
-            dd($infoUser->urequests);
+            $urequests=$infoUser->urequests;
+            $tab= [];
+            foreach($urequests as $ureq){
+                array_push($tab,$ureq->guards[0]->events[0]->id);
+
+            }
+            dd($tab);
             //return view('event_list_proguard',compact('infoUser','roleName','guards'));
         }
     }

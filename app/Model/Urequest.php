@@ -14,5 +14,9 @@ class Urequest extends Model
     public function guards()
 	{
 		return $this->belongsToMany('App\Model\Guard');
-	}
+    }
+    public function user()
+    {
+        return $this->hasOne('App\Model\User');
+    }
 }

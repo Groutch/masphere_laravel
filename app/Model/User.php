@@ -56,5 +56,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Model\Guard');
     }
+    public function urequests()
+    {
+        return $this->hasMany('App\Model\Urequest');
+    }
 
 }
