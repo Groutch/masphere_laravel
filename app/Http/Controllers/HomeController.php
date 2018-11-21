@@ -28,7 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('event_search');
+        if(Auth::User() && Auth::User()->roles[0]->id==3){
+            return redirect('profil/'.Auth::User()->id);
+        }
+        return redirect('event_search');    
     }
     /**
      * Display the specified user's information.
