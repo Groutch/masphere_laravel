@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Model\Event;
 use App\Model\User;
 use App\Model\Guard;
@@ -134,8 +135,12 @@ class GuardController extends Controller
             return redirect('/profil/'.$user->id);
         }
         $guard->users()->detach();
-        if(false){
-            $guard->delete();
+        $guard->delete();
+        if($guard->urequests[0]->id){
+            foreach($guard->urequests as $u){
+                Urequest::where('id',$u->id)->delete();
+            }
+            DB::table('guard_urequest')->where('guard_id',$id)->delete();
         }
         return redirect('/profil/'.$user->id);
     }
