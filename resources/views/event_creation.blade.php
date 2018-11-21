@@ -67,12 +67,12 @@
 					<textarea type="text" class="form-control" placeholder="Commentaire" aria-describedby="sizing-addon2" name="textbox"></textarea>
 					<br />
 
-					<label title="">Spectacle | facultatif</label>
+					<label title="">Artiste | facultatif</label>
 					<div class="perform_receiver">
 						<input
 						type="text"
 						class="input-group input_group form-control"
-						placeholder="nom du spectacle"
+						placeholder="Nom de l'artiste"
 						aria-describedby="sizing-addon2"
 						name="list_performs[0]"
 						value="{{ old('list_performs')[0] }}"
@@ -97,7 +97,7 @@
 						@endforeach
 						@endif
 					</div>
-					<button type="button" class="input-group btn btn-basicfault add_perform_btn">ajouter un spectacle de plus</button>
+					<button type="button" class="input-group btn btn-basicfault add_perform_btn">ajouter un artiste de plus</button>
 					<br />
 
 					<input type="submit" class="btn" value="Créer l'événement">
