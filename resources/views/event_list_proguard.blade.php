@@ -50,6 +50,7 @@
 								@endforeach
 								<div>
 									<a class="btn btn-default" href="/guard_details_pro/{{ $guard->id }}">Détails</a>
+									<a class="btn btn-danger" href="/guard_delete/{{$guard->id}}">Supprimer ma garde</a>
 								</div>
 							</div>
 							@endif

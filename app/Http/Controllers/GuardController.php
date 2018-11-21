@@ -130,13 +130,10 @@ class GuardController extends Controller
     {
         $user = Auth::User();
         $guard = Guard::All()->where("id", "=", $id)->first();
-
         if(!$this->verifGuardOwner($id, $user)){
             return redirect('/profil/'.$user->id);
         }
-
         $guard->users()->detach();
-
         if(false){
             $guard->delete();
         }
