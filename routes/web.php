@@ -25,7 +25,6 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::get('/logout');
 	Route::get('/profil/{id}','HomeController@getUsers')->name('profile');
 	Route::get('/map_test', 'MapTestController@index')->name('map_test');
-	Route::get('/event_search', 'EventController@all')->name('event_search');
 	Route::get('/edit/account','UserController@edit')->name('edit_account');
 	Route::post('/edit/account','UserController@submit')->name('submit_account');
 	// PORCULT ONLY
@@ -36,11 +35,13 @@ Route::group(['middleware'=>'auth'], function () {
 		Route::get('/event_sub_details_procult/{id}', 'GuardController@createProcult')->name('event_sub_details_procult');
 		Route::post('/event_sub_procult/{id}', 'GuardController@storeProcult')->name('event_sub_procult');
 		Route::get('/event_list_procult', 'GuardController@index')->name('event_list_procult');
+		Route::get('/delete_urequest/{id}','UrequestController@delete')->name('delete_urequest');
 	});
 
 	// PROGUARD or PROCULT
 	Route::group(['middleware'=>'pro'], function () {
 		Route::get('/guard_details_pro/{id}', 'GuardController@show')->name('guard_details_pro');
+		Route::get('/event_search', 'EventController@all')->name('event_search');
 	});
 
 	// PROGUARD ONLY

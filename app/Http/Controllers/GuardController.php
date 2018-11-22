@@ -134,8 +134,12 @@ class GuardController extends Controller
             return redirect('/profil/'.$user->id);
         }
         $guard->users()->detach();
-        if(false){
-            $guard->delete();
+        $guard->delete();
+        if($guard->urequests[0]->id){
+            foreach($guard->urequests as $u){
+                Urequest::where('id',$u->id)->delete();
+            }
+            DB::table('guard_urequest')->where('guard_id',$id)->delete();
         }
         return redirect('/profil/'.$user->id);
     }
@@ -236,7 +240,8 @@ class GuardController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $guard = $request->user()->guards->where('id', '=', $id)->first();
+        $guard = Guard::find($id);
+        //dd($guard);
         return view('guard_details_pro', compact('guard'));
     }
 

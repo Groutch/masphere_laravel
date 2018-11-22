@@ -8,6 +8,7 @@ use App\Model\Event;
 use App\Model\User;
 use App\Model\Guard;
 use App\Model\Urequest;
+use Illuminate\Support\Facades\DB;
 
 
 class UrequestController extends Controller
@@ -22,6 +23,32 @@ class UrequestController extends Controller
     {
         //
     }
+
+    /**
+     * delete a urequest
+     * @param integer $id
+     * @return Response
+     */
+    public function delete($id)
+    {
+        $curr_user = Auth::User()->id;
+        $req_garde= Guard::find($id);
+        $req_ur=$req_garde->urequests[0];
+        //dd($req_garde->user_id);
+        //si l'utilisateur est le propriétaire de la demande
+        if($req_ur->user_id == $curr_user){
+            //suppression de la demande de garde
+            $req_ur->delete();
+            // il faut aller aussi dans la table "gard_user" pour tout bien supprimer
+            DB::table('guard_user')->where([['user_id',  $curr_user],['guard_id',$req_garde->id]])->delete();
+            return redirect('/profil/'.Auth::User()->id);
+            
+            
+        }else{
+            return redirect()->back()->withErrors(['Suppression impossible : Vous n\'avez pas fait cette demande.']);
+        }
+    }
+
     /**
      * Reject an urequest
      *

@@ -79,7 +79,8 @@
 								| 
 								{{ $event->place }} | 
 								<div>
-									<a class="btn btn-default" href="/guard_details_pro/{{ $event->id }}">Détails</a>
+									<a class="btn btn-default" href="/guard_details_pro/{{ $event->guards[0]->id }}">Détails</a>
+									<a class="btn btn-danger" href="/delete_urequest/{{$event->guards[0]->id}}">Annuler demande</a>
 								</div>
 							</div>
 						</div>
