@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // AUTH ONLY
 Route::group(['middleware'=>'auth'], function () {
-	Route::get('/logout');
+	//Route::get('/logout');
 	Route::get('/profil/{id}','HomeController@getUsers')->name('profile');
 	Route::get('/map_test', 'MapTestController@index')->name('map_test');
 	Route::get('/edit/account','UserController@edit')->name('edit_account');
