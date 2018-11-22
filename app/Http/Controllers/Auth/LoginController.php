@@ -22,15 +22,6 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        // if (Auth::user()->roles->implode('slug')=='procult') {
-        //     return Redirect()->route('procult');
-        // } else if (Auth::user()->roles->implode('slug')=='proguard'){
-        //     return Redirect()->route('proguard');
-        // } else if (Auth::user()->roles->implode('slug')=='orga'){
-        //     return Redirect()->route('orga');
-        // } else if (Auth::user()->roles->implode('slug')=='admin'){
-        //     return Redirect()->route('admin');
-        // }
         if(Auth::user()->roles->implode('slug')=='orga'){
             return redirect('/profil/'.Auth::user()->id);
         } elseif (Auth::user()->roles->implode('slug')=='procult') {
