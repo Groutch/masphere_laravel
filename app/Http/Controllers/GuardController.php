@@ -49,14 +49,24 @@ class GuardController extends Controller
     public function create(Request $request, $id)
     {
         $event = Event::All()->where("id", "=", $id)->first();
-
+        $userId = Auth::User()->id;
         $userName = Auth::User()->name;
 
         $usersNames = $event->guards->map(function($a){
             return $a->users[0]->name;
         });
         if($usersNames->contains($userName)){
-            return redirect()->back()->withErrors(['vous êtes déjà inscrit sur cet événement']);
+            $guards = $event->guards;
+            $user_ids=[];
+            foreach($guards as $guard){
+                $list_user_guard=$guard->users;
+                foreach($list_user_guard as $usr){
+                    array_push($user_ids,$usr->id);
+                }
+                if(in_array($userId,$user_ids)){
+                    return redirect('guard_details_pro/'.$guard->id)->withErrors(['vous êtes déjà inscrit sur cet événement TEST']);
+                }
+            }
         }
         return view('sub_proguard_details', compact('event'));
     }
