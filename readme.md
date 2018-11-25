@@ -1,3 +1,16 @@
+## Version en ligne :  
+http://masphere2.herokuapp.com  
+  
+## Cahier des charges :  
+Les documents se trouvent dans le dossier CDC  
+  
+## Modélisation :  
+Se trouve dans les fichiers modelisation.png et modelisation.mwb (version mysql workbench)  
+  
+## Kanban :  
+https://trello.com/b/CtDkLuqN/ma-phere  
+  
+
 ## About the project
 
 This project aims to allow artists and cultural professional technicians who have child.s to find professional childcare at atipic times. By the same way event organizers in Toulouse (for the begining) will have the opportunity to advertise their events. It's been developed with the PHP framework Laravel on a linux environment.
