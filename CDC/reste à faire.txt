@@ -1,0 +1,13 @@
+Mot de passe oublié : à réparer. 0,25J
+Envoi mail à mettre en place. 0,5J
+Admin : 1J
+Profil : 1J
+Lorsque le login est validé pour la première fois, une redirection s’opère vers la création d’un profil. 0,25J
+Accéder au profil de pro lors de la consultation d’un événement. 0,25J
+Recherche d’événements : bouton pour voir une carte. 0,5J
+Gestion du compte par l’utilisateur. 1J
+Sur chaque événement, carte avec les pros de garde positionnés avec leur rayon. 0,5J
+Pro peut valider ou annuler une demande. 0,5J
+Lorsque la date d’un événement est dépassé il est archivé/supprimé. 0,5J
+Carte de tous les événements: 1J
+Visuel : 2J
