@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="fr">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +35,7 @@
 
 					<!-- Branding Image -->
 					<a class="navbar-brand" href="{{ url('/') }}">
-						<img src="" class="logomasphere" alt="">
+						<img src="" class="logomasphere" alt="logo de ma sphere">
 						{{-- {{ config('app.name', 'Laravel') }} --}}
 					</a>
 				</div>
