@@ -10,7 +10,9 @@ Se trouve dans les fichiers modelisation.png et modelisation.mwb (version mysql 
 ## Kanban :  
 https://trello.com/b/CtDkLuqN/ma-phere  
   
-
+## Journal de bord :  
+Le journal de bord se trouve dans le fichier journal.MD  
+  
 ## About the project
 
 This project aims to allow artists and cultural professional technicians who have child.s to find professional childcare at atipic times. By the same way event organizers in Toulouse (for the begining) will have the opportunity to advertise their events. It's been developed with the PHP framework Laravel on a linux environment.
